@@ -1,0 +1,18 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.mensaje{
+    margin-top: 5rem;
+    .uptask{
+        @include m.tituloDegradado(v.$naranja, 7rem);
+    }
+    .tagline{
+        margin-top: 1rem;
+    }
+
+    .acciones{
+        a{
+            color: darken(v.$naranja, 10%);
+        }
+    }
+}

@@ -1,0 +1,6 @@
+@forward 'login';
+@forward 'crear';
+@forward 'olvide_pass';
+@forward 'reestablecer_pass';
+@forward 'mensaje';
+@forward 'confirmar';//este se compila al ultimo por lo tanto si le aplicamos center los anteriores no les afecta

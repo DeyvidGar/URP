@@ -1,0 +1,19 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.confirmar{
+    margin-top: 5rem;
+    .uptask{
+        @include m.tituloDegradado(v.$naranja, 7rem);
+    }
+    .tagline{
+        margin-top: 1rem;
+    }
+
+    .acciones{
+        justify-content: center;
+        a{
+            color: darken(v.$naranja, 10%);
+        }
+    }
+}
