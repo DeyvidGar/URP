@@ -125,16 +125,14 @@ class Usuario extends ActiveRecord{
             $_SESSION[$key] = $value;
         }
         // debuguear($_SESSION);
-        if($this->admin === '1'){
+        // if($this->admin === '1'){
             // $_SESSION['admin'] = 1;
-            header('Location: /admin');
-        } else{
-            header('Location: /invitado');
-        }
+        //     header('Location: /admin');
+        // } else{
+            header('Location: /dashboard');
+        // }
 
         //manera manual solo las varibles que ocupemos
         // $_SESSION['nombre']=$this->nombre;
-
-        // debuguear($_SESSION);
     }
 }

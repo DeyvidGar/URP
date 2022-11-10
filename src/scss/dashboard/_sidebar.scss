@@ -1,0 +1,98 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.sidebar{
+    //para el munu mobile
+    opacity: 0;
+    background-color: v.$indigo;
+    height: 0;
+    overflow: hidden;
+    transition-property: opacity;
+    transition-duration: 500ms;
+
+    &.mostrar{
+        // padding: 2rem;
+        // display: block;
+        opacity: 1;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgb(0 0 0 / .95);
+        @include m.tablet{
+            display: none;
+            // height: 100%;
+            // opacity: 1;
+        }
+    }
+    &.ocultar{
+        @include m.tablet{
+            height: 100%;
+            opacity: 1;
+        }
+        opacity: 0;
+    }
+
+    @include m.tablet {
+        height: 100%;
+        opacity: 1;
+    }
+    background-color: v.$indigo;
+
+    h2{
+        padding: 2rem 9rem 1rem 2rem;
+        // padding-left: 4rem;
+        text-align: left;
+        color: v.$blanco;
+        font-size: 6rem;
+    }
+
+    .sidebar-nav {
+        margin-top: 4rem;
+        a{
+            color: v.$blanco;
+            display: block;
+            font-size: 1.7rem;
+            padding: 1.4rem 0 1.4rem 2rem;
+            transition-property: background-color;
+            transition-duration: 100ms;
+            &:nth-last-child(even):not(:first-of-type){
+                border: 1px solid  lighten(v.$indigo, 10%);
+            }
+
+
+            &:hover:not(:first-of-type),
+            &.activo:not(:first-of-type){
+                background-color: darken(v.$grisOscuro, 27%);
+                border-left: .5rem solid v.$grisOscuro;
+                color: v.$blanco;
+            }
+
+        }
+
+        .crear-proyecto{
+            display: flex;
+            justify-content: center;
+            span{
+                @include m.boton( v.$gris, v.$blanco );
+                display: inline;
+                border-radius: 2rem;
+                padding: 1rem 2rem;
+            }
+            margin-bottom: 4rem;
+            padding: 0;
+        }
+    }
+
+    .cerrar-session-mobile{
+        margin-top: 5rem;
+        a{
+            @include m.boton ( lighten(v.$rojo, 10%), v.$blanco);
+        }
+        @include m.tablet{
+            display: none;
+        }
+    }
+}

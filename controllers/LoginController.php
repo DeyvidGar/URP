@@ -3,12 +3,12 @@
 namespace Controllers;
 
 use MVC\Router;
-use Clasess\Email;
+use Classes\Email;
 use Model\Usuario;
 
 class LoginController {
     public static function index( Router $router ){
-
+        isLogin();
         $email = '';
         $alertas = [];
 

@@ -19,3 +19,9 @@ function isAuth() : void {
         header('Location: /');
     }
 }
+
+function isLogin() : void {
+    if(isset($_SESSION['login'])){
+        header('Location: /dashboard');
+    }
+}

@@ -1,6 +1,6 @@
 <?php
 //le asignamos un name space, este name space debe estar cargado en el composer.json y cargado con el comando composer update
-namespace Clasess;
+namespace Classes;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
@@ -42,7 +42,7 @@ class Email{
         $contenido = "<html>";
         $contenido .= "<p><strong>Hola ".$this->nombre."</strong><p>";
         $contenido .= "<p>Has creado una cuenta en URP.com, para confirmar tu registro presiona el siguiente enlace.</p>";
-        $contenido .= "Presiona aquí: <a href='https://localhost:3000/confirmar-cuenta?token=$this->token'>Confirmar cuenta</a>";
+        $contenido .= "Presiona aquí: <a href='http://localhost:3000/confirmar?token=$this->token'>Confirmar cuenta</a>";
         $contenido .= "<p>Si tu no has solictado este cambio puedes ignorar este mensaje.</p>";
 
         //guardamos contenido
@@ -76,7 +76,7 @@ class Email{
         $contenido = "<html>";
         $contenido .= "<p><strong>Hola ".$this->nombre."</strong><p>";
         $contenido .= "<p>Has solicitado reestablecer tu password en AppSalon, para confirmar que lo has solicitado tú presiona el siguiente enlace.</p>";
-        $contenido .= "<a href='https://protected-garden-13147.herokuapp.com/crear-nueva-password?token=$this->token'>Confirmar cuenta</a>";
+        $contenido .= "<a href='http://localhost:3000/nuevo-password?token=$this->token'>Confirmar cuenta</a>";
         $contenido .= "<p>Si tu no has solictado este cambio puedes ignorar este mensaje.</p>";
         // debuguear($contenido);
         //guardamos contenido

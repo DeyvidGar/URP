@@ -6,7 +6,7 @@ foreach($alertas as $tipo => $value):
     <div class="alerta <?php echo $tipo;?>" data-id-alerta="<?php echo $key;?>">
         <div><?php echo $alerta;?></div>
 
-        <!-- <button class="cerra-alerta" id="cerrar-alerta">X</button> -->
+        <button class="cerra-alerta" id="cerrar-alerta">X</button>
     </div>
 <?php
     endforeach;

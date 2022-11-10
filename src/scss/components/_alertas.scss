@@ -1,0 +1,47 @@
+@use 'base/variables' as v;
+
+.alerta{
+    padding: 1rem;
+    text-transform: uppercase;
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    max-width: 80rem;
+    font-weight: 700;
+
+    //boton cerrar
+    display: flex;
+    justify-content: space-between;
+
+    &.error{
+        background-color: lighten(v.$rojo, 55%);
+        border-left: .5rem solid v.$rojo;
+        color: v.$rojo;
+
+        button{
+            cursor: pointer;
+            background-color: transparent;
+            color: v.$rojo;
+            // border: 2px solid v.$rojo;
+
+            &:hover{
+                background-color: lighten( v.$rojo , 50%)
+            }
+        }
+    }
+    &.exito{
+        background-color: lighten(v.$verde, 55%);
+        border-left: .5rem solid v.$verde;
+        color: v.$verde;
+
+        button{
+            cursor: pointer;
+            background-color: transparent;
+            color: v.$verde;
+            // border: 2px solid v.$verde;
+
+            &:hover{
+                background-color: lighten( v.$verde , 50%)
+            }
+        }
+    }
+}

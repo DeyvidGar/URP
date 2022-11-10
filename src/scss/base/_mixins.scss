@@ -45,3 +45,18 @@
     gap: $espaciado;
     grid-template-columns: repeat($columnas, 1fr);
 }
+
+@mixin tituloDegradado($color, $tamanio){
+    margin-bottom: 0;
+    //degradado en el especio del contenedor
+    background: linear-gradient(to right, lighten( $color, 10%) 0%, lighten( $color, 40%) 100%);
+    //aplicamos el degradado al texto
+    color: transparent;
+    background-clip: text;
+
+    text-align: center;
+    font-size: $tamanio;
+    @include tablet {
+        font-size: calc($tamanio + 2rem);
+    }
+}
