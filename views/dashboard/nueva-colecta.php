@@ -8,7 +8,7 @@
 
             <?php include_once __DIR__.'/templates/formulario.php';?>
 
-            <input type="submit" value="Crear Proyecto">
+            <input type="submit" value="Crear Colecta">
 
         </form>
     </div>

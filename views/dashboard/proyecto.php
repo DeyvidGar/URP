@@ -5,7 +5,7 @@
             <button
                 type="buttom"
                 class="agregar-tarea"
-                id="agregar-tarea" 
+                id="agregar-tarea"
             >
                 &#43; Nueva Tarea
             </button>
@@ -16,7 +16,7 @@
                 <h2>Filtro:</h2>
                 <div class="campo">
                     <label for="todas">Todas</label>
-                    <input 
+                    <input
                         type="radio"
                         id="todas"
                         name="filtro"
@@ -27,7 +27,7 @@
 
                 <div class="campo">
                     <label for="completadas">Completadas</label>
-                    <input 
+                    <input
                         type="radio"
                         id="completadas"
                         name="filtro"
@@ -37,7 +37,7 @@
 
                 <div class="campo">
                     <label for="pendientes">Pendientes</label>
-                    <input 
+                    <input
                         type="radio"
                         id="pendientes"
                         name="filtro"
@@ -52,6 +52,6 @@
 
 <?php include_once __DIR__.'/templates/footer.php';
 
-$script .= "<script src='build/js/tareas.js'></script>
+$script .= "<script src='build/js/app.js'></script>
 <script src='//cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
 ?>

@@ -41,7 +41,8 @@ class LoginController {
 
         $router -> render('auth/index', [
             'email' => $email,
-            'alertas' => $alertas
+            'alertas' => $alertas,
+            'titulo' => 'Iniciar Sesión'
         ]);
     }
 

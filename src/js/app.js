@@ -1,7 +1,6 @@
 const menuMobile = document.querySelector('#mobile-menu');
 const sidebarmobile = document.querySelector('.sidebar');
 
-
 if(menuMobile){
     menuMobile.addEventListener('click', function () {
         sidebarmobile.classList.add('mostrar'); // con toogle quita y pone la clase

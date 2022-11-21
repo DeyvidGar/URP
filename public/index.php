@@ -34,13 +34,16 @@ $router->get('/confirmar', [LoginController::class, 'confirmar']);
 //admin
 //ZONA DE PROYECTOS
 $router->get('/dashboard', [DashboardController::class, 'index']);
-$router->get('/proyecto', [DashboardController::class, 'proyecto']);
-$router->get('/nuevo-proyecto', [DashboardController::class, 'nuevo_proyecto']);
-$router->post('/nuevo-proyecto', [DashboardController::class, 'nuevo_proyecto']);
-$router->get('/perfil', [DashboardController::class, 'perfil']);
-$router->post('/perfil', [DashboardController::class, 'perfil']);
-$router->get('/cambiar-password', [DashboardController::class, 'cambiar_password']);
-$router->post('/cambiar-password', [DashboardController::class, 'cambiar_password']);
+$router->get('/colecta', [DashboardController::class, 'colecta']);
+$router->get('/nueva-colecta', [DashboardController::class, 'nueva_colecta']);
+$router->post('/nueva-colecta', [DashboardController::class, 'nueva_colecta']);
+// $router->get('/perfil', [DashboardController::class, 'perfil']);
+// $router->post('/perfil', [DashboardController::class, 'perfil']);
+// $router->get('/cambiar-password', [DashboardController::class, 'cambiar_password']);
+// $router->post('/cambiar-password', [DashboardController::class, 'cambiar_password']);
+
+//COLECTA(FORMULARIOS)
+// $router->get('/colecta', [::class, ''])
 
 
 

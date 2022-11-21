@@ -2,86 +2,88 @@
 
 namespace Controllers;
 
-use Model\Proyecto;
+use Model\Colecta;
 use Model\Usuario;
 use MVC\Router;
 
 class DashboardController {
     public static function index( Router $router){
         isAuth();
-        $proyectos = [];
+        $colectas = [];
 
-    //     if(!isset($_SESSION)) session_start();
+        if(!isset($_SESSION)) session_start();
 
-    //     isAuth();//solo con login
+        isAuth();//solo con login
 
-    //     $id = $_SESSION['id'];
-    //     $proyectos = Proyecto::belongsTo('propietarioId', $id);
+        $id = $_SESSION['id'];
+        $colectas = Colecta::belongsTo('usuarioId', $id);
 
         $router->render('dashboard/index', [
             'titulo' => 'Proyectos',
-            'proyectos' => $proyectos
+            'colectas' => $colectas
         ]);
     }
 
-    // public static function proyecto( Router $router ){
+    public static function colecta( Router $router ){
 
-    //     if(!isset($_SESSION)) session_start();
+        // if(!isset($_SESSION)) session_start();
 
-    //     isAuth();//solo con login
+        // isAuth();//solo con login
 
-    //     //validacion, proyecto correspondiente a quien lo creo
-    //     $url = $_GET['id'];
+        // //validacion, proyecto correspondiente a quien lo creo
+        // $url = $_GET['id'];
 
-    //     if(!$url) header('Location: /dashboard');
+        // if(!$url) header('Location: /dashboard');
 
-    //     $proyecto = Proyecto::where('url', $url);
+        // $colecta = Colecta::where('url', $url);
 
-    //     if($proyecto->propietarioId !== $_SESSION['id']) header('Location: /dashboard');
+        // if($colecta->usuarioId !== $_SESSION['id']) header('Location: /dashboard');
 
 
-    //     $router->render('dashboard/proyecto', [
-    //         'titulo' => $proyecto->proyecto
-    //     ]);
-    // }
+        $router->render('dashboard/colecta/index', [
+            'titulo' => 'Colecta'
+        ]);
+    }
 
-    // public static function nuevo_proyecto( Router $router){
+    public static function nueva_colecta( Router $router){
 
-    //     if(!isset($_SESSION)) session_start();
+        if(!isset($_SESSION)) session_start();
 
-    //     isAuth();
+        isAuth();
 
-    //     $alertas = [];
+        $alertas = [];
 
-    //     if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $colecta = new Colecta();
 
-    //         $proyecto = new Proyecto($_POST);
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    //         $alertas = $proyecto->validarProyecto();
+            $colecta->sincronizar($_POST);
 
-    //         if(empty($alertas)){
-    //             $hash = md5(uniqid());
-    //             $proyecto->url = $hash;
+            $alertas = $colecta->validarDatosColecta();
 
-    //             $proyecto->propietarioId =$_SESSION['id'];
+            if(empty($alertas)){
+                $hash = md5(uniqid());
+                $colecta->url = $hash;
 
-    //             $r = $proyecto->guardar();
+                $colecta->usuarioId =$_SESSION['id'];
+                $r = $colecta->guardar();
 
-    //             if($r){
-    //                 header('Location: /proyecto?id='.$proyecto->url);
-    //             } else {
-    //                 Proyecto::setAlerta('error','Error al crear proyecto, intetalo mas tarde.');
-    //                 $alertas = Proyecto::getAlertas();
-    //             }
-    //         }
+                if($r){
+                    header('Location: /colecta?id='.$colecta->url);
+                } else {
+                    Colecta::setAlerta('error','Error al crear colecta, intetalo mas tarde.');
+                    $alertas = Colecta::getAlertas();
+                }
+            }
 
-    //     }
+        }
 
-    //     $router->render('dashboard/nuevo-proyecto', [
-    //         'titulo' => 'Nuevo Proyecto',
-    //         'alertas' => $alertas
-    //     ]);
-    // }
+        $router->render('dashboard/nueva-colecta', [
+            'titulo' => 'Nueva Colecta',
+            'alertas' => $alertas,
+            'colecta' => $colecta
+        ]);
+    }
 
     // public static function perfil( Router $router ){
     //     if(!isset($_SESSION)) session_start();
