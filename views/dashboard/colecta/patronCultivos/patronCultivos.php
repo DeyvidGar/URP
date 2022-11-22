@@ -1,29 +1,42 @@
-<table class="tabla-inicio tabla-der">
+<table id="tablaPatronCultivos">
     <thead>
         <tr>
             <th>Patrón de Cultivos de la URP</th>
             <th>Limón persa</th>
             <th>%</th>
         </tr>
+        <tr>
+            <td>Superficie de Cultivo</td>
+            <td id="superficieCultivo"></td>
+            <td id="superficieCultivoPorcentaje"></td>
+        </tr>
     </thead>
 
     <tbody>
         <tr>
-            <td><input type="number" name="patronCultivos[variedad]" id="variedad"></td>
-            <td><input type="number" name="patronCultivos[noArboles]" id="noArboles"></td>
-            <td id="porcentajeCultivos"></td>
+            <td>Hectarea de Riego</td>
+            <td><input type="number" name="patronCultivos[hectareaRiego]" id="hectareaRiegoInput" value="0"></td>
+            <td class="total" id="hectareaRiegoPorcentaje"></td>
         </tr>
 
         <tr>
-            <td><input type="text" name="variedadArboles[variedad]" id="variedad"></td>
-            <td><input type="number" name="variedadArboles[noArboles]" id="noArboles"></td>
-            <td id="porcentajeCultivos"></td>
+            <td>Hetarea Temporal</td>
+            <td><input type="number" name="patronCultivos[hectareaTemporal]" id="hectareaTemporalInput" value="0"></td>
+            <td class="total" id="hectareaTemporalPorcentaje"></td>
+        </tr>
+
+        <tr>
+            <td>Sin uso</td>
+            <td><input type="number" name="patronCultivos[hectareaTemporal]" id="hectareaSinUsoInput" value="0"></td>
+            <td class="total" id="hectareaSinUsoPorcentaje"></td>
         </tr>
     </tbody>
 
     <tfoot>
         <tr>
             <td>Total de hectareas de la URPs</td>
+            <td id="totalHectareas"></td>
+            <td id="totalHectareasPorcentaje"></td>
         </tr>
     </tfoot>
 </table>
