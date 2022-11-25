@@ -1,5 +1,4 @@
-<table>
-    <!--<caption>3.1 Superficie de la URP</caption>-->
+<table id="tablaSuperficeUrp">
     <thead>
         <tr>
             <th rowspan = "2">Superficie de la URP</th>
@@ -15,51 +14,50 @@
             <th>Total (HA)</th>
         </tr>
     </thead>
-    <!--<tfoot>
-        <tr>
-            <td colspan="6">Pie de tabla.</td>
-        </tr>
-    </tfoot>-->
+
     <tbody>
         <tr>
-            <td>Área cultivada (Hectáreas)</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <th>Área cultivada (Hectáreas)</th>
+            <td class="sumaAreaCultivada"></td>
+            <td class="sumaAreaCultivada"></td>
+            <td class="sumaAreaCultivada"></td>
+            <td class="sumaAreaCultivada"></td>
+            <td id="totalHa"></td>
+        </tr>
+        <tr>
+            <th>Hectáreas de riego</th>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
             <td></td>
         </tr>
         <tr>
-            <td>Hectáreas de riego</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <th>Hectáreas de temporal</th>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
             <td></td>
         </tr>
         <tr>
-            <td>Hectáreas de temporal</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Sin uso</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Total hectáreas</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <th>Sin uso</th>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
             <td></td>
         </tr>
     </tbody>
+
+    <tfoot>
+        <tr>
+            <td>Total hectáreas</td>
+            <td id="totalHectareasPropiasPrivada"></td>
+            <td id="totalHectareasPropiasEjidales"></td>
+            <td id="totalHectareasNoPropiasPrestadas"></td>
+            <td id="totalHectareasNoPropiasRentadas"></td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table >

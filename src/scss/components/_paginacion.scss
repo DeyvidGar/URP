@@ -1,0 +1,18 @@
+@use 'base/mixins' as m;
+@use 'base/variables' as v;
+
+.paginacion{
+    button{
+        margin: 2rem 0;
+    }
+
+    @include m.tablet{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.ocultar-paginacion{
+    // display: none; //ESTE DISPLAY QUITA EL ELEMNTO DE LA PAGINA PERO NO DEL DOM, POR LO TANTO EL ESPACIO QUE OCUPABA EL DISPLAY AFECTA A OTROS ELEMENTOS
+    visibility: hidden; //SOLO NO HACEMOS VISIBLE EL ELEMENTO SIN AFECTAR EL DISPLAY QUE OCUPA
+}

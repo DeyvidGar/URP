@@ -86,17 +86,17 @@ function botonesPaginacion(){
     const botonSiguiente = document.querySelector('#boton-siguiente');
 
     if(paso === 1){
-        botonAnterior.classList.add('ocultar-nav');
-        botonSiguiente.classList.remove('ocultar-nav');
+        botonAnterior.classList.add('ocultar-paginacion');
+        botonSiguiente.classList.remove('ocultar-paginacion');
     } else if (paso == 9){
-        botonSiguiente.classList.add('ocultar-nav');
-        botonAnterior.classList.remove('ocultar-nav');
+        botonSiguiente.classList.add('ocultar-paginacion');
+        botonAnterior.classList.remove('ocultar-paginacion');
 
         //cuando se cambie de pagina precionando cualquier boton(boton siguiente, barra tab) llamamos a la funcion mostrar resuemn
         mostrarResumen();
     } else {
-        botonSiguiente.classList.remove('ocultar-nav');
-        botonAnterior.classList.remove('ocultar-nav');
+        botonSiguiente.classList.remove('ocultar-paginacion');
+        botonAnterior.classList.remove('ocultar-paginacion');
     }
 }
 
@@ -136,9 +136,4 @@ function paginaSiguiente(){
 
         // console.log(paso);
     });
-
-}
-
-function mostrarResumen(){
-    console.log('mostrar resumen')
 }

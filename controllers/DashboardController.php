@@ -19,7 +19,7 @@ class DashboardController {
         $colectas = Colecta::belongsTo('usuarioId', $id);
 
         $router->render('dashboard/index', [
-            'titulo' => 'Proyectos',
+            'titulo' => 'Colectas',
             'colectas' => $colectas
         ]);
     }
@@ -39,6 +39,9 @@ class DashboardController {
 
         // if($colecta->usuarioId !== $_SESSION['id']) header('Location: /dashboard');
 
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            debuguear($_POST);
+        }
 
         $router->render('dashboard/colecta/index', [
             'titulo' => 'Colecta'

@@ -1,4 +1,4 @@
-<table>
+<table id="tablaContrucciones">
     <thead>
         <tr>
             <td>Rubro</td>
@@ -10,108 +10,175 @@
             <td>Valor de Recuperación</td>
             <td>Depreciación Anual</td>
         </tr>
-    </thead>
-
-    <tbody>
         <tr>
             <th>3.3.1 Construcciones</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="totalValorActualMercado"></td>
+            <td id="totalValorRecuperacion"></td>
+            <td id="totalValorDepreciacionAnual"></td>
         </tr>
+    </thead>
+
+    <tbody>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
+            <td><input type="text" placeholder="Ej. Terraza"></td>
+            <td><input type="number" placeholder="Ej. 2000"></td>
+            <td><input type="number" value="0"></td>
+            <td><input type="number" value="0"></td>
+            <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td></td>
         </tr>
+    </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaContrucciones">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaContrucciones">Eliminar Fila</button>
+</div>
+
+<table id="tablaVehiculos">
+    <thead>
         <tr>
             <th>3.3.2 Vehículos</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="totalValorActualMercado"></td>
+            <td id="totalValorRecuperacion"></td>
+            <td id="totalValorDepreciacionAnual"></td>
         </tr>
+    </thead>
+
+    <tbody>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
+            <td><input type="text" placeholder="Ej. Terraza"></td>
+            <td><input type="number" placeholder="Ej. 2000"></td>
+            <td><input type="number" value="0"></td>
+            <td><input type="number" value="0"></td>
+            <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td></td>
         </tr>
+    </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaVehiculos">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaVehiculos">Eliminar Fila</button>
+</div>
+
+<table id="tablaImplementos">
+    <thead>
         <tr>
             <th>3.3.3 Implementos</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="totalValorActualMercado"></td>
+            <td id="totalValorRecuperacion"></td>
+            <td id="totalValorDepreciacionAnual"></td>
         </tr>
+    </thead>
+
+    <tbody>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
+            <td><input type="text" placeholder="Ej. Terraza"></td>
+            <td><input type="number" placeholder="Ej. 2000"></td>
+            <td><input type="number" value="0"></td>
+            <td><input type="number" value="0"></td>
+            <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td></td>
         </tr>
+    </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
+
+<table id="tablaEquipoComunicacion">
+    <thead>
         <tr>
             <th>3.3.4 Equipo comunicación</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="totalValorActualMercado"></td>
+            <td id="totalValorRecuperacion"></td>
+            <td id="totalValorDepreciacionAnual"></td>
         </tr>
+    </thead>
+
+    <tbody>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
+            <td><input type="text" placeholder="Ej. Terraza"></td>
+            <td><input type="number" placeholder="Ej. 2000"></td>
+            <td><input type="number" value="0"></td>
+            <td><input type="number" value="0"></td>
+            <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td></td>
         </tr>
+    </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
+
+<table id="tablaComunicacion">
+    <thead>
         <tr>
             <th>3.3.5 Equipo</td>
             <td></td>
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="totalValorActualMercado"></td>
+            <td id="totalValorRecuperacion"></td>
+            <td id="totalValorDepreciacionAnual"></td>
         </tr>
+    </thead>
+
+    <tbody>
         <tr>
-            <td><input type="text"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
-            <td><input type="number"></td>
+            <td><input type="text" placeholder="Ej. Terraza"></td>
+            <td><input type="number" placeholder="Ej. 2000"></td>
+            <td><input type="number" value="0"></td>
+            <td><input type="number" value="0"></td>
+            <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td></td>
         </tr>
     </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
+
+<table>
+    <tfoot>
+        <tr>
+            <th>Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>

@@ -1,17 +1,8 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
-.colecta{
-    margin-top: 3rem;
-
-
-    table{
-        margin-bottom: 3rem;
-    }
-}
-
 .seccion{
-    margin-top: 2rem;
+    margin-top: 2rem 0;
     display: none;
     overflow: scroll; //dar scroll en tablas muy grandes
     .indicaciones{

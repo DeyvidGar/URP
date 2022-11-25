@@ -9,12 +9,18 @@
 
     <tbody>
         <tr>
-            <td><input type="text" name="arboles[variedad]" required></td>
-            <td><input type="number" name="arboles[noArboles]" required></td>
+            <td><input type="text" name="arboles[variedad]" placeholder="Ej. Carrizo" required></td>
+            <td><input type="number" name="arboles[numArboles]" required></td>
             <td class="total"></td>
         </tr>
     </tbody>
 
+    <tfoot>
+        <tr>
+            <th>Total Arboles</th>
+            <th id="totalArboles"></th>
+        </tr>
+    </tfoot>
 </table>
 <div class="botones-agregar-fila">
     <button type="" class="boton-agregar-fila" id="nuevaFilaVariedad">Agregar Fila</button>

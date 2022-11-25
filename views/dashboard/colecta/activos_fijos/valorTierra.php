@@ -1,4 +1,4 @@
-<table class="mg-top-20px">
+<table id="tablaValorTierra">
     <thead>
         <tr>
             <th>Valor de la tierra</th>
@@ -10,37 +10,39 @@
     <tbody>
         <tr>
             <td >Área cultivada:</td>
-            <td colspan = "3"></td>
+            <td id="areaCultivadaSuperficie"></td>
         </tr>
         <tr>
             <td>Hectáreas en propiedad</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
+            <td id="hectareaPropiedadSuperficie"></td>
+            <td><input type="number" value="0" id="hectareaPropiedadValorHA"></td>
+            <td id="hectareaPropiedadValorTotal"></td>
         </tr>
         <tr>
             <td>Hectáreas Ejidales</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
+            <td id="hectareaEjidalesSuperficie"></td>
+            <td><input type="number" value="0" id="hectareaEjidalesValorHA"></td>
+            <td id="hectareaEjidalesValorTotal"></td>
         </tr>
         <tr>
-            <td>Otra propiedad PRESTADAS</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
+            <td>Otra propiedad Prestadas</td>
+            <td id="hectareaPrestadasSuperficie"></td>
+            <td><input type="number" value="0" id="hectareaPrestadasValorHA"></td>
+            <td id="hectareaPrestadasValorTotal"></td>
         </tr>
         <tr>
             <td>Sin uso</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor" ></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Total de superficie</td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="hectareaSinUsoSuperficie"></td>
+            <td><input type="number" value="0" id="hectareaSinUsoValorHA"></td>
+            <td id="hectareaSinUsoValorTotal"></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td>Total de superficie</td>
+            <td id="totalSuperficeHas"></td>
+            <td></td>
+            <td id="totalSuperficeValorTotal"></td>
+        </tr>
+    </tfoot>
 </table>

@@ -14,11 +14,6 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td><input type="text" name="" id=""></td>
-            <td><input type="number" name="" id=""></td>
-            <td><input type="number" name="" id=""></td>
-        </tr>
     </tbody>
 </table>
 

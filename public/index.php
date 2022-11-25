@@ -35,6 +35,7 @@ $router->get('/confirmar', [LoginController::class, 'confirmar']);
 //ZONA DE PROYECTOS
 $router->get('/dashboard', [DashboardController::class, 'index']);
 $router->get('/colecta', [DashboardController::class, 'colecta']);
+$router->post('/colecta', [DashboardController::class, 'colecta']);
 $router->get('/nueva-colecta', [DashboardController::class, 'nueva_colecta']);
 $router->post('/nueva-colecta', [DashboardController::class, 'nueva_colecta']);
 // $router->get('/perfil', [DashboardController::class, 'perfil']);
