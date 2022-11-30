@@ -20,7 +20,7 @@ if(menuMobile){
 window.addEventListener('resize', function(){
     const anchoPantalla = document.body.clientWidth;
     if(anchoPantalla >= 760){
-        sidebarmobile.classList.remove('mostrar');
+        if(sidebarmobile) sidebarmobile.classList.remove('mostrar');
     }
 })
 

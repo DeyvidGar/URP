@@ -4,7 +4,7 @@
 .sidebar{
     //para el munu mobile
     opacity: 0;
-    background-color: v.$indigo;
+    background-color: v.$azulOscuro;
     height: 0;
     overflow: hidden;
     transition-property: opacity;
@@ -39,7 +39,6 @@
         height: 100%;
         opacity: 1;
     }
-    background-color: v.$indigo;
 
     h2{
         padding: 2rem 9rem 1rem 2rem;
@@ -58,32 +57,30 @@
             padding: 1.4rem 0 1.4rem 2rem;
             transition-property: background-color;
             transition-duration: 100ms;
+
             &:nth-last-child(even):not(:first-of-type){
-                border: 1px solid  lighten(v.$indigo, 10%);
+                border-bottom: 1px solid  lighten(v.$verde, 40%);
+                // border-top: 1px solid  lighten(v.$verde, 10%);
             }
-
-
             &:hover:not(:first-of-type),
             &.activo:not(:first-of-type){
-                background-color: darken(v.$grisOscuro, 27%);
-                border-left: .5rem solid v.$grisOscuro;
+                background-color: darken(v.$verde, 7%);
+                border-left: .5rem solid v.$verdeSecundario;
                 color: v.$blanco;
             }
-
         }
-
-        .crear-proyecto{
-            display: flex;
-            justify-content: center;
-            span{
-                @include m.boton( v.$gris, v.$blanco );
-                display: inline;
-                border-radius: 2rem;
-                padding: 1rem 2rem;
-            }
-            margin-bottom: 4rem;
-            padding: 0;
+    }
+    .crear-colecta{
+        display: flex;
+        justify-content: center;
+        span{
+            @include m.boton( v.$verdeSecundario, v.$blanco );
+            display: inline;
+            border-radius: 2rem;
+            padding: 1rem 2rem;
         }
+        margin-bottom: 4rem;
+        padding: 0;
     }
 
     .cerrar-session-mobile{

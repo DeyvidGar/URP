@@ -4,7 +4,7 @@
 .mensaje{
     margin-top: 5rem;
     .uptask{
-        @include m.tituloDegradado(v.$naranja, 7rem);
+        @include m.tituloDegradado(v.$verde, 7rem);
     }
     .tagline{
         text-align: center;

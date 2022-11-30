@@ -14,13 +14,13 @@
     }
 
     input[type="submit"]{
-        @include m.boton(lighten( v.$azul, 10%), lighten(v.$negro, 10%));
+        @include m.boton(lighten( v.$verde, 10%), lighten(v.$negro, 10%));
         margin-top: 3rem;
     }
 
     .acciones{
         a{
-            color: darken( v.$azul, 10%);
+            color: darken( v.$verde, 10%);
         }
     }
 }

@@ -2,7 +2,12 @@
 @use 'base/variables' as v;
 
 .boton{
-    @include m.boton(v.$azul, v.$blanco);
+    @include m.boton(v.$verdeSecundario, v.$blanco);
+}
+.boton-crear-colecta{
+    @include m.boton (v.$verde, v.$blanco);
+    padding: 1rem;
+    font-weight: bold;
 }
 
 .boton-eliminar {
@@ -11,4 +16,10 @@
 
 .boton-actualizar {
     @include m.boton(v.$verde, v.$blanco);
+}
+.boton-cerrar-session{
+    @include m.boton ( lighten(v.$azulOscuro, 10%), v.$blanco);
+    font-size: 1.4rem;
+    padding: 1rem;
+    border-radius: .5rem;
 }

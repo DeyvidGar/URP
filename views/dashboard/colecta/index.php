@@ -12,11 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <!-- <h3>3.2 Valor de la plantación</h3> -->
-        <?php //include_once __DIR__.'/activos_fijos/valorPlantacion.php';?>
-
-        <h3>3.2 Otros activos fijos</h3>
-        <?php include_once __DIR__.'/activos_fijos/otrosActivosFijos.php';?>
+        <h3>3.2 Valor de la plantación</h3>
+        <?php include_once __DIR__.'/activos_fijos/valorPlantacion.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->

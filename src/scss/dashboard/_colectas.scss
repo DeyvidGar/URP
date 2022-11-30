@@ -3,7 +3,7 @@
 
 .no-colectas {
     a{
-        color: v.$indigo;
+        color: v.$verde;
     }
 }
 
@@ -22,7 +22,7 @@
     }
 
     .colecta {
-        background-color: lighten(v.$indigo, 5%);
+        background-color: lighten(v.$verde, 5%);
         min-height: 12rem;
         display: flex;
         align-items: center;
@@ -32,7 +32,7 @@
         color: v.$blanco;
 
         &:hover{
-            background-color: darken(v.$indigo, 5%);
+            background-color: darken(v.$verde, 5%);
         }
     }
 }

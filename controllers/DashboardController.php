@@ -59,7 +59,7 @@ class DashboardController {
         $colecta = new Colecta();
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
+            debuguear($_POST);
             $colecta->sincronizar($_POST);
 
             $alertas = $colecta->validarDatosColecta();

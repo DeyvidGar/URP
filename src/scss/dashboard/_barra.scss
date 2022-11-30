@@ -2,7 +2,7 @@
 @use 'base/mixins' as m;
 
 .barra-mobile{
-    background-color: v.$indigo;
+    background-color: v.$azulOscuro;
     padding: 2rem 4rem;
     display: flex;
     justify-content: space-between;
@@ -26,7 +26,7 @@
 
 .barra{
     display: none;//para el menu mobile
-    
+
     @include m.tablet {
         background-color: v.$blanco;
         padding: 1rem 2rem;
@@ -43,14 +43,14 @@
 
         span{
             font-weight: bold;
-            color: v.$indigo;
+            color: v.$verde;
         }
     }
 
-    .cerrar-session{
-        @include m.boton ( darken(v.$indigo, 10%), v.$blanco);
-        font-size: 1.4rem;
-        padding: 1rem;
-        border-radius: .5rem;
-    }
+    // .cerrar-session{
+    //     @include m.boton ( darken(v.$verde, 10%), v.$blanco);
+    //     font-size: 1.4rem;
+    //     padding: 1rem;
+    //     border-radius: .5rem;
+    // }
 }

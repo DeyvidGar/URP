@@ -4,7 +4,7 @@
 .olvide-pass{
     margin-top: 5rem;
     .uptask{
-        @include m.tituloDegradado(v.$rosa, 7rem);
+        @include m.tituloDegradado(v.$verde, 7rem);
     }
     .tagline{
         text-align: center;
@@ -12,13 +12,13 @@
     }
 
     input[type="submit"]{
-        @include m.boton(lighten(v.$rosa, 10%), lighten(v.$blanco, 10%));
+        @include m.boton(lighten(v.$verde, 10%), lighten(v.$blanco, 10%));
         margin-top: 3rem;
     }
 
     .acciones{
         a{
-            color: darken(v.$rosa, 10%);
+            color: darken(v.$verde, 10%);
         }
     }
 }

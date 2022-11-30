@@ -28,10 +28,10 @@
             <td><input type="number" placeholder="Ej. 2000"></td>
             <td><input type="number" value="0"></td>
             <td><input type="number" value="0"></td>
-            <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
-            <td></td>
+            <td class="etiqueta porcentaje"><input type="number" value="0" disabled><span>%</span></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion" value="0"></td>
+            <td class="valorDepreciacionAnual"></td>
         </tr>
     </tbody>
 </table>
@@ -61,9 +61,9 @@
             <td><input type="number" value="0"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
-            <td></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion" value="0"></td>
+            <td class="valorDepreciacionAnual"></td>
         </tr>
     </tbody>
 </table>
@@ -93,18 +93,18 @@
             <td><input type="number" value="0"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
-            <td></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion" value="0"></td>
+            <td class="valorDepreciacionAnual"></td>
         </tr>
     </tbody>
 </table>
 <div class="botones-agregar-fila">
-    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
-    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+    <button type="" class="boton-agregar-fila" id="nuevaFilaImplementos">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaImplementos">Eliminar Fila</button>
 </div>
 
-<table id="tablaEquipoComunicacion">
+<table id="tablaEquiposComunicacion">
     <thead>
         <tr>
             <th>3.3.4 Equipo comunicación</td>
@@ -125,18 +125,18 @@
             <td><input type="number" value="0"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion" value="0"></td>
             <td></td>
         </tr>
     </tbody>
 </table>
 <div class="botones-agregar-fila">
-    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
-    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+    <button type="" class="boton-agregar-fila" id="nuevaFilaEquipoComunicacion">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaEquipoComunicacion">Eliminar Fila</button>
 </div>
 
-<table id="tablaComunicacion">
+<table id="tablaEquipos">
     <thead>
         <tr>
             <th>3.3.5 Equipo</td>
@@ -157,8 +157,8 @@
             <td><input type="number" value="0"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado"></td>
-            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
+            <td class="etiqueta"><span>$</span><input type="number" class="valorRecuperacion" value="0"></td>
             <td></td>
         </tr>
     </tbody>
@@ -168,7 +168,7 @@
     <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
 </div>
 
-<table>
+<table id="tablaTotales">
     <tfoot>
         <tr>
             <th>Total</td>
@@ -176,9 +176,9 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td id="totalValorActualMercado"></td>
+            <td id="totalValorRecuperacion"></td>
+            <td id="totalDepreciacionAnual"></td>
         </tr>
     </tfoot>
 </table>

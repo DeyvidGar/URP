@@ -27,7 +27,10 @@ const colecta = {
     },
     //todo:faltaria checar valor de la plantacion, acticidades de procuddion
     construcciones: [],
-    vehiculos: []
+    vehiculos: [],
+    implementos: [],
+    equiposComunicacion: [],
+    equipos: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -41,16 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
     sumaAreaCultivadaSuperficeUrp();
     sumarTotalHectareasFilas();
     sumarTotalHA();
-    llenarValorTierra();
 
+    llenarValorTierra();
     colectaValorTierra();
     calcularValorTotalValorTierra();
     sumatoriaTotalSuperficeValorTierra();
 
     //todo:faltaria checar valor de la plantacion, acticidades de procuddion
 
-    colectaConstrucciones();
+    // calcularOperacionesActivosFijos('#totalValorActualMercado');
     almacenarDatosConstrucciones();
+    almacenarDatosVehiculos();
+    almacenarDatosImplementos();
+    almacenarDatosEquipoComunicacion();
+    almacenarDatosEquipo();
 });
 
 // ---------- COLECTA ARBOL
@@ -364,28 +371,17 @@ function sumatoriaTotalSuperficeValorTierra(){
 }
 // ------------- FIN COLECTA VALOR TIERRA
 
-// ------------- COLECTA CONSTRUCCIONES
-function colectaConstrucciones(){
-    const inputs = document.querySelectorAll("#tablaContrucciones .etiqueta");
-
-    inputs.forEach(input => {
-        input.addEventListener('input', ()=>{
-            console.log('sumar')
-        })
-    });
-}
-
+// ------------- COLECTA OTROS ACTIVOS FIJOS
 function almacenarDatosConstrucciones(){
-    // console.log(colecta)
     const tbody = document.querySelector('#tablaContrucciones').children[1];
     const construccion = {
-        nombre: '',
-        anioConstruccionAdquisicion: '',
-        modelo: '',
-        anioVidaUtil: '',
-        depreciacionAnual: '',
-        valorActualMercado: '',
-        valorRecuperacion: ''
+        // nombre: '',
+        // anioConstruccionAdquisicion: '',
+        // modelo: '',
+        // anioVidaUtil: '',
+        // depreciacionAnual: '',
+        // valorActualMercado: '',
+        // valorRecuperacion: ''
     };
     const { construcciones } = colecta;
     // console.log(colecta)
@@ -395,19 +391,266 @@ function almacenarDatosConstrucciones(){
                 const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
                 input.addEventListener('input', ()=>{
                     llenarObjeto(input, l, construccion);
-                    // console.log(colecta)
+                    calcularOperacionesActivosFijos('#tablaContrucciones');
+                    console.log(colecta)
                 })
                 // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
             } else{
                 const children = tbody.rows[i].cells[l].children[1];
                 children.addEventListener('input', ()=>{
                     llenarObjetoChildren(children, l, construccion);
-                    // console.log(colecta)
+                    calcularOperacionesActivosFijos('#tablaContrucciones');
+                    // sumadepreciacionAnual('#tablaContrucciones');
+                    console.log(colecta)
                 })
             }
         }
         colecta.construcciones = [...construcciones, construccion];
     }
+}
+function almacenarDatosVehiculos(){
+    const tbody = document.querySelector('#tablaVehiculos').children[1];
+    const vehiculo = {
+        // nombre: '',
+        // anioConstruccionAdquisicion: '',
+        // modelo: '',
+        // anioVidaUtil: '',
+        // depreciacionAnual: '',
+        // valorActualMercado: '',
+        // valorRecuperacion: ''
+    };
+    const { vehiculos } = colecta;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
+            if(l <= 4 ){
+                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
+                input.addEventListener('input', ()=>{
+                    llenarObjeto(input, l, vehiculo);
+                    calcularOperacionesActivosFijos('#tablaVehiculos');
+                    console.log(colecta)
+                })
+                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
+            } else{
+                const children = tbody.rows[i].cells[l].children[1];
+                children.addEventListener('input', ()=>{
+                    llenarObjetoChildren(children, l, vehiculo);
+                    calcularOperacionesActivosFijos('#tablaVehiculos');
+                    // sumadepreciacionAnual('#tablaContrucciones');
+                })
+            }
+        }
+        colecta.vehiculos = [...vehiculos, vehiculo];
+    }
+}
+function almacenarDatosImplementos(){
+    const tbody = document.querySelector('#tablaImplementos').children[1];
+    const implemento = {
+        // nombre: '',
+        // anioConstruccionAdquisicion: '',
+        // modelo: '',
+        // anioVidaUtil: '',
+        // depreciacionAnual: '',
+        // valorActualMercado: '',
+        // valorRecuperacion: ''
+    };
+    const { implementos } = colecta;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
+            if(l <= 4 ){
+                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
+                input.addEventListener('input', ()=>{
+                    llenarObjeto(input, l, implemento);
+                    calcularOperacionesActivosFijos('#tablaImplementos');
+                    console.log(colecta)
+                })
+                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
+            } else{
+                const children = tbody.rows[i].cells[l].children[1];
+                children.addEventListener('input', ()=>{
+                    llenarObjetoChildren(children, l, implemento);
+                    calcularOperacionesActivosFijos('#tablaImplementos');
+                    // sumadepreciacionAnual('#tablaContrucciones');
+                })
+            }
+        }
+        colecta.implementos = [...implementos, implemento];
+    }
+}
+function almacenarDatosEquipoComunicacion(){
+    const tbody = document.querySelector('#tablaEquiposComunicacion').children[1];
+    const equipoComunicacion = {
+        // nombre: '',
+        // anioConstruccionAdquisicion: '',
+        // modelo: '',
+        // anioVidaUtil: '',
+        // depreciacionAnual: '',
+        // valorActualMercado: '',
+        // valorRecuperacion: ''
+    };
+    const { equiposComunicacion } = colecta;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
+            if(l <= 4 ){
+                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
+                input.addEventListener('input', ()=>{
+                    llenarObjeto(input, l, equipoComunicacion);
+                    calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
+                    console.log(colecta)
+                })
+                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
+            } else{
+                const children = tbody.rows[i].cells[l].children[1];
+                children.addEventListener('input', ()=>{
+                    llenarObjetoChildren(children, l, equipoComunicacion);
+                    calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
+                    // sumadepreciacionAnual('#tablaContrucciones');
+                })
+            }
+        }
+        colecta.equiposComunicacion = [...equiposComunicacion, equipoComunicacion];
+    }
+}
+function almacenarDatosEquipo(){
+    const tbody = document.querySelector('#tablaEquipos').children[1];
+    const equipo = {
+        // nombre: '',
+        // anioConstruccionAdquisicion: '',
+        // modelo: '',
+        // anioVidaUtil: '',
+        // depreciacionAnual: '',
+        // valorActualMercado: '',
+        // valorRecuperacion: ''
+    };
+    const { equipos } = colecta;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
+            if(l <= 4 ){
+                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
+                input.addEventListener('input', ()=>{
+                    llenarObjeto(input, l, equipo);
+                    calcularOperacionesActivosFijos('#tablaEquipos');
+                    console.log(colecta)
+                })
+                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
+            } else{
+                const children = tbody.rows[i].cells[l].children[1];
+                children.addEventListener('input', ()=>{
+                    llenarObjetoChildren(children, l, equipo);
+                    calcularOperacionesActivosFijos('#tablaEquipos');
+                    // sumadepreciacionAnual('#tablaContrucciones');
+                })
+            }
+        }
+        colecta.equipos = [...equipos, equipo];
+    }
+}
+
+//funciones estaticas
+function calcularOperacionesActivosFijos(tabla){
+    const inptus = document.querySelectorAll(tabla +" .etiqueta input[type='number']");
+    // const valorRubro = document.querySelectorAll("#tablaContrucciones .valorRubro");
+
+    //sumar por inputs
+    inptus.forEach(input => {
+        input.addEventListener('input', ()=>{
+            //REALIZAR SUMA TOTAL POR RUBRO (VERTICAL, INPUTS)
+            sumaValorActualMercado(tabla);
+            sumaValorRecuperacion(tabla);
+            depreciacionAnual(tabla)
+            sumadepreciacionAnual(tabla);
+            totalValorActualMercado();
+            totalValorRecuperacion();
+            totalValorDepreciacionAnual();
+        });
+    });
+}
+function totalValorDepreciacionAnual(){
+    let totalDepreciacionAnualTd = document.querySelector('#tablaTotales #totalDepreciacionAnual')
+    let tablaContrucciones = !isNaN(document.querySelector('#tablaContrucciones #totalValorRecuperacion').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaContrucciones #totalValorDepreciacionAnual').textContent);
+    let tablaVehiculos = !isNaN(document.querySelector('#tablaVehiculos #totalValorDepreciacionAnual').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaVehiculos #totalValorDepreciacionAnual').textContent);
+    let tablaImplementos = !isNaN(document.querySelector('#tablaImplementos #totalValorDepreciacionAnual').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaImplementos #totalValorDepreciacionAnual').textContent);
+    let tablaEquiposComunicacion = !isNaN(document.querySelector('#tablaEquiposComunicacion #totalValorDepreciacionAnual').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquiposComunicacion #totalValorDepreciacionAnual').textContent);
+    let tablaEquipos = !isNaN(document.querySelector('#tablaEquipos #totalValorDepreciacionAnual').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquipos #totalValorDepreciacionAnual').textContent);
+
+    total = tablaContrucciones+tablaVehiculos+tablaImplementos+tablaEquiposComunicacion+tablaEquipos;
+    // console.log(total)
+    totalDepreciacionAnualTd.textContent = convertirValorMonetario(total);
+}
+function totalValorRecuperacion(){
+    let totalValorRecuperacionTd = document.querySelector('#tablaTotales #totalValorRecuperacion')
+    let tablaContrucciones = !isNaN(document.querySelector('#tablaContrucciones #totalValorRecuperacion').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaContrucciones #totalValorRecuperacion').textContent);
+    let tablaVehiculos = !isNaN(document.querySelector('#tablaVehiculos #totalValorRecuperacion').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaVehiculos #totalValorRecuperacion').textContent);
+    let tablaImplementos = !isNaN(document.querySelector('#tablaImplementos #totalValorRecuperacion').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaImplementos #totalValorRecuperacion').textContent);
+    let tablaEquiposComunicacion = !isNaN(document.querySelector('#tablaEquiposComunicacion #totalValorRecuperacion').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquiposComunicacion #totalValorRecuperacion').textContent);
+    let tablaEquipos = !isNaN(document.querySelector('#tablaEquipos #totalValorRecuperacion').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquipos #totalValorRecuperacion').textContent);
+
+    total = tablaContrucciones+tablaVehiculos+tablaImplementos+tablaEquiposComunicacion+tablaEquipos;
+    // console.log(total)
+    totalValorRecuperacionTd.textContent = convertirValorMonetario(total);
+}
+function totalValorActualMercado(){
+    let totalValorActualMercadoTd = document.querySelector('#tablaTotales #totalValorActualMercado')
+    let tablaContrucciones = !isNaN(document.querySelector('#tablaContrucciones #totalValorActualMercado').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaContrucciones #totalValorActualMercado').textContent);
+    let tablaVehiculos = !isNaN(document.querySelector('#tablaVehiculos #totalValorActualMercado').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaVehiculos #totalValorActualMercado').textContent);
+    let tablaImplementos = !isNaN(document.querySelector('#tablaImplementos #totalValorActualMercado').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaImplementos #totalValorActualMercado').textContent);
+    let tablaEquiposComunicacion = !isNaN(document.querySelector('#tablaEquiposComunicacion #totalValorActualMercado').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquiposComunicacion #totalValorActualMercado').textContent);
+    let tablaEquipos = !isNaN(document.querySelector('#tablaEquipos #totalValorActualMercado').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquipos #totalValorActualMercado').textContent);
+
+    total = tablaContrucciones+tablaVehiculos+tablaImplementos+tablaEquiposComunicacion+tablaEquipos;
+    // console.log(total)
+    totalValorActualMercadoTd.textContent = convertirValorMonetario(total);
+}
+
+function sumadepreciacionAnual(tabla){
+    const tbody = document.querySelector(tabla).children[1];
+    const valorDepreciacionAnual = document.querySelector(tabla+' #totalValorDepreciacionAnual')
+    let acumulador = 0;
+    for (let i = 0; i < tbody.rows.length; i++) {
+        depreciacionAnualRubro = tbody.rows[i].cells[7].textContent;
+        valorFloat = extraerCaracteresNumber(depreciacionAnualRubro);
+        acumulador += valorFloat;
+
+    }
+    valorDepreciacionAnual.textContent = formatter.format(acumulador);
+}
+
+function depreciacionAnual(tabla){
+    const tbody = document.querySelector(tabla).children[1];
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        celdaFinal = tbody.rows[i].cells[7]
+        depreciacionPorcentaje = parseFloat(tbody.rows[i].cells[4].firstChild.value)
+        porcenaje = depreciacionPorcentaje*0.01
+        valorActualMercado = parseFloat(tbody.rows[i].cells[5].children[1].value)
+        valorRecuperacion = parseFloat(tbody.rows[i].cells[6].children[1].value)
+        depreciacionAnualRubro = parseFloat((valorActualMercado - valorRecuperacion) * porcenaje);
+
+        celdaFinal.textContent = formatter.format(depreciacionAnualRubro);
+    }
+}
+
+function sumaValorRecuperacion(tabla){
+    const valorRecuperacion = document.querySelector(tabla+' #totalValorRecuperacion')
+    const inputsValorRecuperacion = document.querySelectorAll(tabla+' .valorRecuperacion');
+    let totalValorRecuperacion = 0;
+    inputsValorRecuperacion.forEach(input => {
+        totalValorRecuperacion += parseFloat(input.value);
+    });
+    valorRecuperacion.innerHTML = formatter.format(totalValorRecuperacion);
+}
+
+function sumaValorActualMercado(tabla){
+    const valorActualMercado = document.querySelector(tabla+' #totalValorActualMercado')
+    const inputsValorActualMercado = document.querySelectorAll(tabla+' .valorActualMercado');
+    let totalValorActualMercado = 0;
+    inputsValorActualMercado.forEach(input => {
+        totalValorActualMercado += parseFloat(input.value);
+    });
+    valorActualMercado.innerHTML = formatter.format(totalValorActualMercado);
 }
 
 function llenarObjeto(input, l, objeto){
@@ -421,7 +664,7 @@ function llenarObjetoChildren(children, l, objeto){
     if( l === 5 ) objeto.valorActualMercado = parseFloat(children.value)
     if( l === 6 ) objeto.valorRecuperacion = parseFloat(children.value)
 }
-// ------------- FIN COLECTA CONSTRUCCION
+// ------------- FIN OTROS ACTIVOS FIJOS
 
 // FUNCIONES
 // ------------- FUNCION SUMAR COLUMNA INPUTS
@@ -527,15 +770,23 @@ function eliminarFilaVariedad(){
 // -------------- BOTONES OTROS ACTIVOS FIJOS
 const botonNuevaFilaContrucciones = document.querySelector('#nuevaFilaContrucciones');
 const botonNuevaFilaVehiculos = document.querySelector('#nuevaFilaVehiculos');
+const botonNuevaFilaImplementos = document.querySelector('#nuevaFilaImplementos');
+const botonNuevaFilaEquipoComunicacion = document.querySelector('#nuevaFilaEquipoComunicacion');
 
 botonNuevaFilaContrucciones.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaContrucciones');
+    filaOtrosActivosFijos('#tablaContrucciones', almacenarDatosConstrucciones);
 })
 botonNuevaFilaVehiculos.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaVehiculos');
+    filaOtrosActivosFijos('#tablaVehiculos', almacenarDatosVehiculos);
+})
+botonNuevaFilaImplementos.addEventListener('click', ()=>{
+    filaOtrosActivosFijos('#tablaImplementos', almacenarDatosImplementos);
+})
+botonNuevaFilaEquipoComunicacion.addEventListener('click', ()=>{
+    filaOtrosActivosFijos('#tablaEquipoComunicacion', almacenarDatosEquipoComunicacion);
 })
 
-function filaOtrosActivosFijos(idTabla) {
+function filaOtrosActivosFijos(idTabla, funcion) {
     // Obtiene una referencia a la tabla en la posicion dentro del body
     const tabla = document.querySelector(idTabla).children[1];
     const tr = document.createElement('TR');
@@ -550,6 +801,7 @@ function filaOtrosActivosFijos(idTabla) {
     const td7 = document.createElement('TD');
     td7.classList.add('etiqueta');
     const td8 = document.createElement('TD');
+    td8.classList.add('valorDepreciacionAnual')
     // td8.classList.add('etiqueta');
     const input1 = document.createElement('INPUT');
     const input2 = document.createElement('INPUT');
@@ -577,11 +829,14 @@ function filaOtrosActivosFijos(idTabla) {
 
     input5.setAttribute('type', 'number');
     input5.value = 0;
+    if(idTabla === '#tablaContrucciones') input5.setAttribute('disabled', '')
 
     input6.setAttribute('type', 'number');
     input6.classList.add('valorActualMercado')
+    input6.value = 0;
     input7.setAttribute('type', 'number');
     input7.classList.add('valorRecuperacion')
+    input7.value = 0;
     // input8.setAttribute('type', 'number');
     // input8.classList.add('depreciacionAnual')
 
@@ -613,19 +868,31 @@ function filaOtrosActivosFijos(idTabla) {
 
     tabla.appendChild(tr);
 
-    // // console.log(colecta)
-    almacenarDatosConstrucciones()
+    // almacenarOtrosActivosFijos();
+    funcion();
+
+
+    calcularOperacionesActivosFijos(idTabla)
+    // sumaValorActualMercado()
 }
 
 // FUNCION BOTON ELIMINAR FILA
 const botonEliminarFilaConstruccion = document.querySelector('#eliminarFilaContrucciones');
 const botonEliminarFilaVehiculos = document.querySelector('#eliminarFilaVehiculos');
+const botonEliminarFilaImplementos = document.querySelector('#eliminarFilaImplementos');
+const botonEliminarFilaEquipoComunicacion = document.querySelector('#eliminarFilaEquipoComunicacion');
 
 botonEliminarFilaConstruccion.addEventListener('click', ()=>{
     eliminarFilaOtrosActivosFijos('#tablaContrucciones', colecta.construcciones);
 })
 botonEliminarFilaVehiculos.addEventListener('click', ()=>{
     eliminarFilaOtrosActivosFijos('#tablaVehiculos', colecta.vehiculos);
+})
+botonEliminarFilaImplementos.addEventListener('click', ()=>{
+    eliminarFilaOtrosActivosFijos('#tablaImplementos', colecta.implementos);
+})
+botonEliminarFilaEquipoComunicacion.addEventListener('click', ()=>{
+    eliminarFilaOtrosActivosFijos('#tablaEquipoComunicacion', colecta.equiposComunicacion);
 })
 
 function eliminarFilaOtrosActivosFijos(idTabla, objeto){
@@ -643,3 +910,19 @@ function eliminarFilaOtrosActivosFijos(idTabla, objeto){
 }
 // -------------- FIN CONSTRUCCIONES
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
+
+const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+});
+
+//funcion extrae caracteres de una etiqueta con comas y signo de pesos
+function extraerCaracteresNumber(caracteres){
+    let sincomas = caracteres.replaceAll(',', '')
+    let sincaracteres = sincomas.replaceAll('$', '')
+    let valorFloat = parseFloat(sincaracteres)
+    return valorFloat;
+}
+function convertirValorMonetario(valor){
+    return formatter.format(valor);
+}

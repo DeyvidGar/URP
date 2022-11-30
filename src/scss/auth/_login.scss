@@ -4,7 +4,7 @@
 .login{
     margin-top: 5rem;
     .uptask{
-        @include m.tituloDegradado(v.$cyan, 7rem);
+        @include m.tituloDegradado(v.$verde, 7rem);
     }
 
     .tagline{
@@ -13,13 +13,13 @@
     }
 
     input[type="submit"]{
-        @include m.boton(lighten( v.$cyan, 10%), lighten(v.$blanco, 10%));
+        @include m.boton(lighten( v.$verdeSecundario, 10%), lighten(v.$blanco, 10%));
         margin-top: 3rem;
     }
 
     .acciones{
         a{
-            color: darken( v.$cyan, 10%);
+            color: darken( v.$verde, 10%);
         }
     }
 }

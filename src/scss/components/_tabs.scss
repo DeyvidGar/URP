@@ -11,8 +11,8 @@
     }
 
     .botones{
-        background-color: v.$azul;
-        border: solid 1px lighten(v.$azul, 20%);
+        background-color: v.$verde;
+        border: solid 1px lighten(v.$gris, 20%);
         color: v.$blanco;
         padding: 1rem;
         display: block;
@@ -25,12 +25,12 @@
 
         &:hover{
             cursor: pointer;
-            background-color: darken(v.$azul, 10%);
+            background-color: darken(v.$verdeSecundario, 10%);
         }
 
         &.actual{
             background-color: v.$blanco;
-            color: v.$azul;
+            color: v.$verdeSecundario;
         }
     }
 }

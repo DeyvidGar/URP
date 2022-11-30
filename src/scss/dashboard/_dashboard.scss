@@ -14,12 +14,10 @@
         overflow: scroll;
     }
 
-    .contenido{
-        .nombre-pagina{
-            text-align: center;
-            font-size: 2.7rem;
-            margin-top: 3rem;
-        }
+    .nombre-pagina{
+        text-align: center;
+        font-size: 2.7rem;
+        margin-top: 3rem;
     }
 
     .formulario{
@@ -27,18 +25,18 @@
             background-color: v.$blanco;
         }
 
-        input[type='submit'] {
-            @include m.boton (v.$indigo, v.$blanco);
-            padding: 1rem;
-            font-weight: bold;
-        }
+        // select[type='option'] {
+        //     // @include m.boton (v.$verde, v.$blanco);
+        //     // padding: 1rem;
+        //     font-weight: bold;
+        // }
     }
 
-    .enlace{
-        color: v.$indigo;
-        &:hover{
-            cursor:pointer;
-            color: darken(v.$indigo, 50%);
-        }
-    }
+    // .enlace{
+    //     color: v.$verde;
+    //     &:hover{
+    //         cursor:pointer;
+    //         color: darken(v.$indigo, 50%);
+    //     }
+    // }
 }

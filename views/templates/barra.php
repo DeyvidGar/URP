@@ -9,5 +9,5 @@
 <div class="barra">
     <p>Hola: <span><?php echo $_SESSION['nombre'];?></span></p>
 
-    <a href="/logout" class="cerrar-session">Cerrar Sesion</a>
+    <a href="/logout" class="boton-cerrar-session">Cerrar Sesion</a>
 </div>

@@ -10,7 +10,19 @@
         label{
             flex: 0 0 10rem; //label de ancho 10rem
         }
-        input{
+        input[type="text"], input[type="email"], input[type="password"]{
+            flex: 1;//abarca el espacio disponible
+            padding: 1rem;
+            border: none;
+            background-color: darken(v.$grisClaro, 1%);
+        }
+        input[type="date"]{
+            flex: 1;//abarca el espacio disponible
+            padding: 1rem;
+            border: none;
+            background-color: lighten(v.$gris, 49%);
+        }
+        select{
             flex: 1;//abarca el espacio disponible
             padding: 1rem;
             border: none;
