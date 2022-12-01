@@ -1,5 +1,5 @@
 const colecta = {
-    arboles: [],
+    arboles:[],
     patronCultivos:{
         hectareaRiego: 0,
         hectareaTemporal: 0,
@@ -25,12 +25,19 @@ const colecta = {
         hectareaPrestadasValorHA: 0,
         hectareaSinUsoValorHA: 0
     },
-    //todo:faltaria checar valor de la plantacion, acticidades de procuddion
+    actividadesProduccion: [],
+    otrosCostos: [],
     construcciones: [],
     vehiculos: [],
     implementos: [],
     equiposComunicacion: [],
-    equipos: []
+    equipos: [],
+    valorPlantacion:{
+        anioEstablecido: '',
+        vidaUtil: '',
+        arbolesHA: 0,
+        costoArbol: 0
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -50,7 +57,11 @@ document.addEventListener('DOMContentLoaded', () => {
     calcularValorTotalValorTierra();
     sumatoriaTotalSuperficeValorTierra();
 
-    //todo:faltaria checar valor de la plantacion, acticidades de procuddion
+    colectaValorPlantacion();
+    colectaActividadesProduccion();
+    almacenarDatosActividadesProduccion();
+    colectaOtrosCostos()
+    almacenarDatosOtrosCostos();
 
     // calcularOperacionesActivosFijos('#totalValorActualMercado');
     almacenarDatosConstrucciones();
@@ -95,7 +106,6 @@ function colectaArbol(){
         colecta.arboles = [...arboles, arbol];
     }
 }
-
 function sumarArboles(){
     //seleccionar de la tabla variedadarboles los inputs de tipo number
     const inputsArboles = document.querySelectorAll("#tablaVariedadArboles input[type='number']")
@@ -135,7 +145,6 @@ function colectaPatronCultivos(){
         })
     }
 }
-
 function mostrarSumatoriaPatronCultivos(){
     const superficeCultivo = document.querySelector('#superficieCultivo');
     const superficeCultivoPorcentaje = document.querySelector('#superficieCultivoPorcentaje');
@@ -193,7 +202,6 @@ function colectaSuperficeUrp(){
         })
     });
 }
-
 function almacenarDatosSuperfice(){
     const inputsSuperficeUrp = document.querySelectorAll('.inputSuperficeUrp');
     const {superficieUrp} = colecta;
@@ -206,7 +214,6 @@ function almacenarDatosSuperfice(){
     }
     // console.log(colecta)
 }
-
 function sumaAreaCultivadaSuperficeUrp(){
     const inputsSuperficeUrp = document.querySelectorAll('.inputSuperficeUrp');
     const td = document.querySelectorAll('.sumaAreaCultivada');
@@ -218,7 +225,6 @@ function sumaAreaCultivadaSuperficeUrp(){
         if ( i === 3 ) td[3].textContent = parseFloat(inputsSuperficeUrp[3].value) + parseFloat(inputsSuperficeUrp[7].value)
     }
 }
-
 function sumarTotalHectareasFilas(){
     const tabla = document.querySelector('#tablaSuperficeUrp').children[1];
 
@@ -241,7 +247,6 @@ function sumarTotalHectareasFilas(){
         total.textContent = acumulador
     }
 }
-
 function sumarTotalHA(){
     const tabla = document.querySelector('#tablaSuperficeUrp').children[1]
 
@@ -288,7 +293,6 @@ function llenarValorTierra(){
     hectareaPrestadasSuperficie.textContent = totalHectareasNoPropiasPrestadas;
     hectareaSinUsoSuperficie.textContent = totalHectareasNoPropiasRentadas;
 }
-
 function colectaValorTierra(){
     const inputs = document.querySelectorAll('#tablaValorTierra input');
 
@@ -370,6 +374,107 @@ function sumatoriaTotalSuperficeValorTierra(){
     totalSuperficeValorTotal.textContent = `$ ${splitsHectareaPropiedadValorTotal + splitsHectareaEjidalesValorTotal + splitsHectareaPrestadasValorTotal + splitsHectareaSinUsoValorTotal}`;
 }
 // ------------- FIN COLECTA VALOR TIERRA
+
+// ------------- COLECTA VALOR PLANTACION
+function colectaValorPlantacion(){
+    const inputs = document.querySelectorAll('#tablaValorPlantacion input');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosValorPlantacion();
+            calcularCostoPlantacion();
+        })
+    });
+    // const arbolesHa = document.querySelector('#tablaValorPlanteacion #arbolesHa');
+    // console.log(arbolesHa.value ==='' ? 0 : 'no');
+}
+function calcularCostoPlantacion(){
+    const costoPlantacion = document.querySelector('#tablaValorPlantacion #costoPlantacion');
+    const arbolesHa = parseFloat(document.querySelector('#tablaValorPlantacion #arbolesHa').value);
+    const costoArbol = parseFloat(document.querySelector('#tablaValorPlantacion #costoArbol').value);
+    const totalSuperficeHas = parseFloat(document.querySelector('#tablaValorTierra #totalSuperficeHas').textContent);
+
+    costoPlantacion.textContent = convertirValorMonetario(arbolesHa*costoArbol*totalSuperficeHas);
+}
+function almacenarDatosValorPlantacion(){
+    const inputsValorPlantacion = document.querySelectorAll('#tablaValorPlantacion input');
+    const {valorPlantacion} = colecta;
+    console.log(inputsValorPlantacion)
+    const keys = Object.keys(valorPlantacion);//indices del objet
+    let key;
+    for (let i = 0; i < keys.length; i++) {
+        key = keys[i]; //asignamos el indice acutal auna variable
+        valorPlantacion[key] = !isNaN(inputsValorPlantacion[i].value) ? 0 : parseFloat(inputsValorPlantacion[i].value)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+    }
+    // console.log(colecta)
+}
+// ------------- FIN COLECTA VALOR PLANTACION
+
+// ------------- COLECTA ACTIVIDADES DE PRODUCCION
+function colectaActividadesProduccion(){
+    const inputs = document.querySelectorAll('#tablaActividadesProduccion input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosActividadesProduccion();
+        })
+    });
+}
+function almacenarDatosActividadesProduccion(){
+    const tbody = document.querySelector('#tablaActividadesProduccion tbody');
+    const rows = tbody.rows.length;
+    let objetos = [];
+    let key;
+    for(let i = 0 ; i < rows ; i ++){
+        let actividadProduccion = {
+            nombreActividadProduccion: '',
+            precioUnitario: 0,
+            actual: 0
+        };
+        let keys = Object.keys(actividadProduccion);//indices del objet
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+
+            key = keys[l]; //asignamos el indice acutal auna variable
+            actividadProduccion[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+        }
+        objetos.push(actividadProduccion)
+    }
+    colecta.actividadesProduccion = objetos
+}
+function colectaOtrosCostos(){
+    const inputs = document.querySelectorAll('#tablaOtrosCostos input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosOtrosCostos();
+        })
+    });
+}
+function almacenarDatosOtrosCostos(){
+    const tbody = document.querySelector('#tablaOtrosCostos tbody');
+    const rows = tbody.rows.length;
+    let objetos = [];
+    let key;
+    for(let i = 0 ; i < rows ; i ++){
+        let otroCosto = {
+            nombreOtroCosto: '',
+            precioUnitario: 0,
+            total: 0
+        };
+        let keys = Object.keys(otroCosto);//indices del objet
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+
+            key = keys[l]; //asignamos el indice acutal auna variable
+            otroCosto[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+        }
+        objetos.push(otroCosto)
+    }
+    colecta.otrosCostos = objetos
+    console.log(colecta )
+}
+// ------------- FIN COLECTA ACTIVIDADES DE PRODUCCION
 
 // ------------- COLECTA OTROS ACTIVOS FIJOS
 function almacenarDatosConstrucciones(){
@@ -548,7 +653,6 @@ function almacenarDatosEquipo(){
         colecta.equipos = [...equipos, equipo];
     }
 }
-
 //funciones estaticas
 function calcularOperacionesActivosFijos(tabla){
     const inptus = document.querySelectorAll(tabla +" .etiqueta input[type='number']");
@@ -709,7 +813,7 @@ function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
 // ------------ FIN FUNCION MOSTRAR PORCENTAJES
 
 // -------------- FUNCION BOTON AGREGAR Y ELIMINAR FILAS
-// -------------- VARIEDAD ARBOLES
+// -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
 
 botonAgregarFilaVariedadArboles.addEventListener('click', ()=>{
@@ -749,29 +853,68 @@ function filaVariedadArboles() {
 const botonEliminarFilaVariedad = document.querySelector('#eliminarFilaVariedad');
 
 botonEliminarFilaVariedad.addEventListener('click', ()=>{
-    eliminarFilaVariedad();
+    eliminarUltimaFila('#tablaVariedadArboles', colecta.arboles);
+})
+// -------------- FIN BOTONES VARIEDAD ARBOLES
+
+// -------------- BOTONES ACTIVIDADES PRODUCCION
+const botonNuevaFilaActividadesProduccion = document.querySelector('#nuevaFilaActividadesProduccion');
+const botonNuevaFilaOtosCostos = document.querySelector('#nuevaFilaOtosCostos');
+botonNuevaFilaActividadesProduccion.addEventListener('click', ()=>{
+    filaActividadesProduccion('#tablaActividadesProduccion', colectaActividadesProduccion);
+})
+botonNuevaFilaOtosCostos.addEventListener('click', ()=>{
+    filaActividadesProduccion('#tablaOtrosCostos', colectaOtrosCostos);
 })
 
-function eliminarFilaVariedad(){
-    const tablaVariedadArboles = document.querySelector('#tablaVariedadArboles').children[1];
-    const ultimaFila = tablaVariedadArboles.rows.length-1;
-    // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
-    const tr = tablaVariedadArboles.children[ultimaFila]
-
-    //solo se eliminan las filas pero debe existir una almenos
-    if(tablaVariedadArboles.children.length > 1){
-        tr.remove(); //remover elemento tr de la tabla
-        colecta.arboles.pop(); //eliminar el ultimo valor del arrglo de colecta
-        // console.log('eliminando', colecta)
-    }
+function filaActividadesProduccion(idTabla, funcion){
+    const tbody = document.querySelector(idTabla).children[1];
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    const td3 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    const input3 = document.createElement('INPUT');
+    td2.classList.add('etiqueta');
+    td3.classList.add('etiqueta');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('placeholder', 'Escribe el nombre');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    input3.setAttribute('type', 'number');
+    if(idTabla === 'tablaOtrosCostos')input3.classList.add('otrosCostosTotal')
+    td1.appendChild(input1);
+    td2.innerHTML += '<span>$</span>';
+    td2.appendChild(input2);
+    td3.innerHTML += '<span>$</span>';
+    td3.appendChild(input3);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tbody.appendChild(tr);
+    funcion();
 }
-// -------------- FIN VARIEDAD ARBOLES
+
+// -------------- BOTONES ELIMINAR
+const botonEliminarFilaActividadesProduccion = document.querySelector('#eliminarFilaActividadesProduccion');
+const botonEliminarFilaOtosCostos = document.querySelector('#eliminarFilaOtosCostos');
+
+botonEliminarFilaActividadesProduccion.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaActividadesProduccion', colecta.actividadesProduccion, almacenarDatosActividadesProduccion);
+})
+botonEliminarFilaOtosCostos.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaOtrosCostos', colecta.otrosCostos, almacenarDatosOtrosCostos);
+})
+
+// -------------- FIN BOTONES ACTIVIDADES PRODUCCION
 
 // -------------- BOTONES OTROS ACTIVOS FIJOS
 const botonNuevaFilaContrucciones = document.querySelector('#nuevaFilaContrucciones');
 const botonNuevaFilaVehiculos = document.querySelector('#nuevaFilaVehiculos');
 const botonNuevaFilaImplementos = document.querySelector('#nuevaFilaImplementos');
 const botonNuevaFilaEquipoComunicacion = document.querySelector('#nuevaFilaEquipoComunicacion');
+const botonNuevaFilaEquipo = document.querySelector('#nuevaFilaEquipo');
 
 botonNuevaFilaContrucciones.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaContrucciones', almacenarDatosConstrucciones);
@@ -783,7 +926,10 @@ botonNuevaFilaImplementos.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaImplementos', almacenarDatosImplementos);
 })
 botonNuevaFilaEquipoComunicacion.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaEquipoComunicacion', almacenarDatosEquipoComunicacion);
+    filaOtrosActivosFijos('#tablaEquiposComunicacion', almacenarDatosEquipoComunicacion);
+})
+botonNuevaFilaEquipo.addEventListener('click', ()=>{
+    filaOtrosActivosFijos('#tablaEquipos', almacenarDatosEquipo);
 })
 
 function filaOtrosActivosFijos(idTabla, funcion) {
@@ -821,7 +967,7 @@ function filaOtrosActivosFijos(idTabla, funcion) {
 
     input3.setAttribute('type', 'number');
     input3.setAttribute('required', '');
-    input3.value = 0;
+    if(idTabla !== '#tablaContrucciones') input3.setAttribute('placeholder', 'Ej. 2012');
 
     input4.setAttribute('type', 'number');
     input4.setAttribute('required', '');
@@ -881,21 +1027,25 @@ const botonEliminarFilaConstruccion = document.querySelector('#eliminarFilaContr
 const botonEliminarFilaVehiculos = document.querySelector('#eliminarFilaVehiculos');
 const botonEliminarFilaImplementos = document.querySelector('#eliminarFilaImplementos');
 const botonEliminarFilaEquipoComunicacion = document.querySelector('#eliminarFilaEquipoComunicacion');
+const botonEliminarFilaEquipo = document.querySelector('#eliminarFilaEquipo');
 
 botonEliminarFilaConstruccion.addEventListener('click', ()=>{
-    eliminarFilaOtrosActivosFijos('#tablaContrucciones', colecta.construcciones);
+    eliminarUltimaFila('#tablaContrucciones', colecta.construcciones);
 })
 botonEliminarFilaVehiculos.addEventListener('click', ()=>{
-    eliminarFilaOtrosActivosFijos('#tablaVehiculos', colecta.vehiculos);
+    eliminarUltimaFila('#tablaVehiculos', colecta.vehiculos);
 })
 botonEliminarFilaImplementos.addEventListener('click', ()=>{
-    eliminarFilaOtrosActivosFijos('#tablaImplementos', colecta.implementos);
+    eliminarUltimaFila('#tablaImplementos', colecta.implementos);
 })
 botonEliminarFilaEquipoComunicacion.addEventListener('click', ()=>{
-    eliminarFilaOtrosActivosFijos('#tablaEquipoComunicacion', colecta.equiposComunicacion);
+    eliminarUltimaFila('#tablaEquipoComunicacion', colecta.equiposComunicacion);
+})
+botonEliminarFilaEquipo.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaEquipos', colecta.equipos);
 })
 
-function eliminarFilaOtrosActivosFijos(idTabla, objeto){
+function eliminarUltimaFila(idTabla, objeto, funcion = null){
     const tbody = document.querySelector(idTabla).children[1];
     const ultimaFila = tbody.rows.length-1;
     // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
@@ -907,6 +1057,8 @@ function eliminarFilaOtrosActivosFijos(idTabla, objeto){
         objeto.pop(); //eliminar el ultimo valor del arrglo de colecta
         // console.log('eliminando', colecta)
     }
+
+    if(funcion) funcion();
 }
 // -------------- FIN CONSTRUCCIONES
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS

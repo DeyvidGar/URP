@@ -26,7 +26,7 @@
         <tr>
             <td><input type="text" placeholder="Ej. Terraza"></td>
             <td><input type="number" placeholder="Ej. 2000"></td>
-            <td><input type="number" value="0"></td>
+            <td><input type="number"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0" disabled><span>%</span></td>
             <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
@@ -57,8 +57,8 @@
     <tbody>
         <tr>
             <td><input type="text" placeholder="Ej. Terraza"></td>
-            <td><input type="number" placeholder="Ej. 2000"></td>
-            <td><input type="number" value="0"></td>
+            <td><input type="number" placeholder="Ej. 2005"></td>
+            <td><input type="number"  placeholder="Ej. 2003"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
             <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
@@ -89,8 +89,8 @@
     <tbody>
         <tr>
             <td><input type="text" placeholder="Ej. Terraza"></td>
-            <td><input type="number" placeholder="Ej. 2000"></td>
-            <td><input type="number" value="0"></td>
+            <td><input type="number" placeholder="Ej. 2016"></td>
+            <td><input type="number" placeholder="Ej. 2007"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
             <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
@@ -121,8 +121,8 @@
     <tbody>
         <tr>
             <td><input type="text" placeholder="Ej. Terraza"></td>
-            <td><input type="number" placeholder="Ej. 2000"></td>
-            <td><input type="number" value="0"></td>
+            <td><input type="number" placeholder="Ej. 2017"></td>
+            <td><input type="number" placeholder="Ej. 2002"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
             <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
@@ -153,8 +153,8 @@
     <tbody>
         <tr>
             <td><input type="text" placeholder="Ej. Terraza"></td>
-            <td><input type="number" placeholder="Ej. 2000"></td>
-            <td><input type="number" value="0"></td>
+            <td><input type="number" placeholder="Ej. 2003"></td>
+            <td><input type="number" placeholder="Ej. 20010"></td>
             <td><input type="number" value="0"></td>
             <td class="etiqueta porcentaje"><input type="number" value="0"><span>%</span></td>
             <td class="etiqueta"><span>$</span><input type="number" class="valorActualMercado" value="0"></td>
@@ -164,8 +164,8 @@
     </tbody>
 </table>
 <div class="botones-agregar-fila">
-    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
-    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+    <button type="" class="boton-agregar-fila" id="nuevaFilaEquipo">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaEquipo">Eliminar Fila</button>
 </div>
 
 <table id="tablaTotales">
