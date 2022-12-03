@@ -79,38 +79,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ---------- COLECTA ARBOL
 function colectaArbol(){
-    const tablaArbol = document.querySelector('#tablaVariedadArboles').children[1];
-    const arbol = {}; //un objeto por cada arbol
-    const { arboles } = colecta;
-
-    //iterando tr
-    // console.log(tablaArbol.rows.length) numeros de filas
-    for( let i = 0 ; i < tablaArbol.rows.length ; i++ ){
-        //iterando por td
-        // console.log(tablaArbol.rows[i].cells.length) //numero de columnas
-
-        for( let l = 0 ; l < tablaArbol.rows[i].cells.length ; l++ ){
-            // console.log(tablaArbol.rows[i].cells[l])//muestra la celda
-
-            const input = tablaArbol.rows[i].cells[l].firstChild;//muestra la celda
-            if(input){
-                input.addEventListener('input', function(e){
-                    // console.log(e.target.value)
-                    if(l < 1 ){
-                        arbol.variedad = tablaArbol.rows[i].cells[l].firstChild.value;
-                        // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
-                    } else {
-                        arbol.numArboles = parseInt(tablaArbol.rows[i].cells[l].firstChild.value);
-                        dividirPorcentaje('#tablaVariedadArboles',1, 2);
-                        sumarArboles();
-                    }
-                    // console.log(colecta)
-                })
+    const inputs = document.querySelectorAll('#tablaVariedadArboles input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosColectaArboles();
+            dividirPorcentaje('#tablaVariedadArboles',1, 2);
+            sumarArboles();
+        })
+    });
+}
+function almacenarDatosColectaArboles(){
+    const tbody = document.querySelector('#tablaVariedadArboles tbody');
+    const rows = tbody.rows.length;
+    let objetos = [];
+    let key;
+    for(let i = 0 ; i < rows ; i ++){
+        let arbol = {
+            variedad: '',
+            numArboles: 0
+        };
+        let keys = Object.keys(arbol);//indices del objet
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            if( input && input.tagName === 'INPUT' ){ //encaso de existir elemento html debera ser input
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[l]; //asignamos el indice acutal auna variable
+                arbol[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
             }
         }
-        // termina iteracion fila
-        colecta.arboles = [...arboles, arbol];
+        objetos.push(arbol)
     }
+    colecta.arboles = objetos
+    console.log(colecta)
 }
 function sumarArboles(){
     //seleccionar de la tabla variedadarboles los inputs de tipo number
@@ -119,7 +119,8 @@ function sumarArboles(){
     let acumulador = 0;
 
     inputsArboles.forEach(input => {
-        acumulador += parseFloat(input.value);
+        const valor = input.value === '' ? 0 : parseFloat(input.value);
+        acumulador += parseFloat(valor);
     });
 
     totalArboles.textContent = acumulador;
@@ -895,9 +896,9 @@ function almacenarDatosRepuestoHerramientas(){
             valorRepocicion: 0
         };
         let keys = Object.keys(herramienta);//indices del objet
-        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+        for (let l = 0; l < keys.length; l++) {
             const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            if(input){
+            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
                 const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
                 key = keys[l]; //asignamos el indice acutal auna variable
                 herramienta[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
@@ -913,17 +914,15 @@ function almacenarDatosRepuestoHerramientas(){
 // FUNCIONES
 // ------------- FUNCION SUMAR COLUMNA INPUTS
 function sumarColumnaInputs(tabla, columna){
-    const tablaArbol = document.querySelector(tabla);
+    const tbody = document.querySelector(tabla + ' tbody');
     let sumatoria = 0;
 
-    //iterando tr
-    // console.log(tablaArbol.children[1].children.length) //num de filas en el tbody, donde estan los td inputs
-    for( let i = 0 ; i < tablaArbol.children[1].children.length ; i++ ){
-        //iterando por td
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
         //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
-        // console.log(tablaArbol.children[1].rows[i].cells[columna]) //obtenemos los valores de los inputs en el tbody
-        sumatoria += parseInt(tablaArbol.children[1].rows[i].cells[columna].firstChild.value)
-        // sumatoria += parseInt(tablaArbol.rows[i].cells[comulna].firstChild.value)
+        const input = tbody.rows[i].cells[columna].firstChild;
+        const valor = input.value === '' ? 0 : parseFloat(input.value);
+
+        sumatoria += valor;
     }
     return sumatoria;
 }
@@ -931,22 +930,21 @@ function sumarColumnaInputs(tabla, columna){
 
 // ------------ FUNCION MOSTRAR PORCENTAJES
 function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
-    const tablaArbol = document.querySelector(tabla);
-    // console.log(tablaArbol.children[1].children.length)//numero de filas en tbody
+    const tbody = document.querySelector(tabla + ' tbody');
+    // console.log(tabla.children[1].children.length)//numero de filas en tbody
     // todo:iterar tabla y mostrar resultado
 
-    for( let i = 0 ; i < tablaArbol.children[1].children.length ; i++ ){
-        // console.log(tablaArbol.children[1].children[i].cells.length)//numero de columnas
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        // console.log(tabla.children[1].children[i].cells.length)//numero de columnas
         //iteramos solo la columna del final
-        for( let l = columnaInsertarValores ; l < tablaArbol.children[1].children[i].cells.length ; l++ ){
+        for( let l = columnaInsertarValores ; l < tbody.rows[i].cells.length ; l++ ){
             const sumatoria = sumarColumnaInputs(tabla, columnaSumatoria);
-            const valor = parseInt(tablaArbol.children[1].children[i].cells[l-1].firstChild.value) //valor del no arboles de es misma fila
+            const input = tbody.rows[i].cells[l-1].firstChild;
+            const valor = input.value === '' ? 0 : parseFloat(input.value);
             const formula = (valor/sumatoria)*100;
-            const formulaDosDecimales = formula.toFixed(2) ;
-            const td = tablaArbol.children[1].children[i].cells[l]; //columna total
-
-            // console.log(formula)
-            td.innerHTML = `<span>% ${formulaDosDecimales}</span>`;
+            const formulaDosDecimales = isNaN(formula) ? 0 : formula.toFixed(2);
+            const td = tbody.rows[i].cells[columnaInsertarValores]; //columna total
+            td.innerHTML = `<span>${formulaDosDecimales}%</span>`;
         }
     }
 }
