@@ -27,6 +27,7 @@ const colecta = {
     },
     actividadesProduccion: [],
     otrosCostos: [],
+    costoAnualesEstablecimientoPlantacion: [],
     construcciones: [],
     vehiculos: [],
     implementos: [],
@@ -62,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     almacenarDatosActividadesProduccion();
     colectaOtrosCostos()
     almacenarDatosOtrosCostos();
+    colectaCostoAnualEstablecimientoPlantacion();
+    almacenarDatosCostoAnualEstablecimientoPlantacion();
 
     // calcularOperacionesActivosFijos('#totalValorActualMercado');
     almacenarDatosConstrucciones();
@@ -472,7 +475,73 @@ function almacenarDatosOtrosCostos(){
         objetos.push(otroCosto)
     }
     colecta.otrosCostos = objetos
-    console.log(colecta )
+    // console.log(colecta )
+}
+
+function colectaCostoAnualEstablecimientoPlantacion(){
+    const inputs = document.querySelectorAll('#tablaCostoAnualEstablecimientoPlantacion input');
+    colocarNumeroAnio();
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosCostoAnualEstablecimientoPlantacion();
+            operacionesValorPlantacion();
+        })
+    });
+}
+function almacenarDatosCostoAnualEstablecimientoPlantacion(){
+    const tbody = document.querySelector('#tablaCostoAnualEstablecimientoPlantacion tbody');
+    const rows = tbody.rows.length;
+    let objetos = [];
+    let key;
+    for(let i = 0 ; i < rows ; i ++){
+        let costoAnualEstablecimientoPlantacion = {
+            numAnio: (i+1),
+            total: 0
+        };
+        let keys = Object.keys(costoAnualEstablecimientoPlantacion);//indices del objet
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+
+            key = keys[l]; //asignamos el indice acutal auna variable
+            costoAnualEstablecimientoPlantacion[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+        }
+        objetos.push(costoAnualEstablecimientoPlantacion)
+    }
+    colecta.costoAnualesEstablecimientoPlantacion = objetos
+}
+function colocarNumeroAnio(){
+    const tbody = document.querySelector('#tablaCostoAnualEstablecimientoPlantacion tbody');
+    const rows = tbody.rows.length;
+
+    for(let i = 0 ; i < rows ; i ++){
+        const inputAnio = tbody.rows[i].cells[0].firstChild;
+        inputAnio.value = `Año ${i+1}`;
+    }
+}
+function operacionesValorPlantacion(){
+    // NOTE: ESTA FUNCION DEBE INGRESARSE EN LOS EVENTOS DE LAS TABLAS QUE DEPENDE? (VALOR PLANTACION, SUPERFICIE URP, Y EN EL BOTON DE ELIMINAR ANIOS)
+    const valorTotalAnio = document.querySelectorAll('.costoAnual');
+    const costoAnualEstablecimientoPlantacionTotal = document.querySelector('#tablaTotalActividadesProduccion #costoTotalEst');
+    const depreciacionAnualTotal = document.querySelector('#tablaTotalActividadesProduccion #depreciacionAnual');
+    const depreciacionAnualHaTotal = document.querySelector('#tablaTotalActividadesProduccion #depreciacionAnualHa');
+    const promedioVidaUtil = document.querySelector('#tablaValorPlantacion #vidaUtil');
+    const promedioVidaUtilValue = promedioVidaUtil.value === '' ? 0 : parseFloat(promedioVidaUtil.value);
+    const totalSuperficeHas = document.querySelector('#tablaValorTierra #totalSuperficeHas').textContent;
+    const totalSuperficeHasValue = parseFloat(totalSuperficeHas);
+    let acumulador = 0;
+    valorTotalAnio.forEach(valor => {
+        const valorinput = valor.value === '' ? 0 : parseFloat(valor.value);
+        acumulador += valorinput;
+        costoAnualEstablecimientoPlantacionTotal.textContent = convertirValorMonetario(acumulador)
+    })
+    const costoAnualEstablecimientoPlantacionTotalValue = extraerCaracteresNumber(costoAnualEstablecimientoPlantacionTotal.textContent)
+    depreciacionAnualTotalValor = costoAnualEstablecimientoPlantacionTotalValue / promedioVidaUtilValue;
+    depreciacionAnualTotalValor = (!isFinite(depreciacionAnualTotalValor) ? 0 : depreciacionAnualTotalValor)
+    depreciacionAnualTotal.textContent = convertirValorMonetario(depreciacionAnualTotalValor)
+    depreciacionAnualHasTotalValor = depreciacionAnualTotalValor / totalSuperficeHasValue;
+    depreciacionAnualHasTotalValor = (!isFinite(depreciacionAnualHasTotalValor) ? 0 : depreciacionAnualHasTotalValor)
+    depreciacionAnualHaTotal.textContent = convertirValorMonetario(depreciacionAnualHasTotalValor)
 }
 // ------------- FIN COLECTA ACTIVIDADES DE PRODUCCION
 
@@ -662,15 +731,18 @@ function calcularOperacionesActivosFijos(tabla){
     inptus.forEach(input => {
         input.addEventListener('input', ()=>{
             //REALIZAR SUMA TOTAL POR RUBRO (VERTICAL, INPUTS)
-            sumaValorActualMercado(tabla);
-            sumaValorRecuperacion(tabla);
-            depreciacionAnual(tabla)
-            sumadepreciacionAnual(tabla);
-            totalValorActualMercado();
-            totalValorRecuperacion();
-            totalValorDepreciacionAnual();
+            operacionesOtrosActivosFijos(tabla);
         });
     });
+}
+function operacionesOtrosActivosFijos(tabla){
+    sumaValorActualMercado(tabla);
+    sumaValorRecuperacion(tabla);
+    depreciacionAnual(tabla)
+    sumadepreciacionAnual(tabla);
+    totalValorActualMercado();
+    totalValorRecuperacion();
+    totalValorDepreciacionAnual();
 }
 function totalValorDepreciacionAnual(){
     let totalDepreciacionAnualTd = document.querySelector('#tablaTotales #totalDepreciacionAnual')
@@ -812,7 +884,7 @@ function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
 }
 // ------------ FIN FUNCION MOSTRAR PORCENTAJES
 
-// -------------- FUNCION BOTON AGREGAR Y ELIMINAR FILAS
+// -------------- BOTONES AGREGAR Y ELIMINAR FILAS
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
 
@@ -853,7 +925,7 @@ function filaVariedadArboles() {
 const botonEliminarFilaVariedad = document.querySelector('#eliminarFilaVariedad');
 
 botonEliminarFilaVariedad.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaVariedadArboles', colecta.arboles);
+    eliminarUltimaFila('#tablaVariedadArboles', colecta.arboles, sumarArboles);
 })
 // -------------- FIN BOTONES VARIEDAD ARBOLES
 
@@ -883,7 +955,7 @@ function filaActividadesProduccion(idTabla, funcion){
     input1.setAttribute('required', '');
     input2.setAttribute('type', 'number');
     input3.setAttribute('type', 'number');
-    if(idTabla === 'tablaOtrosCostos')input3.classList.add('otrosCostosTotal')
+    // if(idTabla === 'tablaOtrosCostos')input3.classList.add('otrosCostosTotal')
     td1.appendChild(input1);
     td2.innerHTML += '<span>$</span>';
     td2.appendChild(input2);
@@ -1030,22 +1102,22 @@ const botonEliminarFilaEquipoComunicacion = document.querySelector('#eliminarFil
 const botonEliminarFilaEquipo = document.querySelector('#eliminarFilaEquipo');
 
 botonEliminarFilaConstruccion.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaContrucciones', colecta.construcciones);
+    eliminarUltimaFila('#tablaContrucciones', colecta.construcciones, funcion = null, operacionesOtrosActivosFijos);
 })
 botonEliminarFilaVehiculos.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaVehiculos', colecta.vehiculos);
+    eliminarUltimaFila('#tablaVehiculos', colecta.vehiculos, funcion = null, operacionesOtrosActivosFijos);
 })
 botonEliminarFilaImplementos.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaImplementos', colecta.implementos);
+    eliminarUltimaFila('#tablaImplementos', colecta.implementos, funcion = null, operacionesOtrosActivosFijos);
 })
 botonEliminarFilaEquipoComunicacion.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaEquipoComunicacion', colecta.equiposComunicacion);
+    eliminarUltimaFila('#tablaEquipoComunicacion', colecta.equiposComunicacion, funcion = null, operacionesOtrosActivosFijos);
 })
 botonEliminarFilaEquipo.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaEquipos', colecta.equipos);
+    eliminarUltimaFila('#tablaEquipos', colecta.equipos, funcion = null, operacionesOtrosActivosFijos);
 })
 
-function eliminarUltimaFila(idTabla, objeto, funcion = null){
+function eliminarUltimaFila(idTabla, objeto, funcion = null, funcionActualizarOperaciones = null){
     const tbody = document.querySelector(idTabla).children[1];
     const ultimaFila = tbody.rows.length-1;
     // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
@@ -1059,8 +1131,44 @@ function eliminarUltimaFila(idTabla, objeto, funcion = null){
     }
 
     if(funcion) funcion();
+    if(funcionActualizarOperaciones) funcionActualizarOperaciones(idTabla);
 }
-// -------------- FIN CONSTRUCCIONES
+// -------------- FIN OTROS ACTIVOS FIJOS
+
+// -------------- COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
+const botonNuevaFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#nuevaFilaCostoAnualEstablecimientoPlantacion');
+botonNuevaFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
+    filaCostoAnualEstablecimientoPlantacion('#tablaCostoAnualEstablecimientoPlantacion', almacenarDatosCostoAnualEstablecimientoPlantacion);
+})
+function filaCostoAnualEstablecimientoPlantacion(idTabla, funcion){
+    const tbody = document.querySelector(idTabla).children[1];
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    td2.classList.add('etiqueta');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    input2.classList.add('costoAnual');
+    td1.appendChild(input1);
+    td2.innerHTML += '<span>$</span>';
+    td2.appendChild(input2);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tbody.appendChild(tr);
+    funcion();
+    colocarNumeroAnio();
+    operacionesValorPlantacion();
+    colectaCostoAnualEstablecimientoPlantacion();
+}
+// elimiar
+const botonEliminarFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#eliminarFilaCostoAnualEstablecimientoPlantacion');
+botonEliminarFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaCostoAnualEstablecimientoPlantacion', colecta.costoAnualesEstablecimientoPlantacion, almacenarDatosCostoAnualEstablecimientoPlantacion, operacionesValorPlantacion)
+})
+// -------------- FIN COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
 
 const formatter = new Intl.NumberFormat('en-US', {

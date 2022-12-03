@@ -79,12 +79,12 @@
         <tr>
             <td><input type="text" name="" id="" value="RIEGO"></td>
             <td class="etiqueta"><span>$</span><input type="number" name="" id=""></td>
-            <td class="etiqueta"><span>$</span><input type="number" name="" id="" class="otrosCostosTotal"></td>
+            <td class="etiqueta"><span>$</span><input type="number" name="" id=""></td>
         </tr>
         <tr>
             <td><input type="text" name="" id="" value="PODA"></td>
             <td class="etiqueta"><span>$</span><input type="number" name="" id=""></td>
-            <td class="etiqueta"><span>$</span><input type="number" name="" id="" class="otrosCostosTotal"></td>
+            <td class="etiqueta"><span>$</span><input type="number" name="" id=""></td>
         </tr>
     </tbody>
 </table>
@@ -97,18 +97,19 @@
     <thead>
         <tr>
             <th>Costo Anual De establecimiento de la plantación</th>
+            <th>Total</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td><input type="text" name="" id=""></td>
-            <td><span>$</span><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id="" class="costoAnual"></td>
         </tr>
     </tbody>
 </table>
 <div class="botones-agregar-fila">
-    <button type="button" class="" id="">Agregar Fila</button>
-    <button type="button" class="">Eliminar Fila</button>
+    <button type="button" class="" id="nuevaFilaCostoAnualEstablecimientoPlantacion">Agregar Fila</button>
+    <button type="button" class="" id="eliminarFilaCostoAnualEstablecimientoPlantacion">Eliminar Fila</button>
 </div>
 
 <table id="tablaTotalActividadesProduccion">

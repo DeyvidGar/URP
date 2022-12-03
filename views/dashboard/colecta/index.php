@@ -12,8 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h3>3.2 Valor de la plantación</h3>
-        <?php include_once __DIR__.'/activos_fijos/valorPlantacion.php';?>
+        <h2>4.1 Costo anual repuesto herramientas</h2>
+        <?php include_once __DIR__.'/costosOperacion/costoAnualRepuestoHerramientas.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->
