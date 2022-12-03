@@ -15,19 +15,19 @@
     <tbody>
         <tr>
             <td>Hectarea de Riego</td>
-            <td><input type="number" name="patronCultivos[hectareaRiego]" id="hectareaRiegoInput" value="0"></td>
+            <td><input type="number" name="patronCultivos[hectareaRiego]" id="hectareaRiegoInput"></td>
             <td class="total" id="hectareaRiegoPorcentaje"></td>
         </tr>
 
         <tr>
             <td>Hetarea Temporal</td>
-            <td><input type="number" name="patronCultivos[hectareaTemporal]" id="hectareaTemporalInput" value="0"></td>
+            <td><input type="number" name="patronCultivos[hectareaTemporal]" id="hectareaTemporalInput"></td>
             <td class="total" id="hectareaTemporalPorcentaje"></td>
         </tr>
 
         <tr>
             <td>Sin uso</td>
-            <td><input type="number" name="patronCultivos[hectareaTemporal]" id="hectareaSinUsoInput" value="0"></td>
+            <td><input type="number" name="patronCultivos[hectareaTemporal]" id="hectareaSinUsoInput"></td>
             <td class="total" id="hectareaSinUsoPorcentaje"></td>
         </tr>
     </tbody>

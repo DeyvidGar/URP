@@ -129,29 +129,27 @@ function sumarArboles(){
 
 // -------------- COLECTA PATRON CULTIVOS
 function colectaPatronCultivos(){
-    const tablaPatronCultivos = document.querySelector('#tablaPatronCultivos')
-    // console.log(tablaPatronCultivos.children[1])// columna limon persa
-    // console.log(tablaPatronCultivos.children[1].children.length)// num de filas en el tbody
-
-    for( let i = 0 ; i < tablaPatronCultivos.children[1].children.length ; i++ ){ //iteramos filas
-
-        const td = tablaPatronCultivos.children[1].children[i].cells[1]; //td de la comulna 2
-        const input = td.children[0]
-
-        // console.log(td.children[0])
+    const inputs = document.querySelectorAll('#tablaPatronCultivos input');
+    inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            const valorInputHectareaRiego = document.querySelector('#hectareaRiegoInput').value;
-            const valorInputHectareaTemporal = document.querySelector('#hectareaTemporalInput').value;
-            const valorInputHectareaSinUso = document.querySelector('#hectareaSinUsoInput').value;
-
-            colecta.patronCultivos.hectareaRiego = parseFloat(valorInputHectareaRiego);
-            colecta.patronCultivos.hectareaTemporal = parseFloat(valorInputHectareaTemporal);
-            colecta.patronCultivos.sinUso = parseFloat(valorInputHectareaSinUso);
-
+            almacenarDatosPatronCultivos();
             mostrarSumatoriaPatronCultivos();
         })
-    }
+    });
 }
+function almacenarDatosPatronCultivos(){
+    const valorInputHectareaRiego = document.querySelector('#hectareaRiegoInput');
+    const valorHectareaRiego = valorInputHectareaRiego.value === '' ? 0 : parseFloat(valorInputHectareaRiego.value)
+    const valorInputHectareaTemporal = document.querySelector('#hectareaTemporalInput');
+    const valorHectareaTemporal = valorInputHectareaTemporal.value === '' ? 0 : parseFloat(valorInputHectareaTemporal.value)
+    const valorInputHectareaSinUso = document.querySelector('#hectareaSinUsoInput');
+    const valorHectareaSinUso = valorInputHectareaSinUso.value === '' ? 0 : parseFloat(valorInputHectareaSinUso.value)
+
+    colecta.patronCultivos.hectareaRiego = valorHectareaRiego;
+    colecta.patronCultivos.hectareaTemporal = valorHectareaTemporal;
+    colecta.patronCultivos.sinUso = valorHectareaSinUso;
+}
+
 function mostrarSumatoriaPatronCultivos(){
     const superficeCultivo = document.querySelector('#superficieCultivo');
     const superficeCultivoPorcentaje = document.querySelector('#superficieCultivoPorcentaje');
@@ -161,25 +159,28 @@ function mostrarSumatoriaPatronCultivos(){
     const totalHectareas = document.querySelector('#totalHectareas');
     const totalHectareasPorcentaje = document.querySelector('#totalHectareasPorcentaje');
 
-    let superficeCultivoValue = parseFloat(document.querySelector('#superficieCultivo').textContent);
-    let hectareaRiego = parseFloat(document.querySelector('#hectareaRiegoInput').value);
-    let hectareaTemporal = parseFloat(document.querySelector('#hectareaTemporalInput').value);
-    let sinUso = parseFloat(document.querySelector('#hectareaSinUsoInput').value);
-    let totalHectareasValue = parseFloat(document.querySelector('#totalHectareas').textContent);
+    let superficeCultivoValue = (superficeCultivo.textContent === '') ? 0 : parseFloat(superficeCultivo.textContent);
+    let hectareaRiego = document.querySelector('#hectareaRiegoInput');
+    let hectareaRiegoValue = (hectareaRiego.value === '') ? 0 : parseFloat(hectareaRiego.value);
+    let hectareaTemporal = document.querySelector('#hectareaTemporalInput');
+    let hectareaTemporalValue = (hectareaTemporal.value === '') ? 0 : parseFloat(hectareaTemporal.value);
+    let sinUso = document.querySelector('#hectareaSinUsoInput');
+    let sinUsolValue = (sinUso.value === '') ? 0 : parseFloat(sinUso.value);
+    let totalHectareasValue = (totalHectareas.textContent === '') ? 0 : parseFloat(totalHectareas.textContent);
 
-    let superficeCultivoPorcentajeValue = 0;
-    let hectariaRiegoPorcentaje = 0;
-    let hectariaTemporalPorcentaje = 0;
-    let sinUsoPorcentajeValue = 0;
-    let totalHectareasPorcentajeValue = 0;
-
-    superficeCultivoValue = hectareaRiego + hectareaTemporal;
-    totalHectareasValue = superficeCultivoValue + sinUso;
+    superficeCultivoValue = hectareaRiegoValue + hectareaTemporalValue;
+    totalHectareasValue = superficeCultivoValue + sinUsolValue;
     superficeCultivoPorcentajeValue = (superficeCultivoValue/totalHectareasValue)*100;
-    hectariaRiegoPorcentaje = (hectareaRiego/superficeCultivoValue)*100;
-    hectariaTemporalPorcentaje = (hectareaTemporal/superficeCultivoValue)*100;
-    sinUsoPorcentajeValue = (sinUso/totalHectareasValue)*100;
+    superficeCultivoPorcentajeValue = isNaN(superficeCultivoPorcentajeValue) ? 0 : superficeCultivoPorcentajeValue;
+    hectariaRiegoPorcentaje = (hectareaRiegoValue/superficeCultivoValue)*100;
+    hectariaRiegoPorcentaje = isNaN(hectariaRiegoPorcentaje) ? 0 : hectariaRiegoPorcentaje;
+    hectariaTemporalPorcentaje = (hectareaTemporalValue/superficeCultivoValue)*100;
+    hectariaTemporalPorcentaje = isNaN(hectariaTemporalPorcentaje) ? 0 : hectariaTemporalPorcentaje;
+    sinUsoPorcentajeValue = (sinUsolValue/totalHectareasValue)*100;
+    sinUsoPorcentajeValue = isNaN(sinUsoPorcentajeValue) ? 0 : sinUsoPorcentajeValue;
     totalHectareasPorcentajeValue = superficeCultivoPorcentajeValue + sinUsoPorcentajeValue;
+    totalHectareasPorcentajeValue = isNaN(totalHectareasPorcentajeValue) ? 0 : totalHectareasPorcentajeValue;
+
 
     superficeCultivo.textContent = superficeCultivoValue;
     superficeCultivoPorcentaje.textContent = superficeCultivoPorcentajeValue ? superficeCultivoPorcentajeValue.toFixed(2) : '';
