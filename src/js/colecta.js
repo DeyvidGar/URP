@@ -38,7 +38,8 @@ const colecta = {
         vidaUtil: '',
         arbolesHA: 0,
         costoArbol: 0
-    }
+    },
+    repuestoHerramientas: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -72,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     almacenarDatosImplementos();
     almacenarDatosEquipoComunicacion();
     almacenarDatosEquipo();
+
+    colectaRepuestoHerramientas();
 });
 
 // ---------- COLECTA ARBOL
@@ -841,6 +844,71 @@ function llenarObjetoChildren(children, l, objeto){
     if( l === 6 ) objeto.valorRecuperacion = parseFloat(children.value)
 }
 // ------------- FIN OTROS ACTIVOS FIJOS
+
+// ------------- HERRAMIENTAS
+function colectaRepuestoHerramientas(){
+    const inputs = document.querySelectorAll('#tablaRepuestoHerramientas input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosRepuestoHerramientas();
+            costoRepuestoHerramientas();
+            costoDepreciacionAnual();
+        })
+    });
+}
+function costoDepreciacionAnual(){
+    const tbody = document.querySelector('#tablaRepuestoHerramientas tbody');
+    for(let i=0; i< tbody.rows.length ; i++){
+        const costoTotalText = tbody.rows[i].cells[3].textContent;
+        const costoTotal = extraerCaracteresNumber(costoTotalText);
+        const vidaUtilinput = tbody.rows[i].cells[4].lastChild;
+        const vidaUtil = vidaUtilinput.value === '' ? 0 : parseFloat(vidaUtilinput.value);
+        const valorRepocicionInput = tbody.rows[i].cells[5].lastChild;
+        const valorRepocicion = valorRepocicionInput.value === '' ? 0 : parseFloat(valorRepocicionInput.value);
+        let depreciacionAnual = ((costoTotal-(costoTotal*valorRepocicion))/vidaUtil)*12;//doce por cada mes del anio
+        depreciacionAnual = (!isFinite(depreciacionAnual) ? 0 : depreciacionAnual)
+        tbody.rows[i].cells[6].textContent = convertirValorMonetario(depreciacionAnual)
+    }
+}
+function costoRepuestoHerramientas(){
+    const tbody = document.querySelector('#tablaRepuestoHerramientas tbody');
+    for(let i=0; i< tbody.rows.length ; i++){
+        const cantidadHainput = tbody.rows[i].cells[1].lastChild;
+        const cantidadHa = cantidadHainput.value === '' ? 0 : parseFloat(cantidadHainput.value);
+        const precioUnitarioInput = tbody.rows[i].cells[2].lastChild;
+        const precioUnitario = precioUnitarioInput.value === '' ? 0 : parseFloat(precioUnitarioInput.value);
+        const total = cantidadHa * precioUnitario;
+        tbody.rows[i].cells[3].textContent = convertirValorMonetario(total)
+    }
+}
+function almacenarDatosRepuestoHerramientas(){
+    const tbody = document.querySelector('#tablaRepuestoHerramientas tbody');
+    const rows = tbody.rows.length;
+    let objetos = [];
+    let key;
+    for(let i = 0 ; i < rows ; i ++){
+        let herramienta = {
+            nombreHerramienta: '',
+            cantidadHectarea: 0,
+            precioUnitario: 0,
+            vidaUtil: 0,
+            valorRepocicion: 0
+        };
+        let keys = Object.keys(herramienta);//indices del objet
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            if(input){
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[l]; //asignamos el indice acutal auna variable
+                herramienta[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+            }
+        }
+        objetos.push(herramienta)
+    }
+    colecta.repuestoHerramientas = objetos
+    console.log(colecta.repuestoHerramientas)
+}
+// ------------- FIN HERRAMIENTAS
 
 // FUNCIONES
 // ------------- FUNCION SUMAR COLUMNA INPUTS

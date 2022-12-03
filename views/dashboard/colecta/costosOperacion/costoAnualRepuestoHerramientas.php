@@ -1,4 +1,4 @@
-<table>
+<table id="tablaRepuestoHerramientas">
     <!--<caption>3.1 Superficie de la URP</caption>-->
     <thead>
         <tr>
@@ -18,105 +18,28 @@
     </tfoot>-->
     <tbody>
         <tr>
-            <td>azadón</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Tijeras de poda grande</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Serrucho</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Carretilla</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Barreta</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Cavahoyos</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Pala</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Lima</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Moruna</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
+            <td><input type="text" name="" id=""></td>
+            <td><span>$</span><input type="number"></td>
+            <td><span>$</span><input type="number"></td>
+            <td class="costoTotal"></td>
+            <td><span>$</span><input type="number"></td>
+            <td><span>$</span><input type="number" class="valorRepocicion"></td>
+            <td class="depreciacionAnual"></td>
         </tr>
     </tbody>
-    <thead>
+    <tfoot>
         <tr>
             <th>Total de la urp</th>
             <th></th>
             <th></th>
+            <th id="totalCostoTotal"></th>
             <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th id="totalValorRepocicion"></th>
+            <th id="totalDepreciacionAnual"></th>
         </tr>
-    </thead>
-</table >
+    </tfoot>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
