@@ -26,26 +26,26 @@
         </tr>
         <tr>
             <th>Hectáreas de riego</th>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
             <td></td>
         </tr>
         <tr>
             <th>Hectáreas de temporal</th>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
             <td></td>
         </tr>
         <tr>
             <th>Sin uso</th>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
-            <td><input type="number" value="0" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
+            <td><input type="number" class="inputSuperficeUrp"></td>
             <td></td>
         </tr>
     </tbody>

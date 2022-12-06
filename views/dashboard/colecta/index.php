@@ -12,7 +12,7 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>4.1 Costo anual repuesto herramientas</h2>
+        <!-- <h2>4.1 Costo anual repuesto herramientas</h2> -->
         <?php //include_once __DIR__.'/costosOperacion/costoAnualRepuestoHerramientas.php';?>
         <?php include_once __DIR__.'/activos_fijos/superficieUrp.php';?>
     </div>
