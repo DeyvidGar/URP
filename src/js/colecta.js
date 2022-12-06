@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sumarTotalHA();
 
     colectaValorTierra();
+    superficeValorTierra();
     calcularValorTotalValorTierra();
     sumatoriaTotalSuperficeValorTierra();
 
@@ -202,12 +203,12 @@ function colectaSuperficeUrp(){
             sumarTotalHectareasFilas();
             sumarTotalHA();
 
-            // //para la tabla que depende de estos valores (valor de la tierra)
-            // llenarValorTierra();
+            // para la tabla que depende de estos valores (valor de la tierra)
+            superficeValorTierra();
             // calcularValorTotalValorTierra();
             // sumatoriaTotalSuperficeValorTierra()
         })
-    }); console.log(colecta)
+    });
 }
 function almacenarDatosSuperfice(){
     const input = document.querySelectorAll('#tablaSuperficeUrp input');
@@ -240,7 +241,7 @@ function sumaAreaCultivadaSuperficeUrp(){
 }
 function sumarTotalHectareasFilas(){
     const tabla = document.querySelector('#tablaSuperficeUrp tbody');
-console.log(tabla)
+
     //iteramos por filas
     for (let i = 0; i < tabla.rows.length ; i++) {
         let acumulador = 0;
@@ -299,7 +300,6 @@ function colectaValorTierra(){
             calcularValorTotalValorTierra();
             //total superficie y valor de tabla valor de la tierra
             sumatoriaTotalSuperficeValorTierra();
-            console.log(colecta)
         })
     })
 }
@@ -316,68 +316,41 @@ function almacenarDatosValorTierra(){
     }
     // console.log(colecta)
 }
+function superficeValorTierra(){
+    const areaCultivada = document.querySelector('#areaCultivadaSuperficie');
+    areaCultivada.textContent = document.querySelector('#totalHa').textContent;
+    const hectareaPropiedadSuperficie = document.querySelector('#hectareaPropiedadSuperficie');
+    hectareaPropiedadSuperficie.textContent = document.querySelector('#totalHectareasPropiasPrivada').textContent;
+    const hectareaEjidalesSuperficie = document.querySelector('#hectareaEjidalesSuperficie');
+    hectareaEjidalesSuperficie.textContent = document.querySelector('#totalHectareasPropiasEjidales').textContent;
+    const hectareaPrestadasSuperficie = document.querySelector('#hectareaPrestadasSuperficie');
+    hectareaPrestadasSuperficie.textContent = document.querySelector('#totalHectareasNoPropiasPrestadas').textContent;
+    const hectareaSinUsoSuperficie = document.querySelector('#hectareaSinUsoSuperficie');
+    hectareaSinUsoSuperficie.textContent = document.querySelector('#totalHectareasNoPropiasRentadas').textContent;
+}
 function calcularValorTotalValorTierra(){
-    //valores
-    //superfice
-    const hectareaPropiedadSuperficie = parseFloat(document.querySelector('#hectareaPropiedadSuperficie').textContent);
-    const hectareaEjidalesSuperficie = parseFloat(document.querySelector('#hectareaEjidalesSuperficie').textContent);
-    const hectareaPrestadasSuperficie = parseFloat(document.querySelector('#hectareaPrestadasSuperficie').textContent);
-    const hectareaSinUsoSuperficie = parseFloat(document.querySelector('#hectareaSinUsoSuperficie').textContent);
-    //valorHA
-    const hectareaPropiedadValorHA = parseFloat(document.querySelector('#hectareaPropiedadValorHA').value);
-    const hectareaEjidalesValorHA = parseFloat(document.querySelector('#hectareaEjidalesValorHA').value);
-    const hectareaPrestadasValorHA = parseFloat(document.querySelector('#hectareaPrestadasValorHA').value);
-    const hectareaSinUsoValorHA = parseFloat(document.querySelector('#hectareaSinUsoValorHA').value);
+    const tbody = document.querySelector('#tablaValorTierra tbody');
 
-    //contenedores
-    const hectareaPropiedadValorTotal = document.querySelector('#hectareaPropiedadValorTotal');
-    const hectareaEjidalesValorTotal = document.querySelector('#hectareaEjidalesValorTotal');
-    const hectareaPrestadasValorTotal = document.querySelector('#hectareaPrestadasValorTotal');
-    const hectareaSinUsoValorTotal = document.querySelector('#hectareaSinUsoValorTotal');
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let multiplicar = 0;
+        const valorHa = parseFloat(tbody.rows[i].cells[1].textContent);
+        const elementValorTotal = tbody.rows[i].cells[2].lastChild;
+        const valorTotal = elementValorTotal.value === '' ? 0 : parseFloat(elementValorTotal.value)
 
-    hectareaPropiedadValorTotalValue = hectareaPropiedadSuperficie * hectareaPropiedadValorHA;
-    hectareaPropiedadValorTotalValue = isNaN(hectareaPropiedadValorTotalValue) ? 0 : hectareaPropiedadValorTotalValue;
-    hectareaEjidalesValorTotalValue = hectareaEjidalesSuperficie * hectareaEjidalesValorHA
-    hectareaEjidalesValorTotalValue = isNaN(hectareaEjidalesValorTotalValue) ? 0 : hectareaEjidalesValorTotalValue;
-    hectareaPrestadasValorTotalValue = hectareaPrestadasSuperficie * hectareaPrestadasValorHA
-    hectareaPrestadasValorTotalValue = isNaN(hectareaPrestadasValorTotalValue) ? 0 : hectareaPrestadasValorTotalValue;
-    hectareaSinUsoValorTotalValue = hectareaSinUsoSuperficie * hectareaSinUsoValorHA
-    hectareaSinUsoValorTotalValue = isNaN(hectareaSinUsoValorTotalValue) ? 0 : hectareaSinUsoValorTotalValue;
-
-
-    //insertar valor a contenedores
-    hectareaPropiedadValorTotal.innerHTML = convertirValorMonetario(hectareaPropiedadValorTotalValue);
-    hectareaEjidalesValorTotal.innerHTML = convertirValorMonetario(hectareaEjidalesValorTotalValue);
-    hectareaPrestadasValorTotal.innerHTML = convertirValorMonetario(hectareaPrestadasValorTotalValue);
-    hectareaSinUsoValorTotal.innerHTML = convertirValorMonetario(hectareaSinUsoValorTotalValue);
+        multiplicar = valorHa * valorTotal;
+        const insertar = tbody.rows[i].cells[3];
+        insertar.textContent = convertirValorMonetario(multiplicar)
+    }
 }
 function sumatoriaTotalSuperficeValorTierra(){
+    const sumaSuperficie = sumarColumna('#tablaValorTierra',1);
+    const sumaValorTotal = sumarColumna('#tablaValorTierra',3);
     //contenedores
     const totalSuperficeHas = document.querySelector('#totalSuperficeHas');
     const totalSuperficeValorTotal = document.querySelector('#totalSuperficeValorTotal');
-
-    //valores
-    //superfice
-    const hectareaPropiedadSuperficie = parseFloat(document.querySelector('#hectareaPropiedadSuperficie').textContent);
-    const hectareaEjidalesSuperficie = parseFloat(document.querySelector('#hectareaEjidalesSuperficie').textContent);
-    const hectareaPrestadasSuperficie = parseFloat(document.querySelector('#hectareaPrestadasSuperficie').textContent);
-    const hectareaSinUsoSuperficie = parseFloat(document.querySelector('#hectareaSinUsoSuperficie').textContent);
-
-    //contenedores
-    const hectareaPropiedadValorTotal = document.querySelector('#hectareaPropiedadValorTotal').textContent;
-    const hectareaEjidalesValorTotal = document.querySelector('#hectareaEjidalesValorTotal').textContent;
-    const hectareaPrestadasValorTotal = document.querySelector('#hectareaPrestadasValorTotal').textContent;
-    const hectareaSinUsoValorTotal = document.querySelector('#hectareaSinUsoValorTotal').textContent;
-
-    //Metodo para separa el signo de pesos y obtener solo el valor splits
-    const splitsHectareaPropiedadValorTotal = parseFloat(hectareaPropiedadValorTotal.split(" ")[1]);
-    const splitsHectareaEjidalesValorTotal = parseFloat(hectareaEjidalesValorTotal.split(" ")[1]);
-    const splitsHectareaPrestadasValorTotal = parseFloat(hectareaPrestadasValorTotal.split(" ")[1]);
-    const splitsHectareaSinUsoValorTotal = parseFloat(hectareaSinUsoValorTotal.split(" ")[1]);
-
-    //operacion
-    totalSuperficeHas.textContent = hectareaPropiedadSuperficie + hectareaEjidalesSuperficie + hectareaPrestadasSuperficie + hectareaSinUsoSuperficie;
-    totalSuperficeValorTotal.textContent = `$ ${splitsHectareaPropiedadValorTotal + splitsHectareaEjidalesValorTotal + splitsHectareaPrestadasValorTotal + splitsHectareaSinUsoValorTotal}`;
+    //asignacion
+    totalSuperficeHas.textContent = sumaSuperficie;
+    totalSuperficeValorTotal.textContent = convertirValorMonetario(sumaValorTotal);
 }
 // ------------- FIN COLECTA VALOR TIERRA
 
@@ -920,6 +893,19 @@ function sumarColumnaInputs(tabla, columna){
         //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
         const input = tbody.rows[i].cells[columna].firstChild;
         const valor = input.value === '' ? 0 : parseFloat(input.value);
+
+        sumatoria += valor;
+    }
+    return sumatoria;
+}
+function sumarColumna(tabla, columna){
+    const tbody = document.querySelector(tabla + ' tbody');
+    let sumatoria = 0;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
+        const element = tbody.rows[i].cells[columna].textContent;
+        const valor = element.textContent === '' ? 0 : extraerCaracteresNumber(element);
 
         sumatoria += valor;
     }

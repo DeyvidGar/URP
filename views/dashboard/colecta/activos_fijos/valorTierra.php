@@ -6,12 +6,12 @@
             <th>Valor/Ha</th>
             <th>Valor total</th>
         </tr>
-    </thead>
-    <tbody>
         <tr>
             <td >Área cultivada:</td>
             <td id="areaCultivadaSuperficie"></td>
         </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>Hectáreas en propiedad</td>
             <td id="hectareaPropiedadSuperficie"></td>
