@@ -9,11 +9,11 @@
     </tr>
     <tr>
         <th>Árboles/Ha</th>
-        <td><input type="number" name="" id="arbolesHa" placeholder="Ej. 400" value="0"></td>
+        <td><input type="number" name="" id="arbolesHa" placeholder="Ej. 400"></td>
     </tr>
     <tr>
         <th>Costo/Árbol ($/unidad)</th>
-        <td><span>$</span><input type="number" name="" id="costoArbol" value="0"></td>
+        <td><span>$</span><input type="number" name="" id="costoArbol"></td>
     </tr>
     <tr>
         <th>Costo de Plantacion ($/Planta)</th>

@@ -15,25 +15,25 @@
         <tr>
             <td>Hectáreas en propiedad</td>
             <td id="hectareaPropiedadSuperficie"></td>
-            <td><input type="number" value="0" id="hectareaPropiedadValorHA"></td>
+            <td><input type="number" id="hectareaPropiedadValorHA"></td>
             <td id="hectareaPropiedadValorTotal"></td>
         </tr>
         <tr>
             <td>Hectáreas Ejidales</td>
             <td id="hectareaEjidalesSuperficie"></td>
-            <td><input type="number" value="0" id="hectareaEjidalesValorHA"></td>
+            <td><input type="number" id="hectareaEjidalesValorHA"></td>
             <td id="hectareaEjidalesValorTotal"></td>
         </tr>
         <tr>
             <td>Otra propiedad Prestadas</td>
             <td id="hectareaPrestadasSuperficie"></td>
-            <td><input type="number" value="0" id="hectareaPrestadasValorHA"></td>
+            <td><input type="number" id="hectareaPrestadasValorHA"></td>
             <td id="hectareaPrestadasValorTotal"></td>
         </tr>
         <tr>
             <td>Sin uso</td>
             <td id="hectareaSinUsoSuperficie"></td>
-            <td><input type="number" value="0" id="hectareaSinUsoValorHA"></td>
+            <td><input type="number" id="hectareaSinUsoValorHA"></td>
             <td id="hectareaSinUsoValorTotal"></td>
         </tr>
     </tbody>

@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     sumatoriaTotalSuperficeValorTierra();
 
     colectaValorPlantacion();
+    almacenarDatosValorPlantacion();
+    calcularCostoPlantacion();
+
     colectaActividadesProduccion();
     almacenarDatosActividadesProduccion();
     colectaOtrosCostos()
@@ -364,26 +367,26 @@ function colectaValorPlantacion(){
             calcularCostoPlantacion();
         })
     });
-    // const arbolesHa = document.querySelector('#tablaValorPlanteacion #arbolesHa');
-    // console.log(arbolesHa.value ==='' ? 0 : 'no');
 }
 function calcularCostoPlantacion(){
+    const arbolesHaInput = document.querySelector('#tablaValorPlantacion #arbolesHa');
+    const arbolesHa = arbolesHaInput.value === '' ? 0 : parseFloat(arbolesHaInput.value);
+    const costoArbolInput = document.querySelector('#tablaValorPlantacion #costoArbol');
+    const costoArbol = costoArbolInput.value === '' ? 0 : parseFloat(costoArbolInput.value);
+    const totalSuperficeHasText = document.querySelector('#tablaValorTierra #totalSuperficeHas');
+    const totalSuperficeHas = totalSuperficeHasText.textContent === '' ? 0 : parseFloat(totalSuperficeHasText.textContent);
+    //contenedor
     const costoPlantacion = document.querySelector('#tablaValorPlantacion #costoPlantacion');
-    const arbolesHa = parseFloat(document.querySelector('#tablaValorPlantacion #arbolesHa').value);
-    const costoArbol = parseFloat(document.querySelector('#tablaValorPlantacion #costoArbol').value);
-    const totalSuperficeHas = parseFloat(document.querySelector('#tablaValorTierra #totalSuperficeHas').textContent);
-
     costoPlantacion.textContent = convertirValorMonetario(arbolesHa*costoArbol*totalSuperficeHas);
 }
 function almacenarDatosValorPlantacion(){
     const inputsValorPlantacion = document.querySelectorAll('#tablaValorPlantacion input');
     const {valorPlantacion} = colecta;
-    console.log(inputsValorPlantacion)
     const keys = Object.keys(valorPlantacion);//indices del objet
     let key;
     for (let i = 0; i < keys.length; i++) {
         key = keys[i]; //asignamos el indice acutal auna variable
-        valorPlantacion[key] = !isNaN(inputsValorPlantacion[i].value) ? 0 : parseFloat(inputsValorPlantacion[i].value)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+        valorPlantacion[key] = inputsValorPlantacion[i].value === '' ? 0 : parseFloat(inputsValorPlantacion[i].value);//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
     }
     // console.log(colecta)
 }
