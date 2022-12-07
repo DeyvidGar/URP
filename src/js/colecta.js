@@ -79,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // almacenarDatosVehiculos();
     colectaImplementos();
     // almacenarDatosImplementos();
-    almacenarDatosEquipoComunicacion();
+    colectaEquipoComunicacion();
+    // almacenarDatosEquipoComunicacion();
     almacenarDatosEquipo();
 
     colectaRepuestoHerramientas();
@@ -641,40 +642,44 @@ function almacenarDatosImplementos(){
     colecta.implementos = objetos;
     // console.log(colecta)
 }
+function colectaEquipoComunicacion(){
+    const inputs = document.querySelectorAll('#tablaEquiposComunicacion input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosEquipoComunicacion();
+            calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
+        })
+    });
+}
 function almacenarDatosEquipoComunicacion(){
-    const tbody = document.querySelector('#tablaEquiposComunicacion').children[1];
-    const equipoComunicacion = {
-        // nombre: '',
-        // anioConstruccionAdquisicion: '',
-        // modelo: '',
-        // anioVidaUtil: '',
-        // depreciacionAnual: '',
-        // valorActualMercado: '',
-        // valorRecuperacion: ''
-    };
-    const { equiposComunicacion } = colecta;
-
+    const tbody = document.querySelector('#tablaEquiposComunicacion tbody');
+    let objetos = [];
+    let key;
     for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
-            if(l <= 4 ){
-                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
-                input.addEventListener('input', ()=>{
-                    llenarObjeto(input, l, equipoComunicacion);
-                    calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
-                    console.log(colecta)
-                })
-                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
-            } else{
-                const children = tbody.rows[i].cells[l].children[1];
-                children.addEventListener('input', ()=>{
-                    llenarObjetoChildren(children, l, equipoComunicacion);
-                    calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
-                    // sumadepreciacionAnual('#tablaContrucciones');
-                })
+        let equipoComunicacion = {
+            nombre: '',
+            anioConstruccionAdquisicion: 0,
+            modelo: 0,
+            anioVidaUtil: 0,
+            depreciacionAnual: 0,
+            valorActualMercado: '',
+            valorRecuperacion: ''
+        };
+        let keys = Object.keys(equipoComunicacion);//indices del objet
+        for (let l = 0; l < keys.length; l++) {
+            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
+            // console.log(input)
+            if( input && input.tagName === 'INPUT' ){
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[l]; //asignamos el indice acutal auna variable
+                equipoComunicacion[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
             }
         }
-        colecta.equiposComunicacion = [...equiposComunicacion, equipoComunicacion];
+        objetos.push(equipoComunicacion)
     }
+    colecta.equiposComunicacion = objetos;
+    // console.log(colecta)
 }
 function almacenarDatosEquipo(){
     const tbody = document.querySelector('#tablaEquipos').children[1];
@@ -1059,10 +1064,10 @@ botonNuevaFilaVehiculos.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaVehiculos', colectaVehiculos);
 })
 botonNuevaFilaImplementos.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaImplementos', almacenarDatosImplementos);
+    filaOtrosActivosFijos('#tablaImplementos', colectaImplementos);
 })
 botonNuevaFilaEquipoComunicacion.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaEquiposComunicacion', almacenarDatosEquipoComunicacion);
+    filaOtrosActivosFijos('#tablaEquiposComunicacion', colectaEquipoComunicacion);
 })
 botonNuevaFilaEquipo.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaEquipos', almacenarDatosEquipo);
