@@ -556,7 +556,8 @@ function almacenarDatosConstrucciones(){
         };
         let keys = Object.keys(construccion);//indices del objet
         for (let l = 0; l < keys.length; l++) {
-            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
             if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
                 const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
                 key = keys[l]; //asignamos el indice acutal auna variable
@@ -593,7 +594,8 @@ function almacenarDatosVehiculos(){
         };
         let keys = Object.keys(vehiculo);//indices del objet
         for (let l = 0; l < keys.length; l++) {
-            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
             if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
                 const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
                 key = keys[l]; //asignamos el indice acutal auna variable
@@ -630,7 +632,8 @@ function almacenarDatosImplementos(){
         };
         let keys = Object.keys(implemento);//indices del objet
         for (let l = 0; l < keys.length; l++) {
-            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
             if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
                 const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
                 key = keys[l]; //asignamos el indice acutal auna variable
