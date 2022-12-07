@@ -79,9 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // almacenarDatosVehiculos();
     colectaImplementos();
     // almacenarDatosImplementos();
-    colectaEquipoComunicacion();
+    colectaEquiposComunicacion();
     // almacenarDatosEquipoComunicacion();
-    almacenarDatosEquipo();
+    colectaEquipos();
+    // almacenarDatosEquipo();
 
     colectaRepuestoHerramientas();
 });
@@ -645,7 +646,7 @@ function almacenarDatosImplementos(){
     colecta.implementos = objetos;
     // console.log(colecta)
 }
-function colectaEquipoComunicacion(){
+function colectaEquiposComunicacion(){
     const inputs = document.querySelectorAll('#tablaEquiposComunicacion input');
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
@@ -684,40 +685,44 @@ function almacenarDatosEquipoComunicacion(){
     colecta.equiposComunicacion = objetos;
     // console.log(colecta)
 }
+function colectaEquipos(){
+    const inputs = document.querySelectorAll('#tablaEquipos input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosEquipo();
+            calcularOperacionesActivosFijos('#tablaEquipos');
+        })
+    });
+}
 function almacenarDatosEquipo(){
-    const tbody = document.querySelector('#tablaEquipos').children[1];
-    const equipo = {
-        // nombre: '',
-        // anioConstruccionAdquisicion: '',
-        // modelo: '',
-        // anioVidaUtil: '',
-        // depreciacionAnual: '',
-        // valorActualMercado: '',
-        // valorRecuperacion: ''
-    };
-    const { equipos } = colecta;
-
+    const tbody = document.querySelector('#tablaEquipos tbody');
+    let objetos = [];
+    let key;
     for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
-            if(l <= 4 ){
-                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
-                input.addEventListener('input', ()=>{
-                    llenarObjeto(input, l, equipo);
-                    calcularOperacionesActivosFijos('#tablaEquipos');
-                    console.log(colecta)
-                })
-                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
-            } else{
-                const children = tbody.rows[i].cells[l].children[1];
-                children.addEventListener('input', ()=>{
-                    llenarObjetoChildren(children, l, equipo);
-                    calcularOperacionesActivosFijos('#tablaEquipos');
-                    // sumadepreciacionAnual('#tablaContrucciones');
-                })
+        let equipo = {
+            nombre: '',
+            anioConstruccionAdquisicion: 0,
+            modelo: 0,
+            anioVidaUtil: 0,
+            depreciacionAnual: 0,
+            valorActualMercado: '',
+            valorRecuperacion: ''
+        };
+        let keys = Object.keys(equipo);//indices del objet
+        for (let l = 0; l < keys.length; l++) {
+            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
+            // console.log(input)
+            if( input && input.tagName === 'INPUT' ){
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[l]; //asignamos el indice acutal auna variable
+                equipo[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
             }
         }
-        colecta.equipos = [...equipos, equipo];
+        objetos.push(equipo)
     }
+    colecta.equipos = objetos;
+    // console.log(colecta)
 }
 //funciones estaticas
 function calcularOperacionesActivosFijos(tabla){
@@ -824,18 +829,6 @@ function sumaValorActualMercado(tabla){
         totalValorActualMercado += parseFloat(input.value);
     });
     valorActualMercado.innerHTML = formatter.format(totalValorActualMercado);
-}
-
-function llenarObjeto(input, l, objeto){
-    if( l === 0 ) objeto.nombre = input.value;
-    if( l === 1 ) objeto.anioConstruccionAdquisicion = parseInt(input.value)
-    if( l === 2 ) objeto.modelo = parseInt(input.value);
-    if( l === 3 ) objeto.anioVidaUtil = parseInt(input.value)
-    if( l === 4 ) objeto.depreciacionAnual = parseFloat(input.value)
-}
-function llenarObjetoChildren(children, l, objeto){
-    if( l === 5 ) objeto.valorActualMercado = parseFloat(children.value)
-    if( l === 6 ) objeto.valorRecuperacion = parseFloat(children.value)
 }
 // ------------- FIN OTROS ACTIVOS FIJOS
 
@@ -1070,10 +1063,10 @@ botonNuevaFilaImplementos.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaImplementos', colectaImplementos);
 })
 botonNuevaFilaEquipoComunicacion.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaEquiposComunicacion', colectaEquipoComunicacion);
+    filaOtrosActivosFijos('#tablaEquiposComunicacion', colectaEquiposComunicacion);
 })
 botonNuevaFilaEquipo.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaEquipos', almacenarDatosEquipo);
+    filaOtrosActivosFijos('#tablaEquipos', colectaEquipos);
 })
 
 function filaOtrosActivosFijos(idTabla, funcion) {
@@ -1183,7 +1176,7 @@ botonEliminarFilaImplementos.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaImplementos', colecta.implementos, funcion = null, operacionesOtrosActivosFijos);
 })
 botonEliminarFilaEquipoComunicacion.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaEquipoComunicacion', colecta.equiposComunicacion, funcion = null, operacionesOtrosActivosFijos);
+    eliminarUltimaFila('#tablaEquiposComunicacion', colecta.equiposComunicacion, funcion = null, operacionesOtrosActivosFijos);
 })
 botonEliminarFilaEquipo.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaEquipos', colecta.equipos, funcion = null, operacionesOtrosActivosFijos);
