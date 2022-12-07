@@ -77,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // almacenarDatosConstrucciones();
     colectaVehiculos();
     // almacenarDatosVehiculos();
-    almacenarDatosImplementos();
+    colectaImplementos();
+    // almacenarDatosImplementos();
     almacenarDatosEquipoComunicacion();
     almacenarDatosEquipo();
 
@@ -571,8 +572,7 @@ function colectaVehiculos(){
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
             almacenarDatosVehiculos();
-            calcularOperacionesActivosFijos('#tablaContrucciones');
-            console.log(colecta)
+            calcularOperacionesActivosFijos('#tablaVehiculos');
         })
     });
 }
@@ -604,40 +604,42 @@ function almacenarDatosVehiculos(){
     colecta.vehiculos = objetos;
     // console.log(colecta)
 }
+function colectaImplementos(){
+    const inputs = document.querySelectorAll('#tablaImplementos input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosImplementos();
+            calcularOperacionesActivosFijos('#tablaImplementos');
+        })
+    });
+}
 function almacenarDatosImplementos(){
-    const tbody = document.querySelector('#tablaImplementos').children[1];
-    const implemento = {
-        // nombre: '',
-        // anioConstruccionAdquisicion: '',
-        // modelo: '',
-        // anioVidaUtil: '',
-        // depreciacionAnual: '',
-        // valorActualMercado: '',
-        // valorRecuperacion: ''
-    };
-    const { implementos } = colecta;
-
+    const tbody = document.querySelector('#tablaImplementos tbody');
+    let objetos = [];
+    let key;
     for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
-            if(l <= 4 ){
-                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
-                input.addEventListener('input', ()=>{
-                    llenarObjeto(input, l, implemento);
-                    calcularOperacionesActivosFijos('#tablaImplementos');
-                    console.log(colecta)
-                })
-                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
-            } else{
-                const children = tbody.rows[i].cells[l].children[1];
-                children.addEventListener('input', ()=>{
-                    llenarObjetoChildren(children, l, implemento);
-                    calcularOperacionesActivosFijos('#tablaImplementos');
-                    // sumadepreciacionAnual('#tablaContrucciones');
-                })
+        let implemento = {
+            nombre: '',
+            anioConstruccionAdquisicion: 0,
+            modelo: 0,
+            anioVidaUtil: 0,
+            depreciacionAnual: 0,
+            valorActualMercado: '',
+            valorRecuperacion: ''
+        };
+        let keys = Object.keys(implemento);//indices del objet
+        for (let l = 0; l < keys.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[l]; //asignamos el indice acutal auna variable
+                implemento[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
             }
         }
-        colecta.implementos = [...implementos, implemento];
+        objetos.push(implemento)
     }
+    colecta.implementos = objetos;
+    // console.log(colecta)
 }
 function almacenarDatosEquipoComunicacion(){
     const tbody = document.querySelector('#tablaEquiposComunicacion').children[1];
