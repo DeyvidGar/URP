@@ -1112,18 +1112,19 @@ function filaOtrosActivosFijos(idTabla, funcion) {
 
     input4.setAttribute('type', 'number');
     input4.setAttribute('required', '');
-    input4.value = 0;
+    if(idTabla === '#tablaContrucciones') input4.value = 0;
 
     input5.setAttribute('type', 'number');
-    input5.value = 0;
+    // input5.value = 0;
     if(idTabla === '#tablaContrucciones') input5.setAttribute('disabled', '')
+    if(idTabla === '#tablaContrucciones') input5.value = 0;
 
     input6.setAttribute('type', 'number');
     input6.classList.add('valorActualMercado')
-    input6.value = 0;
+    // input6.value = 0;
     input7.setAttribute('type', 'number');
     input7.classList.add('valorRecuperacion')
-    input7.value = 0;
+    // input7.value = 0;
     // input8.setAttribute('type', 'number');
     // input8.classList.add('depreciacionAnual')
 
