@@ -755,7 +755,6 @@ function totalValorDepreciacionAnual(){
     let tablaEquipos = !isNaN(document.querySelector('#tablaEquipos #totalValorDepreciacionAnual').textContent) ? 0 : extraerCaracteresNumber(document.querySelector('#tablaEquipos #totalValorDepreciacionAnual').textContent);
 
     total = tablaContrucciones+tablaVehiculos+tablaImplementos+tablaEquiposComunicacion+tablaEquipos;
-    // console.log(total)
     totalDepreciacionAnualTd.textContent = convertirValorMonetario(total);
 }
 function totalValorRecuperacion(){
@@ -800,14 +799,17 @@ function depreciacionAnual(tabla){
     const tbody = document.querySelector(tabla).children[1];
 
     for (let i = 0; i < tbody.rows.length; i++) {
-        celdaFinal = tbody.rows[i].cells[7]
-        depreciacionPorcentaje = parseFloat(tbody.rows[i].cells[4].firstChild.value)
-        porcenaje = depreciacionPorcentaje*0.01
-        valorActualMercado = parseFloat(tbody.rows[i].cells[5].children[1].value)
-        valorRecuperacion = parseFloat(tbody.rows[i].cells[6].children[1].value)
-        depreciacionAnualRubro = parseFloat((valorActualMercado - valorRecuperacion) * porcenaje);
+        let celdaFinal = tbody.rows[i].cells[7]
+        let depreciacionPorcentaje = tbody.rows[i].cells[4].firstChild;
+        depreciacionPorcentaje = depreciacionPorcentaje.value === '' ? 0 : parseFloat(depreciacionPorcentaje.value);
+        let porcenaje = depreciacionPorcentaje*0.01;
+        let valorActualMercado = tbody.rows[i].cells[5].lastChild;
+        valorActualMercado = valorActualMercado.value === '' ? 0 : parseFloat(valorActualMercado.value);
+        let valorRecuperacion = tbody.rows[i].cells[6].lastChild;
+        valorRecuperacion = valorRecuperacion.value === '' ? 0 : parseFloat(valorRecuperacion.value);
+        let depreciacionAnualRubro = parseFloat((valorActualMercado - valorRecuperacion) * porcenaje);
 
-        celdaFinal.textContent = formatter.format(depreciacionAnualRubro);
+        celdaFinal.textContent = convertirValorMonetario(depreciacionAnualRubro);
     }
 }
 
@@ -816,9 +818,10 @@ function sumaValorRecuperacion(tabla){
     const inputsValorRecuperacion = document.querySelectorAll(tabla+' .valorRecuperacion');
     let totalValorRecuperacion = 0;
     inputsValorRecuperacion.forEach(input => {
-        totalValorRecuperacion += parseFloat(input.value);
+        let valor = input.value === '' ? 0 : parseFloat(input.value)
+        totalValorRecuperacion += valor;
     });
-    valorRecuperacion.innerHTML = formatter.format(totalValorRecuperacion);
+    valorRecuperacion.innerHTML = convertirValorMonetario(totalValorRecuperacion);
 }
 
 function sumaValorActualMercado(tabla){
@@ -826,9 +829,10 @@ function sumaValorActualMercado(tabla){
     const inputsValorActualMercado = document.querySelectorAll(tabla+' .valorActualMercado');
     let totalValorActualMercado = 0;
     inputsValorActualMercado.forEach(input => {
-        totalValorActualMercado += parseFloat(input.value);
+        let valor = input.value === '' ? 0 : parseFloat(input.value)
+        totalValorActualMercado += valor;
     });
-    valorActualMercado.innerHTML = formatter.format(totalValorActualMercado);
+    valorActualMercado.innerHTML = convertirValorMonetario(totalValorActualMercado);
 }
 // ------------- FIN OTROS ACTIVOS FIJOS
 
