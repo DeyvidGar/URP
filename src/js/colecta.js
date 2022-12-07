@@ -75,7 +75,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     colectaConstrucciones();
     // almacenarDatosConstrucciones();
-    almacenarDatosVehiculos();
+    colectaVehiculos();
+    // almacenarDatosVehiculos();
     almacenarDatosImplementos();
     almacenarDatosEquipoComunicacion();
     almacenarDatosEquipo();
@@ -535,7 +536,7 @@ function colectaConstrucciones(){
             almacenarDatosConstrucciones();
             calcularOperacionesActivosFijos('#tablaContrucciones');
         })
-    });console.log(colecta)
+    });
 }
 function almacenarDatosConstrucciones(){
     const tbody = document.querySelector('#tablaContrucciones tbody');
@@ -563,42 +564,45 @@ function almacenarDatosConstrucciones(){
         objetos.push(construccion)
     }
     colecta.construcciones = objetos;
-    console.log(colecta)
+    // console.log(colecta)
+}
+function colectaVehiculos(){
+    const inputs = document.querySelectorAll('#tablaVehiculos input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosVehiculos();
+            calcularOperacionesActivosFijos('#tablaContrucciones');
+            console.log(colecta)
+        })
+    });
 }
 function almacenarDatosVehiculos(){
-    const tbody = document.querySelector('#tablaVehiculos').children[1];
-    const vehiculo = {
-        // nombre: '',
-        // anioConstruccionAdquisicion: '',
-        // modelo: '',
-        // anioVidaUtil: '',
-        // depreciacionAnual: '',
-        // valorActualMercado: '',
-        // valorRecuperacion: ''
-    };
-    const { vehiculos } = colecta;
-
+    const tbody = document.querySelector('#tablaVehiculos tbody');
+    let objetos = [];
+    let key;
     for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        for( let l = 0 ; l < tbody.rows[i].cells.length -1 ; l++ ){
-            if(l <= 4 ){
-                const input = tbody.rows[i].cells[l].firstChild;//muestra la celda
-                input.addEventListener('input', ()=>{
-                    llenarObjeto(input, l, vehiculo);
-                    calcularOperacionesActivosFijos('#tablaVehiculos');
-                    console.log(colecta)
-                })
-                // console.log(tablaArbol.rows[i].cells[l].firstChild.value); //entramos al input de td
-            } else{
-                const children = tbody.rows[i].cells[l].children[1];
-                children.addEventListener('input', ()=>{
-                    llenarObjetoChildren(children, l, vehiculo);
-                    calcularOperacionesActivosFijos('#tablaVehiculos');
-                    // sumadepreciacionAnual('#tablaContrucciones');
-                })
+        let vehiculo = {
+            nombre: '',
+            anioConstruccionAdquisicion: 0,
+            modelo: 0,
+            anioVidaUtil: 0,
+            depreciacionAnual: 0,
+            valorActualMercado: '',
+            valorRecuperacion: ''
+        };
+        let keys = Object.keys(vehiculo);//indices del objet
+        for (let l = 0; l < keys.length; l++) {
+            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[l]; //asignamos el indice acutal auna variable
+                vehiculo[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
             }
         }
-        colecta.vehiculos = [...vehiculos, vehiculo];
+        objetos.push(vehiculo)
     }
+    colecta.vehiculos = objetos;
+    // console.log(colecta)
 }
 function almacenarDatosImplementos(){
     const tbody = document.querySelector('#tablaImplementos').children[1];
@@ -1050,7 +1054,7 @@ botonNuevaFilaContrucciones.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaContrucciones', colectaConstrucciones);
 })
 botonNuevaFilaVehiculos.addEventListener('click', ()=>{
-    filaOtrosActivosFijos('#tablaVehiculos', almacenarDatosVehiculos);
+    filaOtrosActivosFijos('#tablaVehiculos', colectaVehiculos);
 })
 botonNuevaFilaImplementos.addEventListener('click', ()=>{
     filaOtrosActivosFijos('#tablaImplementos', almacenarDatosImplementos);
