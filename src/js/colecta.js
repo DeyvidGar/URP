@@ -64,13 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
     calcularCostoPlantacion();
 
     colectaActividadesProduccion();
-    almacenarDatosActividadesProduccion();
 
     colectaOtrosCostos()
-    almacenarDatosOtrosCostos();
+    // almacenarDatosOtrosCostos();
 
     colectaCostoAnualEstablecimientoPlantacion();
-    almacenarDatosCostoAnualEstablecimientoPlantacion();
+    // almacenarDatosCostoAnualEstablecimientoPlantacion();
     operacionesValorPlantacion();
 
     colectaConstrucciones();
@@ -90,37 +89,22 @@ document.addEventListener('DOMContentLoaded', () => {
 // ---------- COLECTA ARBOL
 function colectaArbol(){
     const inputs = document.querySelectorAll('#tablaVariedadArboles input');
+    let arbol = {
+        variedad: '',
+        numArboles: 0
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosColectaArboles();
-            dividirPorcentaje('#tablaVariedadArboles',1, 2);
-            sumarArboles();
+            objetos = almacenarObjeto('#tablaVariedadArboles', arbol);
+            colecta.arboles = objetos;
+            operacionesArboles();
         })
     });
 }
-function almacenarDatosColectaArboles(){
-    const tbody = document.querySelector('#tablaVariedadArboles tbody');
-    const rows = tbody.rows.length;
-    let objetos = [];
-    let key;
-    for(let i = 0 ; i < rows ; i ++){
-        let arbol = {
-            variedad: '',
-            numArboles: 0
-        };
-        let keys = Object.keys(arbol);//indices del objet
-        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
-            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            if( input && input.tagName === 'INPUT' ){ //encaso de existir elemento html debera ser input
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
-                arbol[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-            }
-        }
-        objetos.push(arbol)
-    }
-    colecta.arboles = objetos
-    console.log(colecta)
+function operacionesArboles(){
+    dividirPorcentaje('#tablaVariedadArboles',1, 2);
+    sumarArboles();
 }
 function sumarArboles(){
     //seleccionar de la tabla variedadarboles los inputs de tipo number
@@ -402,34 +386,18 @@ function almacenarDatosValorPlantacion(){
 // ------------- COLECTA ACTIVIDADES DE PRODUCCION
 function colectaActividadesProduccion(){
     const inputs = document.querySelectorAll('#tablaActividadesProduccion input');
+    let actividadProduccion = {
+        nombreActividadProduccion: '',
+        precioUnitario: 0,
+        actual: 0
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosActividadesProduccion();
+            objetos = almacenarObjeto('#tablaActividadesProduccion', actividadProduccion);
+            colecta.actividadesProduccion = objetos;
         })
     });
-}
-function almacenarDatosActividadesProduccion(){
-    const tbody = document.querySelector('#tablaActividadesProduccion tbody');
-    const rows = tbody.rows.length;
-    let objetos = [];
-    let key;
-    for(let i = 0 ; i < rows ; i ++){
-        let actividadProduccion = {
-            nombreActividadProduccion: '',
-            precioUnitario: 0,
-            actual: 0
-        };
-        let keys = Object.keys(actividadProduccion);//indices del objet
-        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
-            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-
-            key = keys[l]; //asignamos el indice acutal auna variable
-            actividadProduccion[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-        }
-        objetos.push(actividadProduccion)
-    }
-    colecta.actividadesProduccion = objetos
 }
 function colectaOtrosCostos(){
     const inputs = document.querySelectorAll('#tablaOtrosCostos input');
@@ -534,195 +502,103 @@ function operacionesValorPlantacion(){
 // ------------- COLECTA OTROS ACTIVOS FIJOS
 function colectaConstrucciones(){
     const inputs = document.querySelectorAll('#tablaContrucciones input');
+    let construccion = {
+        nombre: '',
+        anioConstruccionAdquisicion: 0,
+        modelo: 0,
+        anioVidaUtil: 0,
+        depreciacionAnual: 0,
+        valorActualMercado: '',
+        valorRecuperacion: ''
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosConstrucciones();
+            objetos = almacenarObjeto('#tablaContrucciones', construccion);
+            colecta.construcciones = objetos;
             calcularOperacionesActivosFijos('#tablaContrucciones');
         })
     });
 }
-function almacenarDatosConstrucciones(){
-    const tbody = document.querySelector('#tablaContrucciones tbody');
-    let objetos = [];
-    let key;
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        let construccion = {
-            nombre: '',
-            anioConstruccionAdquisicion: 0,
-            modelo: 0,
-            anioVidaUtil: 0,
-            depreciacionAnual: 0,
-            valorActualMercado: '',
-            valorRecuperacion: ''
-        };
-        let keys = Object.keys(construccion);//indices del objet
-        for (let l = 0; l < keys.length; l++) {
-            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
-            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
-                construccion[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-            }
-        }
-        objetos.push(construccion)
-    }
-    colecta.construcciones = objetos;
-    // console.log(colecta)
-}
 function colectaVehiculos(){
     const inputs = document.querySelectorAll('#tablaVehiculos input');
+    let vehiculo = {
+        nombre: '',
+        anioConstruccionAdquisicion: 0,
+        modelo: 0,
+        anioVidaUtil: 0,
+        depreciacionAnual: 0,
+        valorActualMercado: '',
+        valorRecuperacion: ''
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosVehiculos();
+            objetos = almacenarObjeto('#tablaVehiculos', vehiculo);
+            colecta.vehiculos = objetos;
             calcularOperacionesActivosFijos('#tablaVehiculos');
         })
     });
 }
-function almacenarDatosVehiculos(){
-    const tbody = document.querySelector('#tablaVehiculos tbody');
-    let objetos = [];
-    let key;
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        let vehiculo = {
-            nombre: '',
-            anioConstruccionAdquisicion: 0,
-            modelo: 0,
-            anioVidaUtil: 0,
-            depreciacionAnual: 0,
-            valorActualMercado: '',
-            valorRecuperacion: ''
-        };
-        let keys = Object.keys(vehiculo);//indices del objet
-        for (let l = 0; l < keys.length; l++) {
-            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
-            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
-                vehiculo[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-            }
-        }
-        objetos.push(vehiculo)
-    }
-    colecta.vehiculos = objetos;
-    // console.log(colecta)
-}
 function colectaImplementos(){
     const inputs = document.querySelectorAll('#tablaImplementos input');
+    let implemento = {
+        nombre: '',
+        anioConstruccionAdquisicion: 0,
+        modelo: 0,
+        anioVidaUtil: 0,
+        depreciacionAnual: 0,
+        valorActualMercado: '',
+        valorRecuperacion: ''
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosImplementos();
+            objetos = almacenarObjeto('#tablaImplementos', implemento);
+            colecta.implementos = objetos;
             calcularOperacionesActivosFijos('#tablaImplementos');
         })
     });
 }
-function almacenarDatosImplementos(){
-    const tbody = document.querySelector('#tablaImplementos tbody');
-    let objetos = [];
-    let key;
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        let implemento = {
-            nombre: '',
-            anioConstruccionAdquisicion: 0,
-            modelo: 0,
-            anioVidaUtil: 0,
-            depreciacionAnual: 0,
-            valorActualMercado: '',
-            valorRecuperacion: ''
-        };
-        let keys = Object.keys(implemento);//indices del objet
-        for (let l = 0; l < keys.length; l++) {
-            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
-            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
-                implemento[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-            }
-        }
-        objetos.push(implemento)
-    }
-    colecta.implementos = objetos;
-    // console.log(colecta)
-}
 function colectaEquiposComunicacion(){
     const inputs = document.querySelectorAll('#tablaEquiposComunicacion input');
+    let equipoComunicacion = {
+        nombre: '',
+        anioConstruccionAdquisicion: 0,
+        modelo: 0,
+        anioVidaUtil: 0,
+        depreciacionAnual: 0,
+        valorActualMercado: '',
+        valorRecuperacion: ''
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosEquipoComunicacion();
+            objetos = almacenarObjeto('#tablaEquiposComunicacion', equipoComunicacion);
+            colecta.equiposComunicacion = objetos;
             calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
         })
     });
 }
-function almacenarDatosEquipoComunicacion(){
-    const tbody = document.querySelector('#tablaEquiposComunicacion tbody');
-    let objetos = [];
-    let key;
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        let equipoComunicacion = {
-            nombre: '',
-            anioConstruccionAdquisicion: 0,
-            modelo: 0,
-            anioVidaUtil: 0,
-            depreciacionAnual: 0,
-            valorActualMercado: '',
-            valorRecuperacion: ''
-        };
-        let keys = Object.keys(equipoComunicacion);//indices del objet
-        for (let l = 0; l < keys.length; l++) {
-            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
-            // console.log(input)
-            if( input && input.tagName === 'INPUT' ){
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
-                equipoComunicacion[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-            }
-        }
-        objetos.push(equipoComunicacion)
-    }
-    colecta.equiposComunicacion = objetos;
-    // console.log(colecta)
-}
 function colectaEquipos(){
     const inputs = document.querySelectorAll('#tablaEquipos input');
+    let equipo = {
+        nombre: '',
+        anioConstruccionAdquisicion: 0,
+        modelo: 0,
+        anioVidaUtil: 0,
+        depreciacionAnual: 0,
+        valorActualMercado: '',
+        valorRecuperacion: ''
+    };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosEquipo();
+            objetos = almacenarObjeto('#tablaEquipos', equipo);
+            colecta.equipos = objetos;
             calcularOperacionesActivosFijos('#tablaEquipos');
         })
     });
-}
-function almacenarDatosEquipo(){
-    const tbody = document.querySelector('#tablaEquipos tbody');
-    let objetos = [];
-    let key;
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        let equipo = {
-            nombre: '',
-            anioConstruccionAdquisicion: 0,
-            modelo: 0,
-            anioVidaUtil: 0,
-            depreciacionAnual: 0,
-            valorActualMercado: '',
-            valorRecuperacion: ''
-        };
-        let keys = Object.keys(equipo);//indices del objet
-        for (let l = 0; l < keys.length; l++) {
-            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            input = (input && input.tagName === 'INPUT') ? tbody.rows[i].cells[l].lastChild : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
-            // console.log(input)
-            if( input && input.tagName === 'INPUT' ){
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
-                equipo[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-            }
-        }
-        objetos.push(equipo)
-    }
-    colecta.equipos = objetos;
-    // console.log(colecta)
 }
 //funciones estaticas
 function calcularOperacionesActivosFijos(tabla){
@@ -846,10 +722,10 @@ function colectaRepuestoHerramientas(){
         vidaUtil: 0,
         valorRepocicion: 0
     };
+    let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            // almacenarDatosRepuestoHerramientas();
-            let objetos = almacenarObjeto('#tablaRepuestoHerramientas', herramienta);
+            objetos = almacenarObjeto('#tablaRepuestoHerramientas', herramienta);
             colecta.repuestoHerramientas = objetos;
             operacionesRepuestoHerramientas();
         })
@@ -902,36 +778,6 @@ function costoRepuestoHerramientas(){
         tbody.rows[i].cells[3].textContent = convertirValorMonetario(total)
     }
 }
-function almacenarDatosRepuestoHerramientas(){
-    const tbody = document.querySelector('#tablaRepuestoHerramientas tbody');
-    const rows = tbody.rows.length;
-    let objetos = [];
-    let key;
-    for(let i = 0 ; i < rows ; i ++){
-        let herramienta = {
-            nombreHerramienta: '',
-            cantidadHectarea: 0,
-            precioUnitario: 0,
-            vidaUtil: 0,
-            valorRepocicion: 0
-        };
-        console.log(herramienta)
-        let keys = Object.keys(herramienta);//indices del objet
-        let posicion = 0;
-        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
-            const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            if( input !== null && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
-                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[posicion]; //asignamos el indice acutal auna variable
-                herramienta[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
-                posicion++;
-            }
-        }
-        objetos.push(herramienta)
-    }
-    colecta.repuestoHerramientas = objetos
-    // console.log(colecta.repuestoHerramientas)
-}
 // ------------- FIN HERRAMIENTAS
 
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS
@@ -975,7 +821,7 @@ function filaVariedadArboles() {
 const botonEliminarFilaVariedad = document.querySelector('#eliminarFilaVariedad');
 
 botonEliminarFilaVariedad.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaVariedadArboles', colecta.arboles, sumarArboles);
+    eliminarUltimaFila('#tablaVariedadArboles', colecta.arboles, operacionesArboles);
 })
 // -------------- FIN BOTONES VARIEDAD ARBOLES
 
@@ -1023,13 +869,48 @@ const botonEliminarFilaActividadesProduccion = document.querySelector('#eliminar
 const botonEliminarFilaOtosCostos = document.querySelector('#eliminarFilaOtosCostos');
 
 botonEliminarFilaActividadesProduccion.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaActividadesProduccion', colecta.actividadesProduccion, almacenarDatosActividadesProduccion);
+    eliminarUltimaFila('#tablaActividadesProduccion', colecta.actividadesProduccion, colectaActividadesProduccion);
 })
 botonEliminarFilaOtosCostos.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaOtrosCostos', colecta.otrosCostos, almacenarDatosOtrosCostos);
 })
 
 // -------------- FIN BOTONES ACTIVIDADES PRODUCCION
+
+// -------------- COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
+const botonNuevaFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#nuevaFilaCostoAnualEstablecimientoPlantacion');
+botonNuevaFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
+    filaCostoAnualEstablecimientoPlantacion('#tablaCostoAnualEstablecimientoPlantacion', colectaCostoAnualEstablecimientoPlantacion);
+})
+function filaCostoAnualEstablecimientoPlantacion(idTabla, funcion){
+    const tbody = document.querySelector(idTabla).children[1];
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    td2.classList.add('etiqueta');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    input2.classList.add('costoAnual');
+    td1.appendChild(input1);
+    td2.innerHTML += '<span>$</span>';
+    td2.appendChild(input2);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tbody.appendChild(tr);
+    funcion();
+    colocarNumeroAnio();
+    operacionesValorPlantacion();
+    colectaCostoAnualEstablecimientoPlantacion();
+}
+// elimiar
+const botonEliminarFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#eliminarFilaCostoAnualEstablecimientoPlantacion');
+botonEliminarFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaCostoAnualEstablecimientoPlantacion', colecta.costoAnualesEstablecimientoPlantacion, colectaCostoAnualEstablecimientoPlantacion, operacionesValorPlantacion)
+})
+// -------------- FIN COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
 
 // -------------- BOTONES OTROS ACTIVOS FIJOS
 const botonNuevaFilaContrucciones = document.querySelector('#nuevaFilaContrucciones');
@@ -1167,59 +1048,7 @@ botonEliminarFilaEquipoComunicacion.addEventListener('click', ()=>{
 botonEliminarFilaEquipo.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaEquipos', colecta.equipos, funcion = null, operacionesOtrosActivosFijos);
 })
-
-function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, funcionActualizarOperaciones = null){
-    const tbody = document.querySelector(idTabla).children[1];
-    const ultimaFila = tbody.rows.length-1;
-    // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
-    const tr = tbody.children[ultimaFila]
-
-    //solo se eliminan las filas pero debe existir una almenos
-    if(tbody.children.length > 1){
-        tr.remove(); //remover elemento tr de la tabla
-        objeto.pop(); //eliminar el ultimo valor del arrglo de colecta
-        // console.log('eliminando', colecta)
-    }
-
-    if(funcionAlmacenarObjeto) funcionAlmacenarObjeto(idTabla);
-    if(funcionActualizarOperaciones) funcionActualizarOperaciones(idTabla);
-}
 // -------------- FIN OTROS ACTIVOS FIJOS
-
-// -------------- COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
-const botonNuevaFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#nuevaFilaCostoAnualEstablecimientoPlantacion');
-botonNuevaFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
-    filaCostoAnualEstablecimientoPlantacion('#tablaCostoAnualEstablecimientoPlantacion', colectaCostoAnualEstablecimientoPlantacion);
-})
-function filaCostoAnualEstablecimientoPlantacion(idTabla, funcion){
-    const tbody = document.querySelector(idTabla).children[1];
-    const tr = document.createElement('TR');
-    const td1 = document.createElement('TD');
-    const td2 = document.createElement('TD');
-    const input1 = document.createElement('INPUT');
-    const input2 = document.createElement('INPUT');
-    td2.classList.add('etiqueta');
-    input1.setAttribute('type', 'text');
-    input1.setAttribute('required', '');
-    input2.setAttribute('type', 'number');
-    input2.classList.add('costoAnual');
-    td1.appendChild(input1);
-    td2.innerHTML += '<span>$</span>';
-    td2.appendChild(input2);
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tbody.appendChild(tr);
-    funcion();
-    colocarNumeroAnio();
-    operacionesValorPlantacion();
-    colectaCostoAnualEstablecimientoPlantacion();
-}
-// elimiar
-const botonEliminarFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#eliminarFilaCostoAnualEstablecimientoPlantacion');
-botonEliminarFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaCostoAnualEstablecimientoPlantacion', colecta.costoAnualesEstablecimientoPlantacion, almacenarDatosCostoAnualEstablecimientoPlantacion, operacionesValorPlantacion)
-})
-// -------------- FIN COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
 
 // -------------- REPUESTO HERRAMIENTAS
 const botonNuevaFilaRepuestoHerramientas = document.querySelector('#nuevaFilaRepuestoHerramientas')
@@ -1270,7 +1099,7 @@ function filaRepuestoHerramientas(idTabla, funcion){
 //eliminar
 const botonEliminarFilaRepuestoHerramientas = document.querySelector('#eliminarFilaRepuestoHerramientas');
 botonEliminarFilaRepuestoHerramientas.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaRepuestoHerramientas', colecta.repuestoHerramientas,almacenarObjeto,operacionesRepuestoHerramientas)
+    eliminarUltimaFila('#tablaRepuestoHerramientas', colecta.repuestoHerramientas,colectaRepuestoHerramientas,operacionesRepuestoHerramientas)
 });
 // -------------- FIN REPUESTO HERRAMIENTAS
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
@@ -1304,7 +1133,6 @@ function sumarColumna(tabla, columna){
     }
     return sumatoria;
 }
-// ------------- FIN FUNCION SUMAR COLUMNA INPUTS
 
 // ------------ FUNCION MOSTRAR PORCENTAJES
 function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
@@ -1326,14 +1154,13 @@ function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
         }
     }
 }
-// ------------ FIN FUNCION MOSTRAR PORCENTAJES
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
 });
 
-//funcion extrae caracteres de una etiqueta con comas y signo de pesos
+//funcion extrae caracteres con comas y signo de pesos
 function extraerCaracteresNumber(caracteres){
     let sincomas = caracteres.replaceAll(',', '')
     let sincaracteres = sincomas.replaceAll('$', '')
@@ -1368,4 +1195,21 @@ function almacenarObjeto(idTabla, objeto){
     }
     console.log(colecta)
     return objetos;
+}
+function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, funcionActualizarOperaciones = null){
+    const tbody = document.querySelector(idTabla).children[1];
+    const ultimaFila = tbody.rows.length-1;
+    // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
+    const tr = tbody.children[ultimaFila]
+
+    //solo se eliminan las filas pero debe existir una almenos
+    if(tbody.children.length > 1){
+        tr.remove(); //remover elemento tr de la tabla
+        objeto.pop(); //eliminar el ultimo valor del arrglo de colecta
+        // console.log('eliminando', colecta)
+    }
+
+    if(funcionAlmacenarObjeto) funcionAlmacenarObjeto(idTabla);
+    if(funcionActualizarOperaciones) funcionActualizarOperaciones(idTabla);
+    console.log(colecta)
 }
