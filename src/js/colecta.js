@@ -46,22 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaArbol();
 
     colectaPatronCultivos();
-    mostrarSumatoriaPatronCultivos();//
+    // mostrarSumatoriaPatronCultivos();
 
     colectaSuperficeUrp();
-    almacenarDatosSuperfice();
-    sumaAreaCultivadaSuperficeUrp();
-    sumarTotalHectareasFilas();
-    sumarTotalHA();
+    // almacenarDatosSuperfice();
+    // sumaAreaCultivadaSuperficeUrp();
+    // sumarTotalHectareasFilas();
+    // sumarTotalHA();
 
     colectaValorTierra();
-    superficeValorTierra();
-    calcularValorTotalValorTierra();
-    sumatoriaTotalSuperficeValorTierra();
+    // superficeValorTierra();
+    // calcularValorTotalValorTierra();
+    // sumatoriaTotalSuperficeValorTierra();
 
     colectaValorPlantacion();
-    almacenarDatosValorPlantacion();
-    calcularCostoPlantacion();
+    // almacenarDatosValorPlantacion();
+    // calcularCostoPlantacion();
 
     colectaActividadesProduccion();
 
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     colectaCostoAnualEstablecimientoPlantacion();
     // almacenarDatosCostoAnualEstablecimientoPlantacion();
-    operacionesValorPlantacion();
+    // operacionesValorPlantacion();
 
     colectaConstrucciones();
     // almacenarDatosConstrucciones();
@@ -327,7 +327,8 @@ function calcularValorTotalValorTierra(){
 
     for (let i = 0; i < tbody.rows.length; i++) {
         let multiplicar = 0;
-        const valorHa = parseFloat(tbody.rows[i].cells[1].textContent);
+        let valorHa = tbody.rows[i].cells[1];
+        valorHa = valorHa.textContent === '' ? 0 : parseFloat(valorHa.textContent)
         const elementValorTotal = tbody.rows[i].cells[2].lastChild;
         const valorTotal = elementValorTotal.value === '' ? 0 : parseFloat(elementValorTotal.value)
 
@@ -338,6 +339,7 @@ function calcularValorTotalValorTierra(){
 }
 function sumatoriaTotalSuperficeValorTierra(){
     const sumaSuperficie = sumarColumna('#tablaValorTierra',1);
+    // console.log(sumaSuperficie)
     const sumaValorTotal = sumarColumna('#tablaValorTierra',3);
     //contenedores
     const totalSuperficeHas = document.querySelector('#totalSuperficeHas');
@@ -1126,8 +1128,10 @@ function sumarColumna(tabla, columna){
 
     for( let i = 0 ; i < tbody.rows.length ; i++ ){
         //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
-        const element = tbody.rows[i].cells[columna].textContent;
-        const valor = element.textContent === '' ? 0 : extraerCaracteresNumber(element);
+        const element = tbody.rows[i].cells[columna];
+        // console.log(element)
+        const valor = element.textContent === '' ? 0 : extraerCaracteresNumber(element.textContent);
+        // console.log(valor)
 
         sumatoria += valor;
     }

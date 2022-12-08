@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <th>Costo de Plantacion ($/Planta)</th>
-        <td id="costoPlantacion"><span>$</span>0.00</td>
+        <td id="costoPlantacion"></td>
     </tr>
 </table>
 
