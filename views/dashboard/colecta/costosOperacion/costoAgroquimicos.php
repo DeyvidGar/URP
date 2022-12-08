@@ -1,4 +1,4 @@
-<table>
+<table id="tablaFertilizantesGranular">
     <thead>
         <tr>
             <th>4.2.1 Fertilizantes</th>
@@ -14,75 +14,51 @@
     </thead>
     <tbody>
         <tr>
-            <td>Sulfato de amonio</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Fosfonitrato</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>20-10-20</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Formula triple 17</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+            <td><input type="text" placeholder="bulto, kilo, litro, etc."></td>
+            <td><input type="number"></td>
+            <td><span>$</span><input type="number"></td>
             <td></td>
         </tr>
     </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaAgroquimicosGranular">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaAgroquimicosGranular">Eliminar Fila</button>
+</div>
+<table id="tablaFertilizantesFoliar">
     <thead>
         <tr>
             <th>Fertilizante foliar</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th colspan = "4"></th>
         </tr>
     </thead>
-
     <tbody>
     <tr>
-        <td>Maxigrow</td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+        <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+        <td><input type="text" placeholder="bulto, kilo, litro, etc."></td>
+        <td><input type="number"></td>
+        <td><span>$</span><input type="number"></td>
         <td></td>
-    </tr>
-    <tr>
-        <td>Nutricel</td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td class="bg-rojoclaro">Subtotal</td>
-        <td class="bg-rojoclaro"></td>
-        <td class="bg-rojoclaro"></td>
-        <td class="bg-rojoclaro"></td>
-        <td class="bg-rojoclaro"></td>
-        <td class="bg-rojoclaro"></td>
     </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <th>Fertilizantes Subtotal</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th id="subtotalFertilizantes"></th>
+        </tr>
+    </tfoot>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaAgroquimicosFoliar">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaAgroquimicosFoliar">Eliminar Fila</button>
+</div>
+
+<table id="tablaInsecticidas">
     <thead>
         <tr>
             <th>4.2.2 Pesticidas, control biológico y otros</th>
@@ -98,101 +74,81 @@
     </thead>
     <tbody>
         <tr>
-            <td>Lorsban</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Carioca</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Thor 3.6 E.W</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+            <td><input type="text" placeholder="bulto, kilo, litro, etc."></td>
+            <td><input type="number"></td>
+            <td><span>$</span><input type="number"></td>
             <td></td>
         </tr>
     </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaAgroquimicosFoliar">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
 
+<table id="tablaFungicidas">
     <thead>
         <tr>
-            <th >Fungicidas</th>
+            <th>Fungicidas</th>
             <th colspan = "4"></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Cobre</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+            <td><input type="text" placeholder="bulto, kilo, litro, etc."></td>
+            <td><input type="number"></td>
+            <td><span>$</span><input type="number"></td>
             <td></td>
         </tr>
     </tbody>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaAgroquimicosFoliar">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
+
+
+<table id="tablaHerbicidas">
     <thead>
         <tr>
-            <th >Herbicidas</th>
+            <th>Herbicidas</th>
             <th colspan = "4"></th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>Diabloquat</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+            <td><input type="text" placeholder="bulto, kilo, litro, etc."></td>
+            <td><input type="number"></td>
+            <td><span>$</span><input type="number"></td>
             <td></td>
-        </tr>
-        <tr>
-            <td>Fusion</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Bravo 720 SC</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Glifosato</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="bg-rojoclaro">Subtotal</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-        </tr>
-        <tr>
-            <td class="bg-rojoclaro">Total</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <th>Subtotal pesticidas, control biológico y otros</th>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <th id="subtotalPesticidasControBiologicoOtros"></th>
+        </tr>
+    </tfoot>
+</table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaAgroquimicosFoliar">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+</div>
+
+<table>
+    <tr>
+        <th>Total</th>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <th id="totalCostoAgroquimicos"></th>
+    </tr>
 </table>

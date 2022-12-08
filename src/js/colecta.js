@@ -39,7 +39,12 @@ const colecta = {
         arbolesHA: 0,
         costoArbol: 0
     },
-    repuestoHerramientas: []
+    repuestoHerramientas: [],
+    fertilizantesGranular: [],
+    fertilizantesFoliar: [],
+    insecticidas: [],
+    fungicidas: [],
+    herbicidas: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,6 +89,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // almacenarDatosEquipo();
 
     colectaRepuestoHerramientas();
+
+    colectaFertilizanteGranular();
+
+    colectaFertilizanteFoliar();
+
+    inputsOperaciones();
 });
 
 // ---------- COLECTA ARBOL
@@ -193,16 +204,15 @@ function colectaSuperficeUrp(){
     inputsSuperficeUrp.forEach(input => {
         input.addEventListener('input', ()=>{
             almacenarDatosSuperfice();
-            sumaAreaCultivadaSuperficeUrp();
-            sumarTotalHectareasFilas();
-            sumarTotalHA();
-
-            // para la tabla que depende de estos valores (valor de la tierra)
-            superficeValorTierra();
-            // calcularValorTotalValorTierra();
-            // sumatoriaTotalSuperficeValorTierra()
+            operacionesSuperficieUrp();
         })
     });
+}
+function operacionesSuperficieUrp(){
+    sumaAreaCultivadaSuperficeUrp();
+    sumarTotalHectareasFilas();
+    sumarTotalHA();
+    superficeValorTierra();
 }
 function almacenarDatosSuperfice(){
     const input = document.querySelectorAll('#tablaSuperficeUrp input');
@@ -290,10 +300,7 @@ function colectaValorTierra(){
         input.addEventListener('input', ()=>{
             //sincronizar los valores del input con el objeto
             almacenarDatosValorTierra();
-            //multiplicar los datos
-            calcularValorTotalValorTierra();
-            //total superficie y valor de tabla valor de la tierra
-            sumatoriaTotalSuperficeValorTierra();
+            operacionesValorTierra();
         })
     })
 }
@@ -309,6 +316,12 @@ function almacenarDatosValorTierra(){
         valorTierra[key] = valor;//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
     }
     // console.log(colecta)
+}
+function operacionesValorTierra(){
+    //multiplicar los datos
+    calcularValorTotalValorTierra();
+    //total superficie y valor de tabla valor de la tierra
+    sumatoriaTotalSuperficeValorTierra();
 }
 function superficeValorTierra(){
     const areaCultivada = document.querySelector('#areaCultivadaSuperficie');
@@ -518,7 +531,7 @@ function colectaConstrucciones(){
         input.addEventListener('input', ()=>{
             objetos = almacenarObjeto('#tablaContrucciones', construccion);
             colecta.construcciones = objetos;
-            calcularOperacionesActivosFijos('#tablaContrucciones');
+            operacionesOtrosActivosFijos('#tablaContrucciones');
         })
     });
 }
@@ -538,7 +551,7 @@ function colectaVehiculos(){
         input.addEventListener('input', ()=>{
             objetos = almacenarObjeto('#tablaVehiculos', vehiculo);
             colecta.vehiculos = objetos;
-            calcularOperacionesActivosFijos('#tablaVehiculos');
+            operacionesOtrosActivosFijos('#tablaVehiculos');
         })
     });
 }
@@ -558,7 +571,7 @@ function colectaImplementos(){
         input.addEventListener('input', ()=>{
             objetos = almacenarObjeto('#tablaImplementos', implemento);
             colecta.implementos = objetos;
-            calcularOperacionesActivosFijos('#tablaImplementos');
+            operacionesOtrosActivosFijos('#tablaImplementos');
         })
     });
 }
@@ -578,7 +591,7 @@ function colectaEquiposComunicacion(){
         input.addEventListener('input', ()=>{
             objetos = almacenarObjeto('#tablaEquiposComunicacion', equipoComunicacion);
             colecta.equiposComunicacion = objetos;
-            calcularOperacionesActivosFijos('#tablaEquiposComunicacion');
+            operacionesOtrosActivosFijos('#tablaEquiposComunicacion');
         })
     });
 }
@@ -598,21 +611,8 @@ function colectaEquipos(){
         input.addEventListener('input', ()=>{
             objetos = almacenarObjeto('#tablaEquipos', equipo);
             colecta.equipos = objetos;
-            calcularOperacionesActivosFijos('#tablaEquipos');
+            operacionesOtrosActivosFijos('#tablaEquipos');
         })
-    });
-}
-//funciones estaticas
-function calcularOperacionesActivosFijos(tabla){
-    const inptus = document.querySelectorAll(tabla +" .etiqueta input[type='number']");
-    // const valorRubro = document.querySelectorAll("#tablaContrucciones .valorRubro");
-
-    //sumar por inputs
-    inptus.forEach(input => {
-        input.addEventListener('input', ()=>{
-            //REALIZAR SUMA TOTAL POR RUBRO (VERTICAL, INPUTS)
-            operacionesOtrosActivosFijos(tabla);
-        });
     });
 }
 function operacionesOtrosActivosFijos(tabla){
@@ -782,6 +782,74 @@ function costoRepuestoHerramientas(){
 }
 // ------------- FIN HERRAMIENTAS
 
+// ------------- AGROQUIMICOS
+// ------------- FERTILIZANTE GRANULAR
+function colectaFertilizanteGranular(){
+    const inputs = document.querySelectorAll('#tablaFertilizantesGranular input');
+    let granular = {
+        nombreFertilizante: '',
+        unidad: '',
+        cantidadHa: 0,
+        precioUnitario: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaFertilizantesGranular', granular);
+            colecta.fertilizantesGranular = objetos;
+            operacionesAgroquimicos('#tablaFertilizantesGranular');
+        })
+    });
+}
+// ------------- FIN FERTILIZANTE GRANULAR
+// ------------- FERTILIZANTE FOLIAR
+function colectaFertilizanteFoliar(){
+    const inputs = document.querySelectorAll('#tablaFertilizantesFoliar input');
+    let foliar = {
+        nombreFertilizante: '',
+        unidad: '',
+        cantidadHa: 0,
+        precioUnitario: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaFertilizantesFoliar', foliar);
+            colecta.fertilizantesFoliar = objetos;
+            operacionesAgroquimicos('#tablaFertilizantesFoliar');
+        })
+    });
+}
+// ------------- FIN FERTILIZANTE FOLIAR
+function operacionesAgroquimicos(tabla){
+    costoTotalAgroquimico(tabla);
+    subtotalAgroquimicos();
+}
+function subtotalAgroquimicos(){
+    const totalGranular = sumarColumna('#tablaFertilizantesGranular', 4);
+    const totalFoliar = sumarColumna('#tablaFertilizantesFoliar', 4);
+    const subtotalFertilizantes = document.querySelector('#tablaFertilizantesFoliar #subtotalFertilizantes');
+
+    subtotalFertilizantes.textContent =convertirValorMonetario(totalGranular+totalFoliar)
+}
+function costoTotalAgroquimico(tabla){
+    const tbody = document.querySelector(tabla + ' tbody');
+    const valor = getTotalSuperficie();
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let cantidadha = tbody.rows[i].cells[2].lastChild;
+        cantidadha = cantidadha.value === '' ? 0 : parseFloat(cantidadha.value);
+        let precioUnitario = tbody.rows[i].cells[3].lastChild;
+        precioUnitario = precioUnitario.value === '' ? 0 : parseFloat(precioUnitario.value);
+
+        let total = (valor * precioUnitario * cantidadha);
+
+        let celdaFinal = tbody.rows[i].cells[4];
+        celdaFinal.textContent = convertirValorMonetario(total);
+    }
+}
+// ------------- FIN AGROQUIMICOS
+
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
@@ -817,6 +885,8 @@ function filaVariedadArboles() {
 
     // console.log(colecta)
     colectaArbol();
+    //acutalizar operaciones
+    actualizarOperaciones();
 }
 
 // FUNCION BOTON ELIMINAR FILA
@@ -864,6 +934,9 @@ function filaActividadesProduccion(idTabla, funcion){
     tr.appendChild(td3);
     tbody.appendChild(tr);
     funcion();
+
+    //acutalizar operaciones
+    actualizarOperaciones();
 }
 
 // -------------- BOTONES ELIMINAR
@@ -904,8 +977,8 @@ function filaCostoAnualEstablecimientoPlantacion(idTabla, funcion){
     tbody.appendChild(tr);
     funcion();
     colocarNumeroAnio();
-    operacionesValorPlantacion();
-    colectaCostoAnualEstablecimientoPlantacion();
+    //acutalizar operaciones
+    actualizarOperaciones();
 }
 // elimiar
 const botonEliminarFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#eliminarFilaCostoAnualEstablecimientoPlantacion');
@@ -1024,8 +1097,11 @@ function filaOtrosActivosFijos(idTabla, funcion) {
     funcion();
 
 
-    calcularOperacionesActivosFijos(idTabla)
+    // calcularOperacionesActivosFijos(idTabla)
     // sumaValorActualMercado()
+
+    //acutalizar operaciones
+    actualizarOperaciones();
 }
 
 // FUNCION BOTON ELIMINAR FILA
@@ -1097,6 +1173,8 @@ function filaRepuestoHerramientas(idTabla, funcion){
     tr.appendChild(td7);
     tbody.appendChild(tr);
     funcion();
+    //acutalizar operaciones
+    actualizarOperaciones();
 }
 //eliminar
 const botonEliminarFilaRepuestoHerramientas = document.querySelector('#eliminarFilaRepuestoHerramientas');
@@ -1104,6 +1182,61 @@ botonEliminarFilaRepuestoHerramientas.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaRepuestoHerramientas', colecta.repuestoHerramientas,colectaRepuestoHerramientas,operacionesRepuestoHerramientas)
 });
 // -------------- FIN REPUESTO HERRAMIENTAS
+
+// -------------- COSTO AGROQUIMICOS
+const botonNuevaFilaAgroquimicosGranular = document.querySelector('#nuevaFilaAgroquimicosGranular');
+const botonNuevaFilaAgroquimicosFoliar = document.querySelector('#nuevaFilaAgroquimicosFoliar');
+botonNuevaFilaAgroquimicosGranular.addEventListener('click', ()=>{
+    filaCostoAgroquimico('#tablaFertilizantesGranular', colectaFertilizanteGranular)
+});
+botonNuevaFilaAgroquimicosFoliar.addEventListener('click', ()=>{
+    filaCostoAgroquimico('#tablaFertilizantesFoliar', colectaFertilizanteFoliar)
+});
+function filaCostoAgroquimico(idTabla, funcion){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    // td2.classList.add('etiqueta');
+    const td3 = document.createElement('TD');
+    const td4 = document.createElement('TD');
+    const td5 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    const input3 = document.createElement('INPUT');
+    const input4 = document.createElement('INPUT');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input3.setAttribute('type', 'number');
+    input4.setAttribute('type', 'number');
+    td1.appendChild(input1);
+    td2.appendChild(input2);
+    td3.appendChild(input3);
+    td4.innerHTML += '<span>$</span>';
+    td4.appendChild(input4);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tbody.appendChild(tr);
+    funcion();
+    //acutalizar operaciones
+    actualizarOperaciones();
+}
+//eliminar
+const botonEliminarFilaAgroquimicosGranular = document.querySelector('#eliminarFilaAgroquimicosGranular');
+const botonEliminarFilaAgroquimicosFoliar = document.querySelector('#eliminarFilaAgroquimicosFoliar');
+botonEliminarFilaAgroquimicosGranular.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaFertilizantesGranular',colecta.fertilizantesGranular, colectaFertilizanteGranular);
+})
+botonEliminarFilaAgroquimicosFoliar.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaFertilizantesFoliar',colecta.fertilizantesFoliar, colectaFertilizanteFoliar);
+})
+// -------------- FIN COSTO AGROQUIMICOS
+
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
 
 // FUNCIONES
@@ -1214,6 +1347,39 @@ function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, func
     }
 
     if(funcionAlmacenarObjeto) funcionAlmacenarObjeto(idTabla);
-    if(funcionActualizarOperaciones) funcionActualizarOperaciones(idTabla);
+
+    //acutalizar operaciones
+    actualizarOperaciones();
     console.log(colecta)
+}
+
+function getTotalSuperficie(){
+    let totalSuperficeHasText = document.querySelector('#tablaValorTierra #totalSuperficeHas');
+    totalSuperficeHas = totalSuperficeHasText.textContent === '' ? 0 : parseFloat(totalSuperficeHasText.textContent);
+    return totalSuperficeHas;
+}
+
+function inputsOperaciones(){
+    const inputs = document.querySelectorAll("input[type='number']")
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            actualizarOperaciones();
+        })
+    });
+}
+function actualizarOperaciones(){
+    operacionesArboles();
+    mostrarSumatoriaPatronCultivos();
+    operacionesSuperficieUrp();
+    operacionesValorTierra();
+    calcularCostoPlantacion();
+    operacionesValorPlantacion();
+    operacionesOtrosActivosFijos('#tablaContrucciones');
+    operacionesOtrosActivosFijos('#tablaVehiculos');
+    operacionesOtrosActivosFijos('#tablaImplementos');
+    operacionesOtrosActivosFijos('#tablaEquiposComunicacion');
+    operacionesOtrosActivosFijos('#tablaEquipos');
+    operacionesRepuestoHerramientas();
+    operacionesAgroquimicos('#tablaFertilizantesGranular');
+    operacionesAgroquimicos('#tablaFertilizantesFoliar');
 }
