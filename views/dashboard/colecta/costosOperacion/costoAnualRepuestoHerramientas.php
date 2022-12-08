@@ -11,20 +11,15 @@
             <th>depreciación anual</th>
         </tr>
     </thead>
-    <!--<tfoot>
-        <tr>
-            <td colspan="6">Pie de tabla.</td>
-        </tr>
-    </tfoot>-->
     <tbody>
         <tr>
             <td><input type="text" name="" id=""></td>
             <td><span>$</span><input type="number"></td>
             <td><span>$</span><input type="number"></td>
-            <td class="costoTotal"></td>
+            <td></td>
             <td><span>$</span><input type="number"></td>
-            <td><span>$</span><input type="number" class="valorRepocicion"></td>
-            <td class="depreciacionAnual"></td>
+            <td><span>$</span><input type="number"></td>
+            <td></td>
         </tr>
     </tbody>
     <tfoot>
@@ -40,6 +35,6 @@
     </tfoot>
 </table>
 <div class="botones-agregar-fila">
-    <button type="" class="boton-agregar-fila" id="">Agregar Fila</button>
-    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+    <button type="" class="boton-agregar-fila" id="nuevaFilaRepuestoHerramientas">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaRepuestoHerramientas">Eliminar Fila</button>
 </div>

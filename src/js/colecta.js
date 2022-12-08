@@ -842,10 +842,31 @@ function colectaRepuestoHerramientas(){
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
             almacenarDatosRepuestoHerramientas();
-            costoRepuestoHerramientas();
-            costoDepreciacionAnual();
+            operacionesRepuestoHerramientas();
         })
     });
+}
+function operacionesRepuestoHerramientas(){
+    costoRepuestoHerramientas();
+    costoDepreciacionAnual();
+    costoTotalRepuestoHerramientas();
+    valorRepocicionTotalRepuestoHerramientas();
+    depreciacionAnualTotalRepuestoHerramientas();
+}
+function depreciacionAnualTotalRepuestoHerramientas(){
+    const contenedor = document.querySelector('#tablaRepuestoHerramientas #totalDepreciacionAnual');
+    let valor = sumarColumna('#tablaRepuestoHerramientas', 6);
+    contenedor.textContent = convertirValorMonetario(valor)
+}
+function valorRepocicionTotalRepuestoHerramientas(){
+    const contenedor = document.querySelector('#tablaRepuestoHerramientas #totalValorRepocicion');
+    let valor = sumarColumnaInputs('#tablaRepuestoHerramientas', 5);
+    contenedor.textContent = convertirValorMonetario(valor)
+}
+function costoTotalRepuestoHerramientas(){
+    const contenedor = document.querySelector('#tablaRepuestoHerramientas #totalCostoTotal');
+    let valor = sumarColumna('#tablaRepuestoHerramientas', 3);
+    contenedor.textContent = convertirValorMonetario(valor)
 }
 function costoDepreciacionAnual(){
     const tbody = document.querySelector('#tablaRepuestoHerramientas tbody');
@@ -886,18 +907,20 @@ function almacenarDatosRepuestoHerramientas(){
             valorRepocicion: 0
         };
         let keys = Object.keys(herramienta);//indices del objet
-        for (let l = 0; l < keys.length; l++) {
+        let posicion = 0;
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
             const input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
-            if( input && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
+            if( input !== null && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
                 const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
-                key = keys[l]; //asignamos el indice acutal auna variable
+                key = keys[posicion]; //asignamos el indice acutal auna variable
                 herramienta[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+                posicion++;
             }
         }
         objetos.push(herramienta)
     }
     colecta.repuestoHerramientas = objetos
-    console.log(colecta.repuestoHerramientas)
+    // console.log(colecta.repuestoHerramientas)
 }
 // ------------- FIN HERRAMIENTAS
 
@@ -909,7 +932,8 @@ function sumarColumnaInputs(tabla, columna){
 
     for( let i = 0 ; i < tbody.rows.length ; i++ ){
         //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
-        const input = tbody.rows[i].cells[columna].firstChild;
+        let input = tbody.rows[i].cells[columna];
+        input = input.firstChild.tagName === 'INPUT' ? input.firstChild : input.lastChild;
         const valor = input.value === '' ? 0 : parseFloat(input.value);
 
         sumatoria += valor;
@@ -1208,7 +1232,7 @@ function eliminarUltimaFila(idTabla, objeto, funcion = null, funcionActualizarOp
 // -------------- COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
 const botonNuevaFilaCostoAnualEstablecimientoPlantacion = document.querySelector('#nuevaFilaCostoAnualEstablecimientoPlantacion');
 botonNuevaFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', ()=>{
-    filaCostoAnualEstablecimientoPlantacion('#tablaCostoAnualEstablecimientoPlantacion', almacenarDatosCostoAnualEstablecimientoPlantacion);
+    filaCostoAnualEstablecimientoPlantacion('#tablaCostoAnualEstablecimientoPlantacion', colectaCostoAnualEstablecimientoPlantacion);
 })
 function filaCostoAnualEstablecimientoPlantacion(idTabla, funcion){
     const tbody = document.querySelector(idTabla).children[1];
@@ -1239,6 +1263,60 @@ botonEliminarFilaCostoAnualEstablecimientoPlantacion.addEventListener('click', (
     eliminarUltimaFila('#tablaCostoAnualEstablecimientoPlantacion', colecta.costoAnualesEstablecimientoPlantacion, almacenarDatosCostoAnualEstablecimientoPlantacion, operacionesValorPlantacion)
 })
 // -------------- FIN COSTO ANUAL ESTABLECIMIENTOS DE PLANTACION
+
+// -------------- REPUESTO HERRAMIENTAS
+const botonNuevaFilaRepuestoHerramientas = document.querySelector('#nuevaFilaRepuestoHerramientas')
+botonNuevaFilaRepuestoHerramientas.addEventListener('click', ()=>{
+    filaRepuestoHerramientas('#tablaRepuestoHerramientas', colectaRepuestoHerramientas)
+})
+function filaRepuestoHerramientas(idTabla, funcion){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    // td2.classList.add('etiqueta');
+    const td3 = document.createElement('TD');
+    const td4 = document.createElement('TD');
+    const td5 = document.createElement('TD');
+    const td6 = document.createElement('TD');
+    const td7 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    const input3 = document.createElement('INPUT');
+    const input4 = document.createElement('INPUT');
+    const input5 = document.createElement('INPUT');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    input3.setAttribute('type', 'number');
+    input4.setAttribute('type', 'number');
+    input5.setAttribute('type', 'number');
+    td1.appendChild(input1);
+    td2.innerHTML += '<span>$</span>';
+    td2.appendChild(input2);
+    td3.innerHTML += '<span>$</span>';
+    td3.appendChild(input3);
+    td5.innerHTML += '<span>$</span>';
+    td5.appendChild(input4);
+    td6.innerHTML += '<span>$</span>';
+    td6.appendChild(input5);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tr.appendChild(td6);
+    tr.appendChild(td7);
+    tbody.appendChild(tr);
+    funcion();
+}
+//eliminar
+const botonEliminarFilaRepuestoHerramientas = document.querySelector('#eliminarFilaRepuestoHerramientas');
+botonEliminarFilaRepuestoHerramientas.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaRepuestoHerramientas', colecta.repuestoHerramientas,almacenarDatosRepuestoHerramientas,operacionesRepuestoHerramientas)
+});
+// -------------- FIN REPUESTO HERRAMIENTAS
+
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
 
 const formatter = new Intl.NumberFormat('en-US', {
