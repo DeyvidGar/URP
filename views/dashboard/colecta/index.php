@@ -12,8 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>4.1 Costo anual repuesto herramientas</h2>
-        <?php include_once __DIR__.'/costosOperacion/costoAnualRepuestoHerramientas.php';?>
+        <h2>4.2 Costos de agroquimicos</h2>
+        <?php include_once __DIR__.'/costosOperacion/costoAgroquimicos.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->

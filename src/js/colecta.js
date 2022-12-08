@@ -839,9 +839,18 @@ function sumaValorActualMercado(tabla){
 // ------------- HERRAMIENTAS
 function colectaRepuestoHerramientas(){
     const inputs = document.querySelectorAll('#tablaRepuestoHerramientas input');
+    let herramienta = {
+        nombreHerramienta: '',
+        cantidadHectarea: 0,
+        precioUnitario: 0,
+        vidaUtil: 0,
+        valorRepocicion: 0
+    };
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosRepuestoHerramientas();
+            // almacenarDatosRepuestoHerramientas();
+            let objetos = almacenarObjeto('#tablaRepuestoHerramientas', herramienta);
+            colecta.repuestoHerramientas = objetos;
             operacionesRepuestoHerramientas();
         })
     });
@@ -906,6 +915,7 @@ function almacenarDatosRepuestoHerramientas(){
             vidaUtil: 0,
             valorRepocicion: 0
         };
+        console.log(herramienta)
         let keys = Object.keys(herramienta);//indices del objet
         let posicion = 0;
         for (let l = 0; l < tbody.rows[i].cells.length; l++) {
@@ -923,59 +933,6 @@ function almacenarDatosRepuestoHerramientas(){
     // console.log(colecta.repuestoHerramientas)
 }
 // ------------- FIN HERRAMIENTAS
-
-// FUNCIONES
-// ------------- FUNCION SUMAR COLUMNA INPUTS
-function sumarColumnaInputs(tabla, columna){
-    const tbody = document.querySelector(tabla + ' tbody');
-    let sumatoria = 0;
-
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
-        let input = tbody.rows[i].cells[columna];
-        input = input.firstChild.tagName === 'INPUT' ? input.firstChild : input.lastChild;
-        const valor = input.value === '' ? 0 : parseFloat(input.value);
-
-        sumatoria += valor;
-    }
-    return sumatoria;
-}
-function sumarColumna(tabla, columna){
-    const tbody = document.querySelector(tabla + ' tbody');
-    let sumatoria = 0;
-
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
-        const element = tbody.rows[i].cells[columna].textContent;
-        const valor = element.textContent === '' ? 0 : extraerCaracteresNumber(element);
-
-        sumatoria += valor;
-    }
-    return sumatoria;
-}
-// ------------- FIN FUNCION SUMAR COLUMNA INPUTS
-
-// ------------ FUNCION MOSTRAR PORCENTAJES
-function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
-    const tbody = document.querySelector(tabla + ' tbody');
-    // console.log(tabla.children[1].children.length)//numero de filas en tbody
-    // todo:iterar tabla y mostrar resultado
-
-    for( let i = 0 ; i < tbody.rows.length ; i++ ){
-        // console.log(tabla.children[1].children[i].cells.length)//numero de columnas
-        //iteramos solo la columna del final
-        for( let l = columnaInsertarValores ; l < tbody.rows[i].cells.length ; l++ ){
-            const sumatoria = sumarColumnaInputs(tabla, columnaSumatoria);
-            const input = tbody.rows[i].cells[l-1].firstChild;
-            const valor = input.value === '' ? 0 : parseFloat(input.value);
-            const formula = (valor/sumatoria)*100;
-            const formulaDosDecimales = isNaN(formula) ? 0 : formula.toFixed(2);
-            const td = tbody.rows[i].cells[columnaInsertarValores]; //columna total
-            td.innerHTML = `<span>${formulaDosDecimales}%</span>`;
-        }
-    }
-}
-// ------------ FIN FUNCION MOSTRAR PORCENTAJES
 
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS
 // -------------- BOTONES VARIEDAD ARBOLES
@@ -1211,7 +1168,7 @@ botonEliminarFilaEquipo.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaEquipos', colecta.equipos, funcion = null, operacionesOtrosActivosFijos);
 })
 
-function eliminarUltimaFila(idTabla, objeto, funcion = null, funcionActualizarOperaciones = null){
+function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, funcionActualizarOperaciones = null){
     const tbody = document.querySelector(idTabla).children[1];
     const ultimaFila = tbody.rows.length-1;
     // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
@@ -1224,7 +1181,7 @@ function eliminarUltimaFila(idTabla, objeto, funcion = null, funcionActualizarOp
         // console.log('eliminando', colecta)
     }
 
-    if(funcion) funcion();
+    if(funcionAlmacenarObjeto) funcionAlmacenarObjeto(idTabla);
     if(funcionActualizarOperaciones) funcionActualizarOperaciones(idTabla);
 }
 // -------------- FIN OTROS ACTIVOS FIJOS
@@ -1313,11 +1270,63 @@ function filaRepuestoHerramientas(idTabla, funcion){
 //eliminar
 const botonEliminarFilaRepuestoHerramientas = document.querySelector('#eliminarFilaRepuestoHerramientas');
 botonEliminarFilaRepuestoHerramientas.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaRepuestoHerramientas', colecta.repuestoHerramientas,almacenarDatosRepuestoHerramientas,operacionesRepuestoHerramientas)
+    eliminarUltimaFila('#tablaRepuestoHerramientas', colecta.repuestoHerramientas,almacenarObjeto,operacionesRepuestoHerramientas)
 });
 // -------------- FIN REPUESTO HERRAMIENTAS
-
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
+
+// FUNCIONES
+// ------------- FUNCION SUMAR COLUMNA INPUTS
+function sumarColumnaInputs(tabla, columna){
+    const tbody = document.querySelector(tabla + ' tbody');
+    let sumatoria = 0;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
+        let input = tbody.rows[i].cells[columna];
+        input = input.firstChild.tagName === 'INPUT' ? input.firstChild : input.lastChild;
+        const valor = input.value === '' ? 0 : parseFloat(input.value);
+
+        sumatoria += valor;
+    }
+    return sumatoria;
+}
+function sumarColumna(tabla, columna){
+    const tbody = document.querySelector(tabla + ' tbody');
+    let sumatoria = 0;
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        //de esta forma solo iteramos la columna que ingresemos y acumulamos sus valores parceandolos a enteros
+        const element = tbody.rows[i].cells[columna].textContent;
+        const valor = element.textContent === '' ? 0 : extraerCaracteresNumber(element);
+
+        sumatoria += valor;
+    }
+    return sumatoria;
+}
+// ------------- FIN FUNCION SUMAR COLUMNA INPUTS
+
+// ------------ FUNCION MOSTRAR PORCENTAJES
+function dividirPorcentaje(tabla, columnaSumatoria, columnaInsertarValores){
+    const tbody = document.querySelector(tabla + ' tbody');
+    // console.log(tabla.children[1].children.length)//numero de filas en tbody
+    // todo:iterar tabla y mostrar resultado
+
+    for( let i = 0 ; i < tbody.rows.length ; i++ ){
+        // console.log(tabla.children[1].children[i].cells.length)//numero de columnas
+        //iteramos solo la columna del final
+        for( let l = columnaInsertarValores ; l < tbody.rows[i].cells.length ; l++ ){
+            const sumatoria = sumarColumnaInputs(tabla, columnaSumatoria);
+            const input = tbody.rows[i].cells[l-1].firstChild;
+            const valor = input.value === '' ? 0 : parseFloat(input.value);
+            const formula = (valor/sumatoria)*100;
+            const formulaDosDecimales = isNaN(formula) ? 0 : formula.toFixed(2);
+            const td = tbody.rows[i].cells[columnaInsertarValores]; //columna total
+            td.innerHTML = `<span>${formulaDosDecimales}%</span>`;
+        }
+    }
+}
+// ------------ FIN FUNCION MOSTRAR PORCENTAJES
 
 const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -1333,4 +1342,30 @@ function extraerCaracteresNumber(caracteres){
 }
 function convertirValorMonetario(valor){
     return formatter.format(valor);
+}
+
+function almacenarObjeto(idTabla, objeto){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const rows = tbody.rows.length;
+    let objetos = [];
+    let key;
+    let keys = Object.keys(objeto);//indices del objet
+
+    for(let i = 0 ; i < rows ; i ++){
+        objeto = {}
+        let posicion = 0;
+        for (let l = 0; l < tbody.rows[i].cells.length; l++) {
+            let input = tbody.rows[i].cells[l].lastChild; //obtenemos el valor del input
+            input = (input && input.tagName === 'INPUT') ? input : tbody.rows[i].cells[l].firstChild;// para las tablas con el porcentaje que son lastchild
+            if( input !== null && input.tagName === 'INPUT' ){//TODO: EL INPUT ES NULLO CUANDO NO HAY VALORES, DESPUES DEJA DE SER NULO PERO SE DEBE OMITIR
+                const valor = input.type === 'number' ? (input.value === '' ? 0 : parseFloat(input.value)) : input.value;
+                key = keys[posicion]; //asignamos el indice acutal auna variable
+                objeto[key] = input.type === 'text' ? valor : parseFloat(valor)//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+                posicion++;
+            }
+        }
+        objetos.push(objeto)
+    }
+    console.log(colecta)
+    return objetos;
 }
