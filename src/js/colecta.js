@@ -94,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaFertilizanteFoliar();
     colectaInsecticidas();
     colectaFungicidas();
+    colectaHerbicidas();
 
     inputsOperaciones();
 });
@@ -842,7 +843,7 @@ function colectaInsecticidas(){
 }
 function colectaFungicidas(){
     const inputs = document.querySelectorAll('#tablaFungicidas input');
-    let fungicidas = {
+    let fungicida = {
         nombreFertilizante: '',
         unidad: '',
         cantidadHa: 0,
@@ -851,9 +852,26 @@ function colectaFungicidas(){
     let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            objetos = almacenarObjeto('#tablaFungicidas', fungicidas);
+            objetos = almacenarObjeto('#tablaFungicidas', fungicida);
             colecta.fungicidas = objetos;
             operacionesAgroquimicos('#tablaFungicidas');
+        })
+    });
+}
+function colectaHerbicidas(){
+    const inputs = document.querySelectorAll('#tablaHerbicidas input');
+    let herbicida = {
+        nombreFertilizante: '',
+        unidad: '',
+        cantidadHa: 0,
+        precioUnitario: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaHerbicidas', herbicida);
+            colecta.herbicidas = objetos;
+            operacionesAgroquimicos('#tablaHerbicidas');
         })
     });
 }
@@ -1232,6 +1250,8 @@ const botonNuevaFilaAgroquimicosGranular = document.querySelector('#nuevaFilaAgr
 const botonNuevaFilaAgroquimicosFoliar = document.querySelector('#nuevaFilaAgroquimicosFoliar');
 const botonNuevaFilaInsecticidas = document.querySelector('#nuevaFilaInsecticidas');
 const botonNuevaFilaFungicidas = document.querySelector('#nuevaFilaFungicidas');
+const botonNuevaFilaHerbicidas = document.querySelector('#nuevaFilaHerbicidas');
+
 botonNuevaFilaAgroquimicosGranular.addEventListener('click', ()=>{
     filaCostoAgroquimico('#tablaFertilizantesGranular', colectaFertilizanteGranular)
 });
@@ -1243,6 +1263,9 @@ botonNuevaFilaInsecticidas.addEventListener('click', ()=>{
 });
 botonNuevaFilaFungicidas.addEventListener('click', ()=>{
     filaCostoAgroquimico('#tablaFungicidas', colectaFungicidas)
+});
+botonNuevaFilaHerbicidas.addEventListener('click', ()=>{
+    filaCostoAgroquimico('#tablaHerbicidas', colectaHerbicidas)
 });
 function filaCostoAgroquimico(idTabla, funcion){
     const tbody = document.querySelector(idTabla + ' tbody');
@@ -1283,6 +1306,7 @@ const botonEliminarFilaAgroquimicosGranular = document.querySelector('#eliminarF
 const botonEliminarFilaAgroquimicosFoliar = document.querySelector('#eliminarFilaAgroquimicosFoliar');
 const botonEliminarFilaInsecticidas = document.querySelector('#eliminarFilaInsecticidas');
 const botonEliminarFilaFungicidas = document.querySelector('#eliminarFilaFungicidas');
+const botonEliminarFilaHerbicidas = document.querySelector('#eliminarFilaHerbicidas');
 botonEliminarFilaAgroquimicosGranular.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaFertilizantesGranular',colecta.fertilizantesGranular, colectaFertilizanteGranular);
 })
@@ -1294,6 +1318,9 @@ botonEliminarFilaInsecticidas.addEventListener('click', ()=>{
 })
 botonEliminarFilaFungicidas.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaFungicidas',colecta.fungicidas, colectaFungicidas);
+})
+botonEliminarFilaHerbicidas.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaHerbicidas',colecta.herbicidas, colectaHerbicidas);
 })
 // -------------- FIN COSTO AGROQUIMICOS
 

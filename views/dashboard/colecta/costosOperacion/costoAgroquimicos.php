@@ -109,7 +109,6 @@
     <button type="" class="boton-eliminar-fila" id="eliminarFilaFungicidas">Eliminar Fila</button>
 </div>
 
-
 <table id="tablaHerbicidas">
     <thead>
         <tr>
@@ -138,8 +137,8 @@
     </tfoot>
 </table>
 <div class="botones-agregar-fila">
-    <button type="" class="boton-agregar-fila" id="nuevaFilaAgroquimicosFoliar">Agregar Fila</button>
-    <button type="" class="boton-eliminar-fila" id="">Eliminar Fila</button>
+    <button type="" class="boton-agregar-fila" id="nuevaFilaHerbicidas">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaHerbicidas">Eliminar Fila</button>
 </div>
 
 <table>
