@@ -44,7 +44,8 @@ const colecta = {
     fertilizantesFoliar: [],
     insecticidas: [],
     fungicidas: [],
-    herbicidas: []
+    herbicidas: [],
+    combustiblesLubricantes: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -95,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaInsecticidas();
     colectaFungicidas();
     colectaHerbicidas();
+    colectaCombustiblesLubricantes();
 
     inputsOperaciones();
 });
@@ -827,7 +829,7 @@ function colectaFertilizanteFoliar(){
 function colectaInsecticidas(){
     const inputs = document.querySelectorAll('#tablaInsecticidas input');
     let insecticida = {
-        nombreFertilizante: '',
+        nombreInsecticida: '',
         unidad: '',
         cantidadHa: 0,
         precioUnitario: 0
@@ -844,7 +846,7 @@ function colectaInsecticidas(){
 function colectaFungicidas(){
     const inputs = document.querySelectorAll('#tablaFungicidas input');
     let fungicida = {
-        nombreFertilizante: '',
+        nombreFungicida: '',
         unidad: '',
         cantidadHa: 0,
         precioUnitario: 0
@@ -861,7 +863,7 @@ function colectaFungicidas(){
 function colectaHerbicidas(){
     const inputs = document.querySelectorAll('#tablaHerbicidas input');
     let herbicida = {
-        nombreFertilizante: '',
+        nombreHerbicida: '',
         unidad: '',
         cantidadHa: 0,
         precioUnitario: 0
@@ -875,12 +877,68 @@ function colectaHerbicidas(){
         })
     });
 }
+function colectaCombustiblesLubricantes(){
+    const inputs = document.querySelectorAll('#tablaCombustiblesLubricantes input');
+    let combustibleLubricante = {
+        nombreCombustiblesLubricantes: '',
+        litros: 0,
+        precioUnitario: 0,
+        costo: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaCombustiblesLubricantes', combustibleLubricante);
+            colecta.combustiblesLubricantes = objetos;
+            operacionesCombustiblesLubricantes();
+        })
+    });
+}
 // ------------- FIN PESTICIDAS CONTRO BIOLOGICO Y OTROS
+function operacionesCombustiblesLubricantes(){
+    costoMesCombustiblesLubricantes();
+    costoAnualCombustiblesLubricantes();
+    totalCombustiblesLubricantes();
+}
 function operacionesAgroquimicos(tabla){
     costoTotalAgroquimico(tabla);
     subtotalAgroquimicosFertilizantes();
     subtotalAgroquimicosOtrosInsecticidas();
     totalAgroquimicos();
+}
+function costoAnualCombustiblesLubricantes(){
+    const tbody = document.querySelector('#tablaCombustiblesLubricantes tbody');
+    const numMeses = 12;
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let valormes = tbody.rows[i].cells[3].textContent;
+        valormes = extraerCaracteresNumber(valormes);
+
+        let total = (valormes * numMeses);
+
+        let celdaFinal = tbody.rows[i].cells[4];
+        celdaFinal.textContent = convertirValorMonetario(total);
+    }
+}
+function costoMesCombustiblesLubricantes(){
+    const tbody = document.querySelector('#tablaCombustiblesLubricantes tbody');
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let litros = tbody.rows[i].cells[1].lastChild;
+        litros = litros.value === '' ? 0 : parseFloat(litros.value);
+        let precioUnitario = tbody.rows[i].cells[2].lastChild;
+        precioUnitario = precioUnitario.value === '' ? 0 : parseFloat(precioUnitario.value);
+
+        let total = (precioUnitario * litros);
+
+        let celdaFinal = tbody.rows[i].cells[3];
+        celdaFinal.textContent = convertirValorMonetario(total);
+    }
+}
+function totalCombustiblesLubricantes(){
+    const total = document.querySelector('#totalCombustiblesLubricantes');
+    const totalCombustiblesLubricantes = sumarColumna('#tablaCombustiblesLubricantes', 4);
+    total.textContent = convertirValorMonetario(totalCombustiblesLubricantes);
 }
 function totalAgroquimicos(){
     const total = document.querySelector('#totalCostoAgroquimicos');
@@ -1260,6 +1318,7 @@ const botonNuevaFilaAgroquimicosFoliar = document.querySelector('#nuevaFilaAgroq
 const botonNuevaFilaInsecticidas = document.querySelector('#nuevaFilaInsecticidas');
 const botonNuevaFilaFungicidas = document.querySelector('#nuevaFilaFungicidas');
 const botonNuevaFilaHerbicidas = document.querySelector('#nuevaFilaHerbicidas');
+const botonNuevaFilaCombustiblesLubricantes = document.querySelector('#nuevaFilaCombustiblesLubricantes');
 
 botonNuevaFilaAgroquimicosGranular.addEventListener('click', ()=>{
     filaCostoAgroquimico('#tablaFertilizantesGranular', colectaFertilizanteGranular)
@@ -1276,6 +1335,9 @@ botonNuevaFilaFungicidas.addEventListener('click', ()=>{
 botonNuevaFilaHerbicidas.addEventListener('click', ()=>{
     filaCostoAgroquimico('#tablaHerbicidas', colectaHerbicidas)
 });
+botonNuevaFilaCombustiblesLubricantes.addEventListener('click', ()=>{
+    filaCostoAgroquimico('#tablaCombustiblesLubricantes', colectaCombustiblesLubricantes)
+});
 function filaCostoAgroquimico(idTabla, funcion){
     const tbody = document.querySelector(idTabla + ' tbody');
     const tr = document.createElement('TR');
@@ -1291,15 +1353,18 @@ function filaCostoAgroquimico(idTabla, funcion){
     const input4 = document.createElement('INPUT');
     input1.setAttribute('type', 'text');
     input1.setAttribute('required', '');
-    input2.setAttribute('type', 'text');
+    (idTabla === '#tablaCombustiblesLubricantes') ? input2.setAttribute('type', 'number') : input2.setAttribute('type', 'text');;
     input1.setAttribute('required', '');
     input3.setAttribute('type', 'number');
     input4.setAttribute('type', 'number');
     td1.appendChild(input1);
     td2.appendChild(input2);
+    if(idTabla === '#tablaCombustiblesLubricantes') td3.innerHTML += '<span>$</span>';
     td3.appendChild(input3);
-    td4.innerHTML += '<span>$</span>';
-    td4.appendChild(input4);
+    if(idTabla !== '#tablaCombustiblesLubricantes'){
+        td4.innerHTML += '<span>$</span>';
+        td4.appendChild(input4);
+    }
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -1316,6 +1381,7 @@ const botonEliminarFilaAgroquimicosFoliar = document.querySelector('#eliminarFil
 const botonEliminarFilaInsecticidas = document.querySelector('#eliminarFilaInsecticidas');
 const botonEliminarFilaFungicidas = document.querySelector('#eliminarFilaFungicidas');
 const botonEliminarFilaHerbicidas = document.querySelector('#eliminarFilaHerbicidas');
+const botonEliminarFilaCombustiblesLubricantes = document.querySelector('#eliminarFilaCombustiblesLubricantes');
 botonEliminarFilaAgroquimicosGranular.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaFertilizantesGranular',colecta.fertilizantesGranular, colectaFertilizanteGranular);
 })
@@ -1330,6 +1396,9 @@ botonEliminarFilaFungicidas.addEventListener('click', ()=>{
 })
 botonEliminarFilaHerbicidas.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaHerbicidas',colecta.herbicidas, colectaHerbicidas);
+})
+botonEliminarFilaCombustiblesLubricantes.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaCombustiblesLubricantes',colecta.combustiblesLubricantes, colectaCombustiblesLubricantes);
 })
 // -------------- FIN COSTO AGROQUIMICOS
 
@@ -1481,4 +1550,5 @@ function actualizarOperaciones(){
     operacionesAgroquimicos('#tablaInsecticidas');
     operacionesAgroquimicos('#tablaHerbicidas');
     operacionesAgroquimicos('#tablaFungicidas');
+    operacionesCombustiblesLubricantes();
 }

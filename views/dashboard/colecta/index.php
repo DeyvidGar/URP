@@ -12,8 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>4.2 Costos de agroquimicos</h2>
-        <?php include_once __DIR__.'/costosOperacion/costoAgroquimicos.php';?>
+        <h2>4.3 combustibles y lubricantes</h2>
+        <?php include_once __DIR__.'/costosOperacion/combustiblesLubricantes.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->
