@@ -12,8 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>4.3 combustibles y lubricantes</h2>
-        <?php include_once __DIR__.'/costosOperacion/combustiblesLubricantes.php';?>
+        <h2>4.4 Matenimiento y reparaciones</h2>
+        <?php include_once __DIR__.'/costosOperacion/matenimientoReparaciones.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->

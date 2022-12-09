@@ -45,7 +45,8 @@ const colecta = {
     insecticidas: [],
     fungicidas: [],
     herbicidas: [],
-    combustiblesLubricantes: []
+    combustiblesLubricantes: [],
+    mantenimientosReparaciones: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaFungicidas();
     colectaHerbicidas();
     colectaCombustiblesLubricantes();
-
+    colectaMantenimientoReparaciones();
     inputsOperaciones();
 });
 
@@ -978,6 +979,35 @@ function costoTotalAgroquimico(tabla){
     }
 }
 // ------------- FIN AGROQUIMICOS
+// ------------- MANTENIMIENTO REPARACIONES
+function colectaMantenimientoReparaciones(){
+    const inputs = document.querySelectorAll('#tablaMantenimientoReparaciones input');
+    let mantenimietoReparacion = {
+        nombreMantenimietoReparacion: '',
+        unidades: 0,
+        precioUnitario: 0,
+        costoMes: 0,
+        costoAnual: 0,
+        porcenajeUso: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaMantenimientoReparaciones', mantenimietoReparacion);
+            colecta.mantenimientosReparaciones = objetos;
+            operacionesMantenimientoReparaciones();
+        })
+    });
+}
+function operacionesMantenimientoReparaciones(){
+    totalCostoActualMantenimientoReparaciones();
+}
+function totalCostoActualMantenimientoReparaciones(){
+    const suma = sumarColumnaInputs('#tablaMantenimientoReparaciones', 4);
+    const total = document.querySelector('#totalMantenimientoReparaciones');
+    total.textContent = convertirValorMonetario(suma)
+}
+// ------------- FIN MANTENIMIENTO REPARACIONES
 
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS
 // -------------- BOTONES VARIEDAD ARBOLES
@@ -1401,6 +1431,62 @@ botonEliminarFilaCombustiblesLubricantes.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaCombustiblesLubricantes',colecta.combustiblesLubricantes, colectaCombustiblesLubricantes);
 })
 // -------------- FIN COSTO AGROQUIMICOS
+
+// -------------- MANTENIMIETO OPERACIONES
+const botonNuevaFilaMantenimientoReparaciones = document.querySelector('#nuevaFilaMantenimientoReparaciones');
+botonNuevaFilaMantenimientoReparaciones.addEventListener('click', ()=>{
+    filaMantenimientoReparaciones('#tablaMantenimientoReparaciones', colectaMantenimientoReparaciones)
+});
+function filaMantenimientoReparaciones(idTabla, funcion){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    const td3 = document.createElement('TD');
+    const td4 = document.createElement('TD');
+    const td5 = document.createElement('TD');
+    const td6 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    const input3 = document.createElement('INPUT');
+    const input4 = document.createElement('INPUT');
+    const input5 = document.createElement('INPUT');
+    const input6 = document.createElement('INPUT');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    input1.setAttribute('required', '');
+    input3.setAttribute('type', 'number');
+    input4.setAttribute('type', 'number');
+    input5.setAttribute('type', 'number');
+    input6.setAttribute('type', 'number');
+    td1.appendChild(input1);
+    td2.appendChild(input2);
+    td3.innerHTML += '<span>$</span>';
+    td3.appendChild(input3);
+    td4.innerHTML += '<span>$</span>';
+    td4.appendChild(input4);
+    td5.innerHTML += '<span>$</span>';
+    td5.appendChild(input5);
+    td6.innerHTML += '<span>$</span>';
+    td6.appendChild(input6);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tr.appendChild(td6);
+    tbody.appendChild(tr);
+    funcion();
+    //acutalizar operaciones
+    actualizarOperaciones();
+}
+//eliminar
+const botonEliminarFilaMantenimientoReparaciones = document.querySelector('#eliminarFilaMantenimientoReparaciones');
+botonEliminarFilaMantenimientoReparaciones.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaMantenimientoReparaciones',colecta.mantenimientosReparaciones, colectaMantenimientoReparaciones);
+})
+// -------------- FIN MANTENIMIETO OPERACIONES
 
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
 

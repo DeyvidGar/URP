@@ -1,4 +1,4 @@
-<table>
+<table id="tablaMantenimientoReparaciones">
     <thead>
         <tr>
             <th>4.4 MANTENIMIENTO Y REPARACIONES </th>
@@ -11,44 +11,26 @@
     </thead>
     <tbody>
         <tr>
-            <td>Mantenimiento de bomba</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Verificación y tenencia de vehiculos</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Mantenimiento de motosierra</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Mantenimiento de desmalezadora</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td class="bg-rojoclaro">Total</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
+            <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+            <td><input type="number"></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td><input type="number" name="" id=""><span>%</span></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="totalMantenimientoReparaciones"></td>
+            <td></td>
+        </tr>
+    </tfoot>
 </table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaMantenimientoReparaciones">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaMantenimientoReparaciones">Eliminar Fila</button>
+</div>
