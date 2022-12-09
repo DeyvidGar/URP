@@ -880,12 +880,21 @@ function operacionesAgroquimicos(tabla){
     costoTotalAgroquimico(tabla);
     subtotalAgroquimicosFertilizantes();
     subtotalAgroquimicosOtrosInsecticidas();
+    totalAgroquimicos();
+}
+function totalAgroquimicos(){
+    const total = document.querySelector('#totalCostoAgroquimicos');
+    const subtotalFertilizantes = extraerCaracteresNumber(document.querySelector('#subtotalFertilizantes').textContent);
+    const subtotalOtros = extraerCaracteresNumber(document.querySelector('#subtotalPesticidasControBiologicoOtros').textContent);
+    total.textContent = convertirValorMonetario(subtotalFertilizantes+subtotalOtros);
 }
 function subtotalAgroquimicosOtrosInsecticidas(){
     const totalInsecticidas = sumarColumna('#tablaInsecticidas', 4);
+    const totalFungicidas = sumarColumna('#tablaFungicidas', 4);
+    const totalHerbicidas = sumarColumna('#tablaHerbicidas', 4);
     const subtotalFertilizantes = document.querySelector('#tablaHerbicidas #subtotalPesticidasControBiologicoOtros');
 
-    subtotalFertilizantes.textContent =convertirValorMonetario(totalInsecticidas)
+    subtotalFertilizantes.textContent =convertirValorMonetario(totalInsecticidas+totalFungicidas+totalHerbicidas)
 }
 function subtotalAgroquimicosFertilizantes(){
     const totalGranular = sumarColumna('#tablaFertilizantesGranular', 4);
@@ -1469,4 +1478,7 @@ function actualizarOperaciones(){
     operacionesRepuestoHerramientas();
     operacionesAgroquimicos('#tablaFertilizantesGranular');
     operacionesAgroquimicos('#tablaFertilizantesFoliar');
+    operacionesAgroquimicos('#tablaInsecticidas');
+    operacionesAgroquimicos('#tablaHerbicidas');
+    operacionesAgroquimicos('#tablaFungicidas');
 }
