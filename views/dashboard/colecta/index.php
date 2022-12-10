@@ -12,8 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>4.6 Costos de mano de hobra temporal</h2>
-        <?php include_once __DIR__.'/costosOperacion/costosManoObraTemporal.php';?>
+        <h2>5.1Costros generales mano de obra</h2>
+        <?php include_once __DIR__.'/costosGenerales/manoObraPermanente.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->
@@ -54,7 +54,8 @@
         <?php include_once __DIR__.'/costosOperacion/costosCosecha.php';?>
 
         <h2>4.6 Costos de mano de hobra temporal</h2>
-        <?php include_once __DIR__.'/costosOperacion/costosManoObraTemporal.php';?>
+        <?php include_once __DIR__.'/costosOperacion/costosManoObraContratada.php';?>
+        <?php include_once __DIR__.'/costosOperacion/costosManoObraFamiliar.php';?>
     </div>
 
     <!-- 5. Costos generales -->
