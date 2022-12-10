@@ -1024,9 +1024,34 @@ function colectaCostosCosecha(){
         input.addEventListener('input', ()=>{
             objetos = almacenarObjeto('#tablaCostosCosecha', producto);
             colecta.costosCosecha = objetos;
-            operacionesMantenimientoReparaciones();
+            operacionesCostosCosecha();
         })
     });
+}
+function operacionesCostosCosecha(){
+    operacionCostoCosechaUrp();
+    totalCostoCosechaUrp();
+}
+function totalCostoCosechaUrp(){
+    const total = document.querySelector('#totalComercializacionProduccion');
+    const valorTotal = sumarColumna('#tablaCostosCosecha', 4);
+    total.textContent = convertirValorMonetario(valorTotal)
+}
+function operacionCostoCosechaUrp(){
+    const tbody = document.querySelector('#tablaCostosCosecha tbody');
+    const numMeses = 12;
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let cantidad = tbody.rows[i].cells[2].lastChild;
+        cantidad = cantidad.value === '' ? 0 : parseFloat(cantidad.value);
+        let precioUnitario = tbody.rows[i].cells[3].lastChild;
+        precioUnitario = precioUnitario.value === '' ? 0 : parseFloat(precioUnitario.value);
+
+        let total = (precioUnitario * cantidad * numMeses);
+
+        let celdaFinal = tbody.rows[i].cells[4];
+        celdaFinal.textContent = convertirValorMonetario(total);
+    }
 }
 // ------------- FIN COSTO COSECHA
 
@@ -1670,4 +1695,5 @@ function actualizarOperaciones(){
     operacionesAgroquimicos('#tablaHerbicidas');
     operacionesAgroquimicos('#tablaFungicidas');
     operacionesCombustiblesLubricantes();
+    operacionesCostosCosecha();
 }
