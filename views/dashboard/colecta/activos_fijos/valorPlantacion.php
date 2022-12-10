@@ -67,7 +67,7 @@
     <button type="button" class="" id="eliminarFilaActividadesProduccion">Eliminar Fila</button>
 </div>
 
-<table id="tablaOtrosCostos">
+<table id="tablaOtrosCostosActividadesProduccion">
     <thead>
         <tr>
             <th>Otros Costos ($/HA)</th>
@@ -89,8 +89,8 @@
     </tbody>
 </table>
 <div class="botones-agregar-fila">
-    <button type="button" class="" id="nuevaFilaOtosCostos">Agregar Fila</button>
-    <button type="button" class="" id="eliminarFilaOtosCostos">Eliminar Fila</button>
+    <button type="button" class="" id="nuevaFilaOtosCostosActividadesProduccion">Agregar Fila</button>
+    <button type="button" class="" id="eliminarFilaOtosCostosActividadesProduccion">Eliminar Fila</button>
 </div>
 
 <table id="tablaCostoAnualEstablecimientoPlantacion">

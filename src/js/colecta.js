@@ -26,7 +26,7 @@ const colecta = {
         hectareaSinUsoValorHA: 0
     },
     actividadesProduccion: [],
-    otrosCostos: [],
+    otrosCostosActividadesProduccion: [],
     costoAnualesEstablecimientoPlantacion: [],
     construcciones: [],
     vehiculos: [],
@@ -49,52 +49,29 @@ const colecta = {
     mantenimientosReparaciones: [],
     costosCosecha: [],
     manoObraContratada: [],
-    manoObraFamiliar: []
+    manoObraFamiliar: [],
+    tiempoManoObra:{
+        promedioDiasLaborados: 0,
+        mesesLaborados: 0
+    },
+    manoObraPermanente: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     colectaArbol();
-
     colectaPatronCultivos();
-    // mostrarSumatoriaPatronCultivos();
-
     colectaSuperficeUrp();
-    // almacenarDatosSuperfice();
-    // sumaAreaCultivadaSuperficeUrp();
-    // sumarTotalHectareasFilas();
-    // sumarTotalHA();
-
     colectaValorTierra();
-    // superficeValorTierra();
-    // calcularValorTotalValorTierra();
-    // sumatoriaTotalSuperficeValorTierra();
-
     colectaValorPlantacion();
-    // almacenarDatosValorPlantacion();
-    // calcularCostoPlantacion();
-
     colectaActividadesProduccion();
-
-    colectaOtrosCostos()
-    // almacenarDatosOtrosCostos();
-
+    colectaOtrosCostosActividadesProduccion();
     colectaCostoAnualEstablecimientoPlantacion();
-    // almacenarDatosCostoAnualEstablecimientoPlantacion();
-    // operacionesValorPlantacion();
-
     colectaConstrucciones();
-    // almacenarDatosConstrucciones();
     colectaVehiculos();
-    // almacenarDatosVehiculos();
     colectaImplementos();
-    // almacenarDatosImplementos();
     colectaEquiposComunicacion();
-    // almacenarDatosEquipoComunicacion();
     colectaEquipos();
-    // almacenarDatosEquipo();
-
     colectaRepuestoHerramientas();
-
     colectaFertilizanteGranular();
     colectaFertilizanteFoliar();
     colectaInsecticidas();
@@ -105,6 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaCostosCosecha();
     colectaManoObraContratada();
     colectaManoObraFamiliar();
+    colectaTiempoManoObra();
+    colectaManoObraPermanente();
     inputsOperaciones();
 });
 
@@ -425,16 +404,16 @@ function colectaActividadesProduccion(){
         })
     });
 }
-function colectaOtrosCostos(){
-    const inputs = document.querySelectorAll('#tablaOtrosCostos input');
+function colectaOtrosCostosActividadesProduccion(){
+    const inputs = document.querySelectorAll('#tablaOtrosCostosActividadesProduccion input');
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            almacenarDatosOtrosCostos();
+            almacenarDatosOtrosCostosActividadesProduccion();
         })
     });
 }
-function almacenarDatosOtrosCostos(){
-    const tbody = document.querySelector('#tablaOtrosCostos tbody');
+function almacenarDatosOtrosCostosActividadesProduccion(){
+    const tbody = document.querySelector('#tablaOtrosCostosActividadesProduccion tbody');
     const rows = tbody.rows.length;
     let objetos = [];
     let key;
@@ -454,8 +433,8 @@ function almacenarDatosOtrosCostos(){
         }
         objetos.push(otroCosto)
     }
-    colecta.otrosCostos = objetos
-    // console.log(colecta )
+    colecta.otrosCostosActividadesProduccion = objetos
+    console.log(colecta)
 }
 
 function colectaCostoAnualEstablecimientoPlantacion(){
@@ -1154,6 +1133,112 @@ function jornalesTotalesManoObraContratada(){
 }
 // ------------- FIN MANO OBRA CONTRATADA
 
+// ------------- TIEMPO MANO OBRA
+function colectaTiempoManoObra(){
+    const inputs = document.querySelectorAll('#tablaTiempoManoObra input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            almacenarDatosTiempoManoObra();
+        })
+    });
+}
+function almacenarDatosTiempoManoObra(){
+    let promedioDiasLaborados = document.querySelector('#promedioDiasLaborados');
+    promedioDiasLaborados = promedioDiasLaborados.value === '' ? 0 : parseFloat(promedioDiasLaborados.value)
+    let mesesLaborados = document.querySelector('#mesesLaborados');
+    mesesLaborados = mesesLaborados.value === '' ? 0 : parseFloat(mesesLaborados.value)
+
+    colecta.tiempoManoObra.promedioDiasLaborados = promedioDiasLaborados;
+    colecta.tiempoManoObra.mesesLaborados = mesesLaborados;
+}
+// ------------- FIN TIEMPO MANO OBRA
+
+// ------------- MANO OBRA PERMANENTE
+function colectaManoObraPermanente(){
+    const inputs = document.querySelectorAll('#tablaManoObraPermanente input');
+    let manoObra = {
+        labor: '',
+        numEmpleados: 0,
+        precioUnitarioDia: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaManoObraPermanente', manoObra);
+            colecta.manoObraPermanente = objetos;
+            operacionesManoObraPermanente();
+        })
+    });
+}
+function operacionesManoObraPermanente(){
+    costoItegradoManoObraPermanente();
+    costoMensualManoObraPermanente();
+    costoTotalAnualManoObraPermanente();
+    totalNoEmpleadosManoObraPermanente();
+    totalCostoMensualManoObraPermanente();
+    totalCostoTotalAnualManoObraPermanente();
+}
+function costoItegradoManoObraPermanente(){
+    const tbody = document.querySelector('#tablaManoObraPermanente tbody');
+    const constante = 1.33
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let noEmpleados = tbody.rows[i].cells[1].lastChild;
+        noEmpleados = noEmpleados.value === '' ? 0 : parseFloat(noEmpleados.value);
+        let costoUnitario = tbody.rows[i].cells[2].lastChild;
+        costoUnitario = costoUnitario.value === '' ? 0 : parseFloat(costoUnitario.value);
+
+        let total = (noEmpleados * costoUnitario * constante);
+
+        let contenedor = tbody.rows[i].cells[3];
+        contenedor.textContent = convertirValorMonetario(total);
+    }
+}
+function costoMensualManoObraPermanente(){
+    const tbody = document.querySelector('#tablaManoObraPermanente tbody');
+    let diasLaborados = document.querySelector('#tablaTiempoManoObra #promedioDiasLaborados');
+    diasLaborados = diasLaborados.value === '' ? 0 : parseFloat(diasLaborados.value);
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let costoIntegrado = extraerCaracteresNumber(tbody.rows[i].cells[3].textContent);
+
+        let total = (diasLaborados * costoIntegrado);
+
+        let contenedor = tbody.rows[i].cells[4];
+        contenedor.textContent = convertirValorMonetario(total);
+    }
+}
+function costoTotalAnualManoObraPermanente(){
+    const tbody = document.querySelector('#tablaManoObraPermanente tbody');
+    let mesesLaborados = document.querySelector('#tablaTiempoManoObra #mesesLaborados');
+    mesesLaborados = mesesLaborados.value === '' ? 0 : parseFloat(mesesLaborados.value);
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let costoMensual = extraerCaracteresNumber(tbody.rows[i].cells[4].textContent);
+
+        let total = (mesesLaborados * costoMensual);
+
+        let contenedor = tbody.rows[i].cells[5];
+        contenedor.textContent = convertirValorMonetario(total);
+    }
+}
+function totalNoEmpleadosManoObraPermanente(){
+    const suma = sumarColumnaInputs('#tablaManoObraPermanente', 1);
+    const contenedor = document.querySelector('#tablaManoObraPermanente #noEmpleadosManoObraPermanente');
+    contenedor.textContent = suma;
+}
+function totalCostoMensualManoObraPermanente(){
+    const suma = sumarColumna('#tablaManoObraPermanente', 4);
+    const contenedor = document.querySelector('#tablaManoObraPermanente #costoMensualManoObraPermanente');
+    contenedor.textContent = suma;
+}
+function totalCostoTotalAnualManoObraPermanente(){
+    const suma = sumarColumna('#tablaManoObraPermanente', 5);
+    const contenedor = document.querySelector('#tablaManoObraPermanente #costoTotalAnualManoObraPermanente');
+    contenedor.textContent = suma;
+}
+// ------------- FIN MANO OBRA PERMANENTE
+
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
@@ -1203,12 +1288,12 @@ botonEliminarFilaVariedad.addEventListener('click', ()=>{
 
 // -------------- BOTONES ACTIVIDADES PRODUCCION
 const botonNuevaFilaActividadesProduccion = document.querySelector('#nuevaFilaActividadesProduccion');
-const botonNuevaFilaOtosCostos = document.querySelector('#nuevaFilaOtosCostos');
+const botonNuevaFilaOtosCostos = document.querySelector('#nuevaFilaOtosCostosActividadesProduccion');
 botonNuevaFilaActividadesProduccion.addEventListener('click', ()=>{
     filaActividadesProduccion('#tablaActividadesProduccion', colectaActividadesProduccion);
 })
 botonNuevaFilaOtosCostos.addEventListener('click', ()=>{
-    filaActividadesProduccion('#tablaOtrosCostos', colectaOtrosCostos);
+    filaActividadesProduccion('#tablaOtrosCostosActividadesProduccion', colectaOtrosCostosActividadesProduccion);
 })
 
 function filaActividadesProduccion(idTabla, funcion){
@@ -1227,7 +1312,7 @@ function filaActividadesProduccion(idTabla, funcion){
     input1.setAttribute('required', '');
     input2.setAttribute('type', 'number');
     input3.setAttribute('type', 'number');
-    // if(idTabla === 'tablaOtrosCostos')input3.classList.add('otrosCostosTotal')
+    // if(idTabla === 'tablaOtrosCostosActividadesProduccion')input3.classList.add('otrosCostosActividadesProduccionTotal')
     td1.appendChild(input1);
     td2.innerHTML += '<span>$</span>';
     td2.appendChild(input2);
@@ -1245,13 +1330,13 @@ function filaActividadesProduccion(idTabla, funcion){
 
 // -------------- BOTONES ELIMINAR
 const botonEliminarFilaActividadesProduccion = document.querySelector('#eliminarFilaActividadesProduccion');
-const botonEliminarFilaOtosCostos = document.querySelector('#eliminarFilaOtosCostos');
+const botonEliminarFilaOtosCostos = document.querySelector('#eliminarFilaOtosCostosActividadesProduccion');
 
 botonEliminarFilaActividadesProduccion.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaActividadesProduccion', colecta.actividadesProduccion, colectaActividadesProduccion);
 })
 botonEliminarFilaOtosCostos.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaOtrosCostos', colecta.otrosCostos, almacenarDatosOtrosCostos);
+    eliminarUltimaFila('#tablaOtrosCostosActividadesProduccion', colecta.otrosCostosActividadesProduccion, almacenarDatosOtrosCostosActividadesProduccion);
 })
 
 // -------------- FIN BOTONES ACTIVIDADES PRODUCCION
@@ -1648,6 +1733,10 @@ botonEliminarFilaCostosCosecha.addEventListener('click', ()=>{
 // -------------- MANO OBRA
 const botonNuevaFilaManoObraContratada= document.querySelector('#nuevaFilaManoObraContratada');
 const botonNuevaFilaManoObraFamiliar= document.querySelector('#nuevaFilaManoObraFamiliar');
+const botonNuevaFilaManoObraPermanente= document.querySelector('#nuevaFilaManoObraPermanente');
+botonNuevaFilaManoObraPermanente.addEventListener('click', ()=>{
+    filaManoObraPermanente('#tablaManoObraPermanente', colectaManoObraPermanente)//debido al mismo formato
+});
 botonNuevaFilaManoObraFamiliar.addEventListener('click', ()=>{
     filaManoObra('#tablaManoObraFamiliar', colectaManoObraFamiliar)//debido al mismo formato
 });
@@ -1685,9 +1774,45 @@ function filaManoObra(idTabla, funcion){
     //acutalizar operaciones
     actualizarOperaciones();
 }
+function filaManoObraPermanente(idTabla, funcion){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    const td3 = document.createElement('TD');
+    const td4 = document.createElement('TD');
+    const td5 = document.createElement('TD');
+    const td6 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    const input3 = document.createElement('INPUT');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    input1.setAttribute('required', '');
+    input3.setAttribute('type', 'number');
+    td1.appendChild(input1);
+    td2.appendChild(input2);
+    td3.innerHTML += '<span>$</span>';
+    td3.appendChild(input3);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tr.appendChild(td6);
+    tbody.appendChild(tr);
+    funcion();
+    //acutalizar operaciones
+    actualizarOperaciones();
+}
 //eliminar
 const botonEliminarFilaManoObraContratada = document.querySelector('#eliminarFilaManoObraContratada');
 const botonEliminarFilaManoObraFamiliar = document.querySelector('#eliminarFilaManoObraFamiliar');
+const botonEliminarFilaManoObraPermanente = document.querySelector('#eliminarFilaManoObraPermanente');
+botonEliminarFilaManoObraPermanente.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaManoObraPermanente', colecta.manoObraPermanente, colectaManoObraPermanente)//debido al mismo formato
+});
 botonEliminarFilaManoObraFamiliar.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaManoObraFamiliar', colecta.manoObraFamiliar, colectaManoObraFamiliar)//debido al mismo formato
 });
@@ -1847,4 +1972,5 @@ function actualizarOperaciones(){
     operacionesCostosCosecha();
     operacionesManoObra('#tablaManoObraContratada');
     operacionesManoObra('#tablaManoObraFamiliar');
+    operacionesManoObraPermanente()
 }
