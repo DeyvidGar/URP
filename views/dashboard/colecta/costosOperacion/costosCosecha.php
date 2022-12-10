@@ -1,4 +1,4 @@
-<table>
+<table id="tablaCostosCosecha">
     <thead>
         <tr>
             <th>4.5.1 Costos de comercialización de la producción</th>
@@ -10,20 +10,24 @@
     </thead>
     <tbody>
         <tr>
-            <td>combustible</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <td><input type="text" name="" id="" placeholder="ej. combustible"></td>
+            <td><input type="text" name="" id=""></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
             <td></td>
         </tr>
-        <tr>
-            <td class="bg-rojoclaro">Total</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-        </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td id="totalComercializacionProduccion"></td>
+        </tr>
+    </tfoot>
 </table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaCostosCosecha">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaCostosCosecha">Eliminar Fila</button>
+</div>

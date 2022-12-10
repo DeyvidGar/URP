@@ -46,7 +46,8 @@ const colecta = {
     fungicidas: [],
     herbicidas: [],
     combustiblesLubricantes: [],
-    mantenimientosReparaciones: []
+    mantenimientosReparaciones: [],
+    costosCosecha: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -99,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaHerbicidas();
     colectaCombustiblesLubricantes();
     colectaMantenimientoReparaciones();
+    colectaCostosCosecha();
     inputsOperaciones();
 });
 
@@ -1008,6 +1010,25 @@ function totalCostoActualMantenimientoReparaciones(){
     total.textContent = convertirValorMonetario(suma)
 }
 // ------------- FIN MANTENIMIENTO REPARACIONES
+// ------------- COSTO COSECHA
+function colectaCostosCosecha(){
+    const inputs = document.querySelectorAll('#tablaCostosCosecha input');
+    let producto = {
+        nombreProducto: '',
+        unidades: '',
+        cantidad: 0,
+        precioUnitario: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaCostosCosecha', producto);
+            colecta.costosCosecha = objetos;
+            operacionesMantenimientoReparaciones();
+        })
+    });
+}
+// ------------- FIN COSTO COSECHA
 
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS
 // -------------- BOTONES VARIEDAD ARBOLES
@@ -1487,6 +1508,18 @@ botonEliminarFilaMantenimientoReparaciones.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaMantenimientoReparaciones',colecta.mantenimientosReparaciones, colectaMantenimientoReparaciones);
 })
 // -------------- FIN MANTENIMIETO OPERACIONES
+
+// -------------- COSTO COSECHA
+const botonNuevaFilaCostosCosecha = document.querySelector('#nuevaFilaCostosCosecha');
+botonNuevaFilaCostosCosecha.addEventListener('click', ()=>{
+    filaCostoAgroquimico('#tablaCostosCosecha', colectaCostosCosecha)//debido al mismo formato
+});
+//eliminar
+const botonEliminarFilaCostosCosecha = document.querySelector('#eliminarFilaCostosCosecha');
+botonEliminarFilaCostosCosecha.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaCostosCosecha', colecta.costosCosecha, colectaCostosCosecha)//debido al mismo formato
+});
+// -------------- FIN COSECHA
 
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
 
