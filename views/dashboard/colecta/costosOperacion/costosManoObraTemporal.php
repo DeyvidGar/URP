@@ -1,4 +1,4 @@
-<table>
+<table id="tablaManoObraTemporal">
     <thead>
         <tr>
             <th colspan="5">Mano de obra contratada</th>
@@ -13,56 +13,28 @@
     </thead>
     <tbody>
         <tr>
-            <td>Cosecha</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
+            <td><input type="text" name="" id=""></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
             <td></td>
         </tr>
-        <tr>
-            <td>Riego</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Fumigación</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Fertilización</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>Poda</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="bg-rojoclaro">Subtotal de jornales contratados</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-        </tr>
-        <tr>
-            <td>Jornales totales de la URP</td>
-            <td></td>
-        </tr>
+        <tfoot>
+            <tr>
+                <td>Subtotal de jornales contratados</td>
+                <td id="subtotalCantidadJornales"></td>
+                <td></td>
+                <td id="subtotalCostoTotalUrpAnio"></td>
+                <td id="subtotalCostoHaAnio"></td>
+            </tr>
+            <tr>
+                <td>Jornales totales de la URP</td>
+                <td id="joranesTotalesUrp"></td>
+            </tr>
+        </tfoot>
     </tbody>
 </table>
+<div class="botones-agregar-fila">
+    <button type="" class="boton-agregar-fila" id="nuevaFilaManoObraTemporal">Agregar Fila</button>
+    <button type="" class="boton-eliminar-fila" id="eliminarFilaManoObraTemporal">Eliminar Fila</button>
+</div>

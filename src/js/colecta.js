@@ -47,7 +47,8 @@ const colecta = {
     herbicidas: [],
     combustiblesLubricantes: [],
     mantenimientosReparaciones: [],
-    costosCosecha: []
+    costosCosecha: [],
+    manoObraContratada: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaCombustiblesLubricantes();
     colectaMantenimientoReparaciones();
     colectaCostosCosecha();
+    colectaManoObraContratada();
     inputsOperaciones();
 });
 
@@ -1055,7 +1057,86 @@ function operacionCostoCosechaUrp(){
 }
 // ------------- FIN COSTO COSECHA
 
-// -------------- BOTONES AGREGAR Y ELIMINAR FILAS
+// ------------- MANO OBRA CONTRATADA
+function colectaManoObraContratada(){
+    const inputs = document.querySelectorAll('#tablaManoObraTemporal input');
+    let manoObra = {
+        labor: '',
+        cantidadJornales: '',
+        precioJornal: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaManoObraTemporal', manoObra);
+            colecta.manoObraContratada = objetos;
+            operacionesManoObraContratada();
+        })
+    });
+}
+function operacionesManoObraContratada(){
+    costoTotalUrpAnioManoObraContratada();
+    subtotalCostoTotalUrpAnioManoObraContratada();
+    costoHaAnioManoObraContratada();
+    subtotalCostoHaAnioManoObraContratada();
+    subtotalJornalesTotalesManoObraContratada();
+    jornalesTotalesManoObraContratada();
+}
+function costoTotalUrpAnioManoObraContratada(){
+    const tbody = document.querySelector('#tablaManoObraTemporal tbody');
+    const totalSuperficie = getTotalSuperficie();
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let cantidadJornales = tbody.rows[i].cells[1].lastChild;
+        cantidadJornales = cantidadJornales.value === '' ? 0 : parseFloat(cantidadJornales.value);
+        let precioJornal = tbody.rows[i].cells[2].lastChild;
+        precioJornal = precioJornal.value === '' ? 0 : parseFloat(precioJornal.value);
+
+        let total = (totalSuperficie * cantidadJornales * precioJornal);
+
+        let contenedor = tbody.rows[i].cells[3];
+        contenedor.textContent = convertirValorMonetario(total);
+    }
+}
+function subtotalCostoTotalUrpAnioManoObraContratada(){
+    const suma = sumarColumna('#tablaManoObraTemporal', 3);
+    const contenedor = document.querySelector('#subtotalCostoTotalUrpAnio');
+    contenedor.textContent = convertirValorMonetario(suma)
+}
+function costoHaAnioManoObraContratada(){
+    const tbody = document.querySelector('#tablaManoObraTemporal tbody');
+    const totalSuperficie = getTotalSuperficie();
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let cantidadJornales = tbody.rows[i].cells[3].textContent;
+        cantidadJornales = extraerCaracteresNumber(cantidadJornales)
+
+        let total = (cantidadJornales / totalSuperficie);
+        total = isNaN(total) ? 0 : total;
+
+        let contenedor = tbody.rows[i].cells[4];
+        contenedor.textContent = convertirValorMonetario(total);
+    }
+}
+function subtotalCostoHaAnioManoObraContratada(){
+    const suma = sumarColumna('#tablaManoObraTemporal', 4);
+    const contenedor = document.querySelector('#subtotalCostoHaAnio');
+    contenedor.textContent = convertirValorMonetario(suma);
+}
+function subtotalJornalesTotalesManoObraContratada(){
+    const suma = sumarColumnaInputs('#tablaManoObraTemporal', 1);
+    const contenedor = document.querySelector('#subtotalCantidadJornales');
+    contenedor.textContent = suma;
+}
+function jornalesTotalesManoObraContratada(){
+    const totalSuperficie = getTotalSuperficie();
+    const subtotalJornales = extraerCaracteresNumber(document.querySelector('#subtotalCantidadJornales').textContent);
+    const contenedor = document.querySelector('#joranesTotalesUrp');
+    contenedor.textContent = (totalSuperficie*subtotalJornales);
+}
+// ------------- FIN MANO OBRA CONTRATADA
+
+// -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
 
@@ -1430,7 +1511,7 @@ function filaCostoAgroquimico(idTabla, funcion){
     input1.setAttribute('type', 'text');
     input1.setAttribute('required', '');
     (idTabla === '#tablaCombustiblesLubricantes') ? input2.setAttribute('type', 'number') : input2.setAttribute('type', 'text');;
-    input1.setAttribute('required', '');
+    input2.setAttribute('required', '');
     input3.setAttribute('type', 'number');
     input4.setAttribute('type', 'number');
     td1.appendChild(input1);
@@ -1546,9 +1627,51 @@ botonEliminarFilaCostosCosecha.addEventListener('click', ()=>{
 });
 // -------------- FIN COSECHA
 
+// -------------- MANO OBRA
+const botonNuevaFilaManoObraTemporal= document.querySelector('#nuevaFilaManoObraTemporal');
+botonNuevaFilaManoObraTemporal.addEventListener('click', ()=>{
+    filaManoObra('#tablaManoObraTemporal', colectaManoObraContratada)//debido al mismo formato
+});
+function filaManoObra(idTabla, funcion){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    // td2.classList.add('etiqueta');
+    const td3 = document.createElement('TD');
+    const td4 = document.createElement('TD');
+    const td5 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    const input3 = document.createElement('INPUT');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number')
+    input2.setAttribute('required', '');
+    input3.setAttribute('type', 'number');
+    td1.appendChild(input1);
+    td2.appendChild(input2);
+    td3.innerHTML += '<span>$</span>';
+    td3.appendChild(input3);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tbody.appendChild(tr);
+    funcion();
+    //acutalizar operaciones
+    actualizarOperaciones();
+}
+//eliminar
+const botonEliminarFilaManoObraTemporal = document.querySelector('#eliminarFilaManoObraTemporal');
+botonEliminarFilaManoObraTemporal.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaManoObraTemporal', colecta.manoObraContratada, colectaManoObraContratada)//debido al mismo formato
+});
+// -------------- FIN MANO OBRA
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
 
-// FUNCIONES
+// -------------- FUNCIONES -------------- //
 // ------------- FUNCION SUMAR COLUMNA INPUTS
 function sumarColumnaInputs(tabla, columna){
     const tbody = document.querySelector(tabla + ' tbody');
@@ -1696,4 +1819,5 @@ function actualizarOperaciones(){
     operacionesAgroquimicos('#tablaFungicidas');
     operacionesCombustiblesLubricantes();
     operacionesCostosCosecha();
+    operacionesManoObraContratada();
 }
