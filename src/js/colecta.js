@@ -1177,6 +1177,7 @@ function operacionesManoObraPermanente(){
     totalNoEmpleadosManoObraPermanente();
     totalCostoMensualManoObraPermanente();
     totalCostoTotalAnualManoObraPermanente();
+    totalJornalesManoObraPermanente();
 }
 function costoItegradoManoObraPermanente(){
     const tbody = document.querySelector('#tablaManoObraPermanente tbody');
@@ -1236,6 +1237,16 @@ function totalCostoTotalAnualManoObraPermanente(){
     const suma = sumarColumna('#tablaManoObraPermanente', 5);
     const contenedor = document.querySelector('#tablaManoObraPermanente #costoTotalAnualManoObraPermanente');
     contenedor.textContent = suma;
+}
+function totalJornalesManoObraPermanente(){
+    let diasLaborados = document.querySelector('#tablaTiempoManoObra #promedioDiasLaborados');
+    diasLaborados = diasLaborados.value === '' ? 0 : parseFloat(diasLaborados.value);
+    let mesesLaborados = document.querySelector('#tablaTiempoManoObra #mesesLaborados');
+    mesesLaborados = mesesLaborados.value === '' ? 0 : parseFloat(mesesLaborados.value);
+    let totalEmpleados = extraerCaracteresNumber(document.querySelector('#tablaManoObraPermanente #noEmpleadosManoObraPermanente').textContent);
+    let total = (diasLaborados*mesesLaborados*totalEmpleados)
+    const contenedor = document.querySelector('#tablaManoObraPermanente #jornalesTotalManoObraPermanente');
+    contenedor.textContent = total;
 }
 // ------------- FIN MANO OBRA PERMANENTE
 

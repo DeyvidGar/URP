@@ -13,6 +13,7 @@
 
         <!-- DESARROLLO -->
         <h2>5.1Costros generales mano de obra</h2>
+        <?php include_once __DIR__.'/costosGenerales/otrosCostosProduccion.php';?>
         <?php include_once __DIR__.'/costosGenerales/costosManoObraPermanente.php';?>
     </div>
 
@@ -62,7 +63,7 @@
     <div class="seccion" id="paso-4">
         <h2>Costros generales</h2>
         <h2>5.1Costros generales mano de obra</h2>
-        <?php include_once __DIR__.'/costosGenerales/manoObraPermanente.php';?>
+        <?php include_once __DIR__.'/costosGenerales/costosManoObraPermanente.php';?>
 
         <h2>5.1Costros generales mano de obra</h2>
         <?php include_once __DIR__.'/costosGenerales/otrosCostosProduccion.php';?>
