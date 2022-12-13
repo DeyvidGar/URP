@@ -12,9 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>5.1Costros generales mano de obra</h2>
+        <h2>5.2 Otros costros de producción</h2>
         <?php include_once __DIR__.'/costosGenerales/otrosCostosProduccion.php';?>
-        <?php include_once __DIR__.'/costosGenerales/costosManoObraPermanente.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->

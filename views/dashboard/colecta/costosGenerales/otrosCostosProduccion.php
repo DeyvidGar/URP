@@ -1,4 +1,4 @@
-<table>
+<table id="tablaOtrosCostosProduccionCostosGenerales">
     <thead>
         <th>5.2 otros costos de produccion</th>
         <th>Unidad</th>
@@ -8,60 +8,36 @@
     </thead>
     <tbody>
         <tr>
-            <td>Impuesto Predial Anual</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Impuesto a la propiedad personal</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>telefono</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Energía Eléctrica (no agrícola)</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Impuestos Locales </td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>         Tenencia</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>         Otros Derechos VERIFICACIÓN</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td class="bg-rojoclaro">Total de otros costos de producción</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
+            <td><input type="text" name="" id=""></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
+            <td></td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td>Total de otros costos de producción</td>
+            <td></td>
+            <td id="totalCostoMesOtrosCostosProduccion"></td>
+            <td id="totalAnioOtrosCostosProduccion"></td>
+            <td id="totalCostoHaOtrosCostosProduccion"></td>
+        </tr>
+    </tfoot>
 </table>
+<div class="botones-agregar-fila">
+    <button
+        type=""
+        class="boton-agregar-fila"
+        id="nuevaFilaOtrosCostosProduccionCostosGenerales"
+    >
+    Agregar Fila
+    </button>
+    <button
+        type=""
+        class="boton-eliminar-fila"
+        id="eliminarFilaOtrosCostosProduccionCostosGenerales"
+    >
+    Eliminar Fila
+    </button>
+</div>

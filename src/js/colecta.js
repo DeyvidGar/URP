@@ -54,7 +54,8 @@ const colecta = {
         promedioDiasLaborados: 0,
         mesesLaborados: 0
     },
-    manoObraPermanente: []
+    manoObraPermanente: [],
+    otrosCostosGenerales: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaManoObraFamiliar();
     colectaTiempoManoObra();
     colectaManoObraPermanente();
+    colectaOtrosCostosGenerales();
     inputsOperaciones();
 });
 
@@ -1250,6 +1252,68 @@ function totalJornalesManoObraPermanente(){
 }
 // ------------- FIN MANO OBRA PERMANENTE
 
+// ------------- OTROS COSTOS DE PRODUCCION / COSTOS GENERALES
+function colectaOtrosCostosGenerales(){
+    const inputs = document.querySelectorAll('#tablaOtrosCostosProduccionCostosGenerales input');
+    let costoGeneral = {
+        nombreCosto: '',
+        unidad: 0,
+        costoMes: 0,
+        costoAnio: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaOtrosCostosProduccionCostosGenerales', costoGeneral);
+            colecta.otrosCostosGenerales = objetos;
+            operacionesOtrosCostosGenerales();
+        })
+    });
+}
+function operacionesOtrosCostosGenerales(){
+    costoAnioOtrosCostosGenerales();
+    costoHaOtrosCostosGenerales();
+    sumatoriasOtrosCostosGenerales();
+}
+function costoAnioOtrosCostosGenerales(){
+    const tbody = document.querySelector('#tablaOtrosCostosProduccionCostosGenerales tbody');
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let mes = tbody.rows[i].cells[2].lastChild;
+        mes = mes.value === '' ? 0 : parseFloat(mes.value);
+        let totalanio = (mes * 12);
+        let contenedor = tbody.rows[i].cells[3];
+        contenedor.textContent = convertirValorMonetario(totalanio);
+    }
+}
+function costoHaOtrosCostosGenerales(){
+    const tbody = document.querySelector('#tablaOtrosCostosProduccionCostosGenerales tbody');
+    const totalSuperficie = getTotalSuperficie();
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        let totalAnio = tbody.rows[i].cells[3].textContent;
+        totalAnio = extraerCaracteresNumber(totalAnio)
+
+        let total = (totalAnio / totalSuperficie);
+        total = !isFinite(total) ? 0 : total;
+
+        let contenedor = tbody.rows[i].cells[4];
+        contenedor.textContent = convertirValorMonetario(total);
+    }
+}
+function sumatoriasOtrosCostosGenerales(){
+    const sumaCostoMes = sumarColumnaInputs('#tablaOtrosCostosProduccionCostosGenerales',2);
+    const sumaCostoAnio = sumarColumna('#tablaOtrosCostosProduccionCostosGenerales',3);
+    const sumaCostoHa = sumarColumna('#tablaOtrosCostosProduccionCostosGenerales',4);
+    const contenedorCostoMes = document.querySelector('#tablaOtrosCostosProduccionCostosGenerales #totalCostoMesOtrosCostosProduccion');
+    const contenedorCostoAnio = document.querySelector('#tablaOtrosCostosProduccionCostosGenerales #totalAnioOtrosCostosProduccion');
+    const contenedorCostoHa = document.querySelector('#tablaOtrosCostosProduccionCostosGenerales #totalCostoHaOtrosCostosProduccion');
+    contenedorCostoMes.textContent = convertirValorMonetario(sumaCostoMes);
+    contenedorCostoAnio.textContent = convertirValorMonetario(sumaCostoAnio);
+    contenedorCostoHa.textContent = convertirValorMonetario(sumaCostoHa);
+}
+// ------------- FIN OTROS COSTOS DE PRODUCCION / COSTOS GENERALES
+
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
@@ -1831,7 +1895,19 @@ botonEliminarFilaManoObraContratada.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaManoObraContratada', colecta.manoObraContratada, colectaManoObraContratada)//debido al mismo formato
 });
 // -------------- FIN MANO OBRA
-// -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS
+
+// -------------- OTROS COSTOS DE PRODUCCION COSTOS GENERALES
+const botonNuevaFilaOtrosCostosProduccionCostosGeneralesr= document.querySelector('#nuevaFilaOtrosCostosProduccionCostosGenerales');
+botonNuevaFilaOtrosCostosProduccionCostosGeneralesr.addEventListener('click', ()=>{
+    filaManoObra('#tablaOtrosCostosProduccionCostosGenerales', colectaOtrosCostosGenerales)//debido al mismo formato
+});
+// eliminar
+const botonEliminarFilaOtrosCostosProduccionCostosGenerales = document.querySelector('#eliminarFilaOtrosCostosProduccionCostosGenerales');
+botonEliminarFilaOtrosCostosProduccionCostosGenerales.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaOtrosCostosProduccionCostosGenerales', colecta.otrosCostosGenerales, colectaOtrosCostosGenerales)//debido al mismo formato
+});
+// -------------- FIN OTROS COSTOS DE PRODUCCION COSTOS GENERALES
+// -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS -------------- //
 
 // -------------- FUNCIONES -------------- //
 // ------------- FUNCION SUMAR COLUMNA INPUTS
@@ -1983,5 +2059,6 @@ function actualizarOperaciones(){
     operacionesCostosCosecha();
     operacionesManoObra('#tablaManoObraContratada');
     operacionesManoObra('#tablaManoObraFamiliar');
-    operacionesManoObraPermanente()
+    operacionesManoObraPermanente();
+    operacionesOtrosCostosGenerales();
 }
