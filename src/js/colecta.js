@@ -55,7 +55,14 @@ const colecta = {
         mesesLaborados: 0
     },
     manoObraPermanente: [],
-    otrosCostosGenerales: []
+    otrosCostosGenerales: [],
+    ingresosUrp: {
+        rendimiento: 0,
+        porcentajeVendido: 0,
+        precio: '',
+        rendimientoVenta: 0
+    },
+    otrosIngresosUrp: []
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -86,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaTiempoManoObra();
     colectaManoObraPermanente();
     colectaOtrosCostosGenerales();
+    colectaIngresosUrp();
     inputsOperaciones();
 });
 
@@ -294,7 +302,7 @@ function colectaValorTierra(){
             almacenarDatosValorTierra();
             operacionesValorTierra();
         })
-    })
+    });
 }
 function almacenarDatosValorTierra(){
     const input = document.querySelectorAll('#tablaValorTierra input');
@@ -1314,6 +1322,75 @@ function sumatoriasOtrosCostosGenerales(){
 }
 // ------------- FIN OTROS COSTOS DE PRODUCCION / COSTOS GENERALES
 
+// ------------- INGRESOS URP
+function colectaIngresosUrp(){
+    const inputs = document.querySelectorAll('.ingresosUrpInputs');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            //sincronizar los valores del input con el objeto
+            almacenarDatosIngresosUrp();
+            operacionesIngresosUrp();
+        })
+    });
+}
+function almacenarDatosIngresosUrp(){
+    const input = document.querySelectorAll('.ingresosUrpInputs');
+    const {ingresosUrp} = colecta;
+
+    const keys = Object.keys(ingresosUrp);//indices del objet
+    let key;
+    for (let i = 0; i < keys.length; i++) {
+        key = keys[i]; //asignamos el indice acutal auna variable
+        const valor = input[i].value === '' ? 0 : parseFloat(input[i].value);
+        ingresosUrp[key] = valor;//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+    }
+    console.log(colecta)
+}
+function operacionesIngresosUrp(){
+    cantidadProducidaIngresosUrp();
+    cantidadVendidaIngresosUrp();
+    ingresosRealIngresosUrp();
+    subtotalIngresosUrp();
+    ingresosTotalesCultivo();
+}
+function cantidadProducidaIngresosUrp(){
+    const cantidadProducida = document.querySelector('#cantidadProducidaUrp');
+    const totalSuperficie = getTotalSuperficie();
+    let input = document.querySelectorAll('.ingresosUrpInputs');
+    input = input[0].value === '' ? 0 : parseFloat(input[0].value);
+    cantidadProducida.textContent = totalSuperficie * input;
+}
+function cantidadVendidaIngresosUrp(){
+    const cantidodVendida = document.querySelector('#cantidadVendida');
+    let input = document.querySelectorAll('.ingresosUrpInputs');
+    input = input[1].value === '' ? 0 : parseFloat(input[1].value);
+    let cantidadProducida = document.querySelector('#cantidadProducidaUrp').textContent;
+    cantidadProducida = extraerCaracteresNumber(cantidadProducida)
+    cantidodVendida.textContent = input * cantidadProducida;
+}
+function ingresosRealIngresosUrp(){
+    const input = document.querySelectorAll('.ingresosUrpInputs');
+    const precio = input[2].value === '' ? 0 : parseFloat(input[2].value);
+    const rendimiento = input[3].value === '' ? 0 : parseFloat(input[3].value);
+    const ingresoReal = document.querySelector('#ingresoReal');
+    ingresoReal.textContent = convertirValorMonetario(precio * rendimiento);
+}
+function subtotalIngresosUrp(){
+    const input = document.querySelectorAll('.ingresosUrpInputs');
+    const  rendimiento = input[0].value === '' ? 0 : parseFloat(input[0].value);
+    const precio = input[2].value === '' ? 0 : parseFloat(input[2].value);
+    const subtotalIngresosUrp = document.querySelector('#subtotalIngresosUrp');
+    subtotalIngresosUrp.textContent = convertirValorMonetario(precio * rendimiento);
+}
+function ingresosTotalesCultivo(){
+    const totalSuperficie = getTotalSuperficie();
+    let ingresoReal = document.querySelector('#ingresoReal').textContent;
+    ingresoReal = extraerCaracteresNumber(ingresoReal);
+    const ingresosTotales = document.querySelector('#ingresosTotalesCultivo');
+    ingresosTotales.textContent = convertirValorMonetario(totalSuperficie * ingresoReal);
+}
+// ------------- FIN INGRESOS URP
+
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
@@ -2061,4 +2138,5 @@ function actualizarOperaciones(){
     operacionesManoObra('#tablaManoObraFamiliar');
     operacionesManoObraPermanente();
     operacionesOtrosCostosGenerales();
+    operacionesIngresosUrp();
 }

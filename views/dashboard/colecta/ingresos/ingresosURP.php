@@ -1,68 +1,70 @@
-<table>
-    <h2>5.2 otros costos de produccion</h2>
-    <thead>
-        <th>5.2 otros costos de produccion</th>
-        <th>Unidad</th>
-        <th>Costo Mes</th>
-        <th>Total  Año</th>
-        <th>Costo / Ha</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Impuesto Predial Anual</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Impuesto a la propiedad personal</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>telefono</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Energía Eléctrica (no agrícola)</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>Impuestos Locales </td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>         Tenencia</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td>         Otros Derechos VERIFICACIÓN</td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-            <td><input class="datos" type = "number" placeholder = "Ingresar valor"></td>
-        </tr>
-        <tr>
-            <td class="bg-rojoclaro">Total de otros costos de producción</td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-            <td class="bg-rojoclaro"></td>
-        </tr>
-    </tbody>
-</table>
+<div class="columnas">
+    <div class="columna">
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Ingreso de la urp</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Rendimiento (Ton/Ha)</td>
+                    <td><input type="number" name="" class="ingresosUrpInputs" required></td>
+                </tr>
+                <tr>
+                    <td>Cantidad Producida Total URP</td>
+                    <td id="cantidadProducidaUrp"></td>
+                </tr>
+                <tr>
+                    <td>Porcentaje Vendido de la Producción</td>
+                    <td><input type="number" name="" class="ingresosUrpInputs" required></td>
+                </tr>
+                <tr>
+                    <td>Cantidad Vendida (Ton)</td>
+                    <td id="cantidadVendida"></td>
+                </tr>
+                <tr>
+                    <td>Precio ($/Ton)</td>
+                    <td><span>$</span><input type="number" name="" class="ingresosUrpInputs" required></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Subtotal</td>
+                    <td id="subtotalIngresosUrp"></td>
+                </tr>
+            </tfoot>
+        </table>
+        <!-- <table id="tablaIngresos">
+            <thead></thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>Subtotal</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Total por hectarea</td>
+                    <td></td>
+                </tr>
+            </tfoot>
+        </table> -->
+    </div>
+    <div class="columna">
+        <table>
+            <tr>
+                <th>Rendimiento real para venta(TON/HA)</th>
+                <td><input type="number" name="" class="ingresosUrpInputs" required></td>
+            </tr>
+            <tr>
+                <th>Ingreso real por colecta</th>
+                <td id="ingresoReal"></td>
+            </tr>
+            <tr>
+                <th>Ingresos totales por cultivo</th>
+                <td id="ingresosTotalesCultivo"></td>
+            </tr>
+        </table>
+    </div>
+</div>
