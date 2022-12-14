@@ -17,7 +17,7 @@
                 </tr>
                 <tr>
                     <td>Porcentaje Vendido de la Producción</td>
-                    <td><input type="number" name="" class="ingresosUrpInputs" required></td>
+                    <td><input type="number" name="" class="ingresosUrpInputs" required><span>%</span></td>
                 </tr>
                 <tr>
                     <td>Cantidad Vendida (Ton)</td>
@@ -35,21 +35,7 @@
                 </tr>
             </tfoot>
         </table>
-        <!-- <table id="tablaIngresos">
-            <thead></thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td>Subtotal</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Total por hectarea</td>
-                    <td></td>
-                </tr>
-            </tfoot>
-        </table> -->
+        <?php include_once __DIR__.'/ingresos.php';?>
     </div>
     <div class="columna">
         <table>

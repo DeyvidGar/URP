@@ -62,6 +62,7 @@ const colecta = {
         precio: '',
         rendimientoVenta: 0
     },
+    ingresos: [],
     otrosIngresosUrp: []
 }
 
@@ -94,6 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaManoObraPermanente();
     colectaOtrosCostosGenerales();
     colectaIngresosUrp();
+    colectaIngresos();
     inputsOperaciones();
 });
 
@@ -1389,6 +1391,39 @@ function ingresosTotalesCultivo(){
     const ingresosTotales = document.querySelector('#ingresosTotalesCultivo');
     ingresosTotales.textContent = convertirValorMonetario(totalSuperficie * ingresoReal);
 }
+
+function colectaIngresos(){
+    const inputs = document.querySelectorAll('#tablaIngresos input');
+    let ingreso = {
+        nombreIngreso: '',
+        ingreso: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaIngresos', ingreso);
+            colecta.ingresos = objetos;
+            operacionesIngresos();
+        })
+    });
+}
+function operacionesIngresos(){
+    subtotalIngresos();
+    totalHectareasIngresosUrp();
+}
+function subtotalIngresos(){
+    const sumaIngresos = sumarColumnaInputs('#tablaIngresos',1);
+    const subtotalIngresos = document.querySelector('#tablaIngresos #subtotalIngresos');
+    subtotalIngresos.textContent = convertirValorMonetario(sumaIngresos);
+}
+function totalHectareasIngresosUrp(){
+    let subtotalIngresos = document.querySelector('#tablaIngresos #subtotalIngresos').textContent;
+    subtotalIngresos = extraerCaracteresNumber(subtotalIngresos);
+    let subtotalIngresosUrp = document.querySelector('#subtotalIngresosUrp').textContent;
+    subtotalIngresosUrp = extraerCaracteresNumber(subtotalIngresosUrp);
+    const totalIngresosUrp = document.querySelector('#tablaIngresos #totalIngresosUrp');
+    totalIngresosUrp.textContent = convertirValorMonetario(subtotalIngresos + subtotalIngresosUrp);
+}
 // ------------- FIN INGRESOS URP
 
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
@@ -1984,6 +2019,37 @@ botonEliminarFilaOtrosCostosProduccionCostosGenerales.addEventListener('click', 
     eliminarUltimaFila('#tablaOtrosCostosProduccionCostosGenerales', colecta.otrosCostosGenerales, colectaOtrosCostosGenerales)//debido al mismo formato
 });
 // -------------- FIN OTROS COSTOS DE PRODUCCION COSTOS GENERALES
+// -------------- INGRESOS DE LA URP
+const botonNuevaFilaIngresos = document.querySelector('#nuevaFilaIngresos');
+botonNuevaFilaIngresos.addEventListener('click', ()=>{
+    filaIngresos('#tablaIngresos', colectaIngresos)//debido al mismo formato
+});
+function filaIngresos(idTabla, funcion){
+    const tbody = document.querySelector(idTabla + ' tbody');
+    const tr = document.createElement('TR');
+    const td1 = document.createElement('TD');
+    const td2 = document.createElement('TD');
+    const input1 = document.createElement('INPUT');
+    const input2 = document.createElement('INPUT');
+    input1.setAttribute('type', 'text');
+    input1.setAttribute('required', '');
+    input2.setAttribute('type', 'number');
+    td1.appendChild(input1);
+    td2.innerHTML += '<span>$</span>';
+    td2.appendChild(input2);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tbody.appendChild(tr);
+    funcion();
+    //acutalizar operaciones
+    actualizarOperaciones();
+}
+// eliminar
+const botonEliminarFilaIngresos = document.querySelector('#eliminarFilaIngresos');
+botonEliminarFilaIngresos.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaIngresos', colecta.ingresos)//debido al mismo formato
+});
+// -------------- FIN INGRESOS DE LA URP
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS -------------- //
 
 // -------------- FUNCIONES -------------- //
@@ -2081,7 +2147,7 @@ function almacenarObjeto(idTabla, objeto){
     return objetos;
 }
 function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, funcionActualizarOperaciones = null){
-    const tbody = document.querySelector(idTabla).children[1];
+    const tbody = document.querySelector(idTabla + ' tbody');
     const ultimaFila = tbody.rows.length-1;
     // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol
     const tr = tbody.children[ultimaFila]
@@ -2139,4 +2205,5 @@ function actualizarOperaciones(){
     operacionesManoObraPermanente();
     operacionesOtrosCostosGenerales();
     operacionesIngresosUrp();
+    operacionesIngresos();
 }
