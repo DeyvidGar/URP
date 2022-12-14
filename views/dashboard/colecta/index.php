@@ -12,8 +12,7 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>5.1 Costros generales mano de obra</h2>
-        <?php include_once __DIR__.'/ingresos/ingresosURP.php';?>
+        <?php include_once __DIR__.'/ingresos/otrosIngresosURP.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->

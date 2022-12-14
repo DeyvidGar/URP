@@ -35,7 +35,7 @@
                 </tr>
             </tfoot>
         </table>
-        <?php include_once __DIR__.'/ingresos.php';?>
+        <?php include_once __DIR__.'/subproductos.php';?>
     </div>
     <div class="columna">
         <table>

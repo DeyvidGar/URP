@@ -62,7 +62,7 @@ const colecta = {
         precio: '',
         rendimientoVenta: 0
     },
-    ingresos: [],
+    subproductos: [],
     otrosIngresosUrp: []
 }
 
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaManoObraPermanente();
     colectaOtrosCostosGenerales();
     colectaIngresosUrp();
-    colectaIngresos();
+    colectaSubproductos();
     inputsOperaciones();
 });
 
@@ -1392,37 +1392,37 @@ function ingresosTotalesCultivo(){
     ingresosTotales.textContent = convertirValorMonetario(totalSuperficie * ingresoReal);
 }
 
-function colectaIngresos(){
-    const inputs = document.querySelectorAll('#tablaIngresos input');
-    let ingreso = {
+function colectaSubproductos(){
+    const inputs = document.querySelectorAll('#tablaSubproductos input');
+    let subproducto = {
         nombreIngreso: '',
         ingreso: 0
     };
     let objetos;
     inputs.forEach(input => {
         input.addEventListener('input', ()=>{
-            objetos = almacenarObjeto('#tablaIngresos', ingreso);
-            colecta.ingresos = objetos;
-            operacionesIngresos();
+            objetos = almacenarObjeto('#tablaSubproductos', subproducto);
+            colecta.subproductos = objetos;
+            operacionesSubproductos();
         })
     });
 }
-function operacionesIngresos(){
-    subtotalIngresos();
+function operacionesSubproductos(){
+    subtotalSubproductos();
     totalHectareasIngresosUrp();
 }
-function subtotalIngresos(){
-    const sumaIngresos = sumarColumnaInputs('#tablaIngresos',1);
-    const subtotalIngresos = document.querySelector('#tablaIngresos #subtotalIngresos');
-    subtotalIngresos.textContent = convertirValorMonetario(sumaIngresos);
+function subtotalSubproductos(){
+    const sumaSubproducto = sumarColumnaInputs('#tablaSubproductos',1);
+    const subtotalSubproducto = document.querySelector('#tablaSubproductos #subtotalSubproductos');
+    subtotalSubproducto.textContent = convertirValorMonetario(sumaSubproducto);
 }
 function totalHectareasIngresosUrp(){
-    let subtotalIngresos = document.querySelector('#tablaIngresos #subtotalIngresos').textContent;
-    subtotalIngresos = extraerCaracteresNumber(subtotalIngresos);
+    let subtotalSubproducto = document.querySelector('#tablaSubproductos #subtotalSubproductos').textContent;
+    subtotalSubproducto = extraerCaracteresNumber(subtotalSubproducto);
     let subtotalIngresosUrp = document.querySelector('#subtotalIngresosUrp').textContent;
     subtotalIngresosUrp = extraerCaracteresNumber(subtotalIngresosUrp);
-    const totalIngresosUrp = document.querySelector('#tablaIngresos #totalIngresosUrp');
-    totalIngresosUrp.textContent = convertirValorMonetario(subtotalIngresos + subtotalIngresosUrp);
+    const totalSubproductoUrp = document.querySelector('#tablaSubproductos #totalSubproductosUrp');
+    totalSubproductoUrp.textContent = convertirValorMonetario(subtotalSubproducto + subtotalIngresosUrp);
 }
 // ------------- FIN INGRESOS URP
 
@@ -2020,11 +2020,11 @@ botonEliminarFilaOtrosCostosProduccionCostosGenerales.addEventListener('click', 
 });
 // -------------- FIN OTROS COSTOS DE PRODUCCION COSTOS GENERALES
 // -------------- INGRESOS DE LA URP
-const botonNuevaFilaIngresos = document.querySelector('#nuevaFilaIngresos');
-botonNuevaFilaIngresos.addEventListener('click', ()=>{
-    filaIngresos('#tablaIngresos', colectaIngresos)//debido al mismo formato
+const botonNuevaFilaSubproductos = document.querySelector('#nuevaFilaSubproductos');
+botonNuevaFilaSubproductos.addEventListener('click', ()=>{
+    filaSubproductos('#tablaSubproductos', colectaSubproductos)//debido al mismo formato
 });
-function filaIngresos(idTabla, funcion){
+function filaSubproductos(idTabla, funcion){
     const tbody = document.querySelector(idTabla + ' tbody');
     const tr = document.createElement('TR');
     const td1 = document.createElement('TD');
@@ -2045,9 +2045,9 @@ function filaIngresos(idTabla, funcion){
     actualizarOperaciones();
 }
 // eliminar
-const botonEliminarFilaIngresos = document.querySelector('#eliminarFilaIngresos');
-botonEliminarFilaIngresos.addEventListener('click', ()=>{
-    eliminarUltimaFila('#tablaIngresos', colecta.ingresos)//debido al mismo formato
+const botonEliminarFilaSubproductos = document.querySelector('#eliminarFilaSubproductos');
+botonEliminarFilaSubproductos.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaSubproductos', colecta.subproductos)//debido al mismo formato
 });
 // -------------- FIN INGRESOS DE LA URP
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS -------------- //
@@ -2205,5 +2205,5 @@ function actualizarOperaciones(){
     operacionesManoObraPermanente();
     operacionesOtrosCostosGenerales();
     operacionesIngresosUrp();
-    operacionesIngresos();
+    operacionesSubproductos();
 }
