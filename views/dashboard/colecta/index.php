@@ -12,8 +12,6 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <h2>Gastos familiares</h2>
-        <?php include_once __DIR__.'/gastosFamiliares/gastosFamiliares.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->
@@ -79,6 +77,12 @@
     <div class="seccion" id="paso-6">
         <h2>Gastos familiares</h2>
         <?php include_once __DIR__.'/gastosFamiliares/gastosFamiliares.php';?>
+    </div>
+
+    <!-- 8. Otra informacion -->
+    <div class="seccion" id="paso-7">
+        <h2>Otra Información</h2>
+        <?php include_once __DIR__.'/otraInformacino/otraInformacion.php';?>
     </div>
 
     <!-- pie de pagina -->

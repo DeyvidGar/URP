@@ -63,7 +63,16 @@ const colecta = {
         rendimientoVenta: 0
     },
     subproductos: [],
-    otrosIngresosUrp: []
+    otrosIngresosUrp: [],
+    gastosFamiliares: {
+        noMiembros: 0,
+        seguroFamiliar: 0,
+        gastoFamiliarAnual: 0
+    },
+    otraInformacion: {
+        rentaTierraRegion: 0,
+        costoTotalJornalRegion: 0
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,6 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaIngresosUrp();
     colectaSubproductos();
     colectaOtrosIngresosUrp();
+    colectaGastosFamiliares();
+    colectaOtraInformacion();
     inputsOperaciones();
 });
 
@@ -1453,6 +1464,62 @@ function totalOtrosIngresosUrp(){
 }
 // ------------- FIN OTROS INGRESOS URP
 
+// ------------- GASTOS FAMILIARES
+function colectaGastosFamiliares(){
+    const inputs = document.querySelectorAll('#tablaGastosFamiliares input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            //sincronizar los valores del input con el objeto
+            almacenarDatosGastosFamiliares();
+            montoAnualGastosFamiliares();
+        })
+    });
+}
+function almacenarDatosGastosFamiliares(){
+    const input = document.querySelectorAll('#tablaGastosFamiliares input');
+    const {gastosFamiliares} = colecta;
+
+    const keys = Object.keys(gastosFamiliares);//indices del objet
+    let key;
+    for (let i = 0; i < keys.length; i++) {
+        key = keys[i]; //asignamos el indice acutal auna variable
+        const valor = input[i].value === '' ? 0 : parseFloat(input[i].value);
+        gastosFamiliares[key] = valor;//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+    }
+    console.log(colecta)
+}
+function montoAnualGastosFamiliares(){
+    const monto = sumarColumnaInputs('#tablaGastosFamiliares',1);
+    const total = document.querySelector('#tablaGastosFamiliares #montoAnualGastosFamiliares');
+    total.textContent = convertirValorMonetario(monto);
+}
+// ------------- FIN GASTOS FAMILIARES
+
+// ------------- OTRA INFORMACION
+function colectaOtraInformacion(){
+    const inputs = document.querySelectorAll('#tablaOtraInformacion input');
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            //sincronizar los valores del input con el objeto
+            almacenarDatosOtraInformacion();
+        })
+    });
+}
+function almacenarDatosOtraInformacion(){
+    const input = document.querySelectorAll('#tablaOtraInformacion input');
+    const {otraInformacion} = colecta;
+
+    const keys = Object.keys(otraInformacion);//indices del objet
+    let key;
+    for (let i = 0; i < keys.length; i++) {
+        key = keys[i]; //asignamos el indice acutal auna variable
+        const valor = input[i].value === '' ? 0 : parseFloat(input[i].value);
+        otraInformacion[key] = valor;//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+    }
+    console.log(colecta)
+}
+// ------------- FIN OTRA INFORMACION
+
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
@@ -2245,4 +2312,5 @@ function actualizarOperaciones(){
     operacionesIngresosUrp();
     operacionesSubproductos();
     operacionesOtrosIngresosUrp();
+    montoAnualGastosFamiliares();
 }
