@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaOtrosCostosGenerales();
     colectaIngresosUrp();
     colectaSubproductos();
+    colectaOtrosIngresosUrp();
     inputsOperaciones();
 });
 
@@ -1426,6 +1427,32 @@ function totalHectareasIngresosUrp(){
 }
 // ------------- FIN INGRESOS URP
 
+// ------------- OTROS INGRESOS URP
+function colectaOtrosIngresosUrp(){
+    const inputs = document.querySelectorAll('#tablaOtrosIngresosUrp input');
+    let otroIngreso = {
+        nombreIngreso: '',
+        monto: 0
+    };
+    let objetos;
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            objetos = almacenarObjeto('#tablaOtrosIngresosUrp', otroIngreso);
+            colecta.otrosIngresosUrp = objetos;
+            operacionesOtrosIngresosUrp();
+        })
+    });
+}
+function operacionesOtrosIngresosUrp(){
+    totalOtrosIngresosUrp();
+}
+function totalOtrosIngresosUrp(){
+    const suma = sumarColumnaInputs('#tablaOtrosIngresosUrp',1);
+    const total = document.querySelector('#tablaOtrosIngresosUrp #totalOtrosIngresosUrp');
+    total.textContent = convertirValorMonetario(suma);
+}
+// ------------- FIN OTROS INGRESOS URP
+
 // -------------- BOTONES AGREGAR Y ELIMINAR FILAS -------------- //
 // -------------- BOTONES VARIEDAD ARBOLES
 const botonAgregarFilaVariedadArboles = document.querySelector('#nuevaFilaVariedad');
@@ -2050,6 +2077,17 @@ botonEliminarFilaSubproductos.addEventListener('click', ()=>{
     eliminarUltimaFila('#tablaSubproductos', colecta.subproductos)//debido al mismo formato
 });
 // -------------- FIN INGRESOS DE LA URP
+
+// -------------- OTROS INGRESOS DE LA URP
+const botonNuevaFilaOtrosIngresosUrp = document.querySelector('#nuevaFilaOtrosIngresosUrp');
+botonNuevaFilaOtrosIngresosUrp.addEventListener('click', ()=>{
+    filaSubproductos('#tablaOtrosIngresosUrp', colectaOtrosIngresosUrp)//debido al mismo formato
+});
+const botonEliminarFilaOtrosIngresosUrp = document.querySelector('#eliminarFilaOtrosIngresosUrp');
+botonEliminarFilaOtrosIngresosUrp.addEventListener('click', ()=>{
+    eliminarUltimaFila('#tablaOtrosIngresosUrp', colecta.otrosIngresosUrp)//debido al mismo formato
+});
+// -------------- FIN OTROS INGRESOS DE LA URP
 // -------------- FIN FUNCION BOTON AGREGAR Y ELIMINAR FILAS -------------- //
 
 // -------------- FUNCIONES -------------- //
@@ -2206,4 +2244,5 @@ function actualizarOperaciones(){
     operacionesOtrosCostosGenerales();
     operacionesIngresosUrp();
     operacionesSubproductos();
+    operacionesOtrosIngresosUrp();
 }

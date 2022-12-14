@@ -12,7 +12,8 @@
         <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
-        <?php include_once __DIR__.'/ingresos/otrosIngresosURP.php';?>
+        <h2>Gastos familiares</h2>
+        <?php include_once __DIR__.'/gastosFamiliares/gastosFamiliares.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->
