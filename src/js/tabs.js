@@ -4,7 +4,7 @@ let paso=1;
 //PARA LA PAGINACION DEBEMOS HACER UN CALCULO DEPEBDIENDO DE LOS RESULTADO OBTENIDOS EN LA BD
 //MARCAMOS UN EL LIMITE Y EL INCIO DE NUESTRA NAVEGACION, YA QUE ESTE PROYECTO CUENTA CON SOLO 3 FASES LAS MARCAMOS EN LAS SIGUIENTES VARIABLES
 const pasoInicial = 1;
-const pasoFinal = 9; //el paso final por ejemplo, si nuestra bd tiene 500 resultados lo dividiriamos entre 15 el resultado seria el paso final
+const pasoFinal = 10; //el paso final por ejemplo, si nuestra bd tiene 500 resultados lo dividiriamos entre 15 el resultado seria el paso final
 
 //creamos el objeto de la cita que vamos a insertar en la BD
 const obj = {
@@ -88,7 +88,7 @@ function botonesPaginacion(){
     if(paso === 1){
         botonAnterior.classList.add('ocultar-paginacion');
         botonSiguiente.classList.remove('ocultar-paginacion');
-    } else if (paso == 9){
+    } else if (paso == 10){
         botonSiguiente.classList.add('ocultar-paginacion');
         botonAnterior.classList.remove('ocultar-paginacion');
 
@@ -136,4 +136,8 @@ function paginaSiguiente(){
 
         // console.log(paso);
     });
+}
+
+function mostrarResumen(){
+    console.log(colecta)
 }

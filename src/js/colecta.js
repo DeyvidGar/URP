@@ -2251,7 +2251,7 @@ function almacenarObjeto(idTabla, objeto){
     console.log(colecta)
     return objetos;
 }
-function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, funcionActualizarOperaciones = null){
+function eliminarUltimaFila(idTabla, objeto, funcionAlmacenarObjeto = null, limite){
     const tbody = document.querySelector(idTabla + ' tbody');
     const ultimaFila = tbody.rows.length-1;
     // console.log(tablaVariedadArboles.children.length)//elemento tr, el ultima agregado todo: borrar elemeto y borrar el objeto del arrglo de colecta.arbol

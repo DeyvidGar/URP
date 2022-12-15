@@ -7,9 +7,9 @@
 
     <!-- Patron de cultivos de la URP -->
     <div class="seccion" id="paso-1">
-        <!-- <h2>Patron de cultivos de la URP</h2> -->
-        <?php //include_once __DIR__.'/patronCultivos/variedadArboles.php';?>
-        <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
+        <h2>Patron de cultivos de la URP</h2>
+        <?php include_once __DIR__.'/patronCultivos/variedadArboles.php';?>
+        <?php include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
     </div>
@@ -82,7 +82,36 @@
     <!-- 8. Otra informacion -->
     <div class="seccion" id="paso-7">
         <h2>Otra Información</h2>
-        <?php include_once __DIR__.'/otraInformacino/otraInformacion.php';?>
+        <?php include_once __DIR__.'/otraInformacion/otraInformacion.php';?>
+    </div>
+
+    <!-- 9. Costos de financiamiento -->
+    <div class="seccion" id="paso-8">
+        <h2>Costos de financiamiento</h2>
+        <?php include_once __DIR__.'/costosFinanciamiento/creditoInstitucion.php';?>
+        <h2>Crédito de avío</h2>
+        <?php include_once __DIR__.'/costosFinanciamiento/creditoAvio.php';?>
+        <h2>Crédito refaccionario</h2>
+        <?php include_once __DIR__.'/costosFinanciamiento/creditoRefaccionario.php';?>
+    </div>
+
+    <!-- 10. Costo capital -->
+    <div class="seccion" id="paso-9">
+        <h2>Costo Capital</h2>
+        <?php include_once __DIR__.'/costoCapital/costoCapital.php';?>
+    </div>
+
+       <!-- 10. ANALISIS FINANCIERO -->
+    <div class="seccion" id="paso-10">
+        <h2>Analisis financiero</h2>
+        <?php include_once __DIR__.'/resumen/capitalTrabajo.php';?>
+        <?php include_once __DIR__.'/resumen/mejorasCapital.php';?>
+        <h2>Costo de producción de limón persa por URP, conceptos seleccionados</h2>
+        <?php include_once __DIR__.'/resumen/costoOperacion.php';?>
+        <?php include_once __DIR__.'/resumen/costoGenerales.php';?>
+        <?php include_once __DIR__.'/resumen/costoOportunidad.php';?>
+        <?php include_once __DIR__.'/resumen/otros.php';?>
+
     </div>
 
     <!-- pie de pagina -->
