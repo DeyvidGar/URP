@@ -77,7 +77,7 @@
     </thead>
     <tbody>
         <tr>
-            <td><input type="text" name="" id="" value="RIEGO"></td>
+            <td><input type="text" name="" id="" value="RIEGO" disabled></td>
             <td class="etiqueta"><span>$</span><input type="number" name="" id=""></td>
             <td class="etiqueta"><span>$</span><input type="number" name="" id=""></td>
         </tr>

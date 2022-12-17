@@ -111,7 +111,8 @@
         <?php include_once __DIR__.'/resumen/costoGenerales.php';?>
         <?php include_once __DIR__.'/resumen/costoOportunidad.php';?>
         <?php include_once __DIR__.'/resumen/otros.php';?>
-
+        <div id="guardarColecta">
+        </div>
     </div>
 
     <!-- pie de pagina -->
@@ -125,5 +126,6 @@
 <?php $script.="
     <script src='build/js/tabs.js'></script>
     <script src='build/js/colecta.js'></script>
-    <script src='build/js/nuevaFila.js'></script>
+    <script src='build/js/agregarFilas.js'></script>
+    <script src='build/js/funciones.js'></script>
 ";?>

@@ -1,0 +1,16 @@
+<?php
+namespace Model;
+
+class Arbol extends ActiveRecord {
+    //base de datos
+    protected static $tabla = '';
+    protected static $columnasDB = ['id'];
+
+    //atributos
+    public $id;
+
+    public function __construct($args = [])
+    {
+        $this->id = $args['id'] ?? null;
+    }
+}

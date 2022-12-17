@@ -5,7 +5,7 @@ namespace Model;
 class Colecta extends ActiveRecord{
     //base de datos
     protected static $tabla = 'colectas';
-    protected static $columnasDB = ['id', 'fechaPanel' , 'url' , 'region' , 'panel' , 'descripcion' , 'usuarioId' ];
+    protected static $columnasDB = ['id', 'fechaPanel' , 'url' , 'region' , 'panel' , 'descripcion' , 'usuarioId', 'estado' ];
 
     //atributos
     public $id;
@@ -15,6 +15,7 @@ class Colecta extends ActiveRecord{
     public $panel;
     public $descripcion;
     public $usuarioId;
+    public $estado;
 
     public function __construct($args = [])
     {
@@ -25,6 +26,7 @@ class Colecta extends ActiveRecord{
         $this->panel = $args['panel'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
         $this->usuarioId = $args['usuarioId'] ?? null;
+        $this->estado = $args['estado'] ?? '';
     }
 
     public function validarDatosColecta(){

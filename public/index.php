@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\ApiController;
 use MVC\Router;
 use Controllers\LoginController;
 use Controllers\DashboardController;
@@ -43,8 +44,8 @@ $router->post('/nueva-colecta', [DashboardController::class, 'nueva_colecta']);
 // $router->get('/cambiar-password', [DashboardController::class, 'cambiar_password']);
 // $router->post('/cambiar-password', [DashboardController::class, 'cambiar_password']);
 
-//COLECTA(FORMULARIOS)
-// $router->get('/colecta', [::class, ''])
+//API COLECTA
+$router->post('/api/colectas', [ApiController::class, 'guardar']);
 
 
 

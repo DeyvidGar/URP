@@ -8,7 +8,42 @@
     </thead>
     <tbody>
         <tr>
-            <td><input type="text" name="" id=""></td>
+            <td><input type="text" name="" id="" value="Impuesto Predial Anual" disabled></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="" id="" value="Impuesto a la propiedad personal" disabled></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="" id="" value="telefono" disabled></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="" id="" value="Energía Eléctrica (no agrícola)" disabled></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="" id="" value="Tenencia" disabled></td>
+            <td><input type="number" name="" id=""></td>
+            <td><span>$</span><input type="number" name="" id=""></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td><input type="text" name="" id="" value="Otros Derechos VERIFICACIÓN" disabled></td>
             <td><input type="number" name="" id=""></td>
             <td><span>$</span><input type="number" name="" id=""></td>
             <td></td>

@@ -11,7 +11,7 @@
     </thead>
     <tbody>
         <tr>
-            <td><input type="text" name="" id="" placeholder="Nombre agroquimico"></td>
+            <td><input type="text" name="" id="" value="Mantenimiento de construcciones" disabled></td>
             <td><input type="number"></td>
             <td><span>$</span><input type="number" name="" id=""></td>
             <td><span>$</span><input type="number" name="" id=""></td>

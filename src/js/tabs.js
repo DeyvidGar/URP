@@ -93,7 +93,7 @@ function botonesPaginacion(){
         botonAnterior.classList.remove('ocultar-paginacion');
 
         //cuando se cambie de pagina precionando cualquier boton(boton siguiente, barra tab) llamamos a la funcion mostrar resuemn
-        mostrarResumen();
+        mostrarGuardarColecta();
     } else {
         botonSiguiente.classList.remove('ocultar-paginacion');
         botonAnterior.classList.remove('ocultar-paginacion');
