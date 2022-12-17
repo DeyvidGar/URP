@@ -143,6 +143,7 @@ function actualizarOperaciones(){
     operacionesAgroquimicos('#tablaInsecticidas');
     operacionesAgroquimicos('#tablaHerbicidas');
     operacionesAgroquimicos('#tablaFungicidas');
+    operacionesMantenimientoReparaciones();
     operacionesCombustiblesLubricantes();
     operacionesCostosCosecha();
     operacionesManoObra('#tablaManoObraContratada');

@@ -25,6 +25,7 @@ const colecta = {
         hectareaPrestadasValorHA: 0,
         hectareaSinUsoValorHA: 0
     },
+    //REALIZAR: ALMA
     actividadesProduccion: [],
     otrosCostosActividadesProduccion: [],
     costoAnualesEstablecimientoPlantacion: [],
@@ -47,6 +48,7 @@ const colecta = {
     herbicidas: [],
     combustiblesLubricantes: [],
     mantenimientosReparaciones: [],
+    //FIN REALIZAR ALMA
     costosCosecha: [],
     manoObraContratada: [],
     manoObraFamiliar: [],
@@ -72,6 +74,19 @@ const colecta = {
     otraInformacion: {
         rentaTierraRegion: 0,
         costoTotalJornalRegion: 0
+    },
+    /**
+     * AQUI COSTO DE FINANCIAMIENTO
+     */
+    costoCapital:{
+        inflacion: 0,
+        interesCreditoRefaccionario: 0,
+        interesCreditoAvio: 0,
+        tierraCostoRenta: 0,
+        mejorasExtraordinarias: 0,
+        mejorasOrdinarias: 0,
+        explotacionFijo: 0,
+        explotacionCirculante: 0
     }
 }
 
@@ -108,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
     colectaOtrosIngresosUrp();
     colectaGastosFamiliares();
     colectaOtraInformacion();
+    //colectaCostoFinanciamiento(); PENDIENTE
+    colectaCostoCapital();
     inputsOperaciones();
 });
 
@@ -1519,8 +1536,48 @@ function almacenarDatosOtraInformacion(){
     console.log(colecta)
 }
 // ------------- FIN OTRA INFORMACION
-mostrarGuardarColecta()
+
+// ------------- COSTO FINANCIAMIETNO
+// ------------- COSTO FINANCIAMIETNO
+
+// ------------- COSTO CAPITAL
+function colectaCostoCapital(){
+    const inputs = document.querySelectorAll('.costoCapital');
+    console.log(inputs)
+    inputs.forEach(input => {
+        input.addEventListener('input', ()=>{
+            //sincronizar los valores del input con el objeto
+            almacenarDatosCostoCapita();
+            operacionesCostoCapital();
+        })
+    });
+}
+function almacenarDatosCostoCapita(){
+    const input = document.querySelectorAll('.costoCapital');
+    const {costoCapital} = colecta;
+
+    const keys = Object.keys(costoCapital);//indices del objet
+    let key;
+    for (let i = 0; i < keys.length; i++) {
+        key = keys[i]; //asignamos el indice acutal auna variable
+        const valor = input[i].value === '' ? 0 : parseFloat(input[i].value);
+        costoCapital[key] = valor;//en el objeto busca la coincidencia con el indice y le asigna el valor de nuestro arreglo de inputs
+    }
+    console.log(colecta)
+}
+function operacionesCostoCapital(){
+    tasaInteresReal();
+    interesRefaccionario();
+    interesAvio();
+}
+function tasaInteresReal(){}
+function interesRefaccionario(){}
+function interesAvio(){}
+// ------------- FIN COSTO CAPITAL
+
+
 // ------------- FINALIZAR COLECTA
+mostrarGuardarColecta()
 function mostrarGuardarColecta(){
     const resumen = document.querySelector('#guardarColecta');
     //si pasa la validacion borramos alerta
@@ -1545,11 +1602,7 @@ function mostrarGuardarColecta(){
 
     resumen.appendChild(botonReservar);
 }
-// ------------- FIN FINALIZAR COLECTA
-
-// ------------- FIN FINALIZAR COLECTA
-//Ruta del servidor
-const server = window.location.origin;
+const server = window.location.origin; //Ruta del servidor
 async function guardarColecta(){
     const { arboles, patronCultivos } = colecta;
 

@@ -7,11 +7,13 @@
 
     <!-- Patron de cultivos de la URP -->
     <div class="seccion" id="paso-1">
-        <h2>Patron de cultivos de la URP</h2>
-        <?php include_once __DIR__.'/patronCultivos/variedadArboles.php';?>
-        <?php include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
+        <!-- <h2>Patron de cultivos de la URP</h2> -->
+        <?php //include_once __DIR__.'/patronCultivos/variedadArboles.php';?>
+        <?php //include_once __DIR__.'/patronCultivos/patronCultivos.php';?>
 
         <!-- DESARROLLO -->
+        <h2>Costo Capital</h2>
+        <?php include_once __DIR__.'/costoCapital/costoCapital.php';?>
     </div>
 
     <!-- 3. Activos Fijos -->
