@@ -4,13 +4,15 @@ namespace Model;
 class Arbol extends ActiveRecord {
     //base de datos
     protected static $tabla = '';
-    protected static $columnasDB = ['id'];
+    protected static $columnasDB = ['id', 'id_colecta'];
 
     //atributos
     public $id;
+    public $id_colecta;
 
     public function __construct($args = [])
     {
         $this->id = $args['id'] ?? null;
+        $this->id_colecta = $args['id_colecta'] ?? null;
     }
 }
